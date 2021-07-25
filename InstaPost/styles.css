@@ -1,0 +1,201 @@
+html {
+    box-sizing: border-box;
+    font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+}
+
+body {
+    background-color: #dbdbdb;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    font-size: 14px;
+}
+
+.post {
+    background-color: white;
+    width: 815px;
+    height: 600px;
+    display: flex;
+}
+
+.post-pic {
+    width: 480px;
+    height: 100%;
+}
+
+.content-pic {
+    position: relative;
+}
+
+.bloops {
+    margin: 4px 45%;
+    font-size: 30px;
+    letter-spacing: -3px;
+    color: rgba(255, 255, 255, 0.7);
+    position: absolute;
+    bottom: 0px;
+}
+
+.bloop-selected {
+    color: white;
+}
+
+
+.post-op {
+    width: 100%;
+    height: 72px;
+    line-height: 0.5;
+    display: flex;
+    border-bottom: 1px solid #e4e4e4;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.content-details {
+    width: 350px;
+    display: flex;
+    flex-direction: column;
+    justify-content:space-between;
+}
+
+.profile-pic {
+    display: inline;
+    width: 32px;
+    height: 32px;
+    margin: 16px;
+    border-radius: 50%;
+}
+
+.username {
+    font-weight: 600;
+}
+
+.op-text {
+    margin-top: 10px;
+}
+
+.op-text p {
+    font-size: 12px;
+}
+
+.tripledot {
+    margin: 16px;
+}
+
+.img-text {
+    display: flex;
+    align-items: center;
+}
+
+.comment, .description {
+    display: flex;
+}
+
+.comment .comment-text {
+    width: 228px;
+}
+
+.description .comment-text {
+    margin-right: 16px;
+}
+
+.comment-footer, .comment-reply {
+    font-size: 12px;
+    color: dimgray;
+}
+
+.comment-reply {
+    font-weight: 600;
+    text-decoration: none;
+    margin-left: 10px;
+}
+
+.heart {
+    width: 12px;
+    height: 12px;
+    margin: 24px 16px 16px 16px;
+}
+
+.newcomment {
+    display: flex;
+    height: 56px;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid #e4e4e4;
+}
+
+.newcomment-left {
+    display: flex;
+    justify-content: start;
+}
+
+.emojibutton, button {
+    margin: 16px;
+}
+
+#newcomment-input {
+    font-size: 14px;
+    color: dimgray;
+    border: none;
+}
+
+button {
+    background-color: white;
+    border: none;
+    color: dodgerblue;
+    font-size: 15px;
+    font-weight: 600;
+    padding: none;
+    margin: none;
+}
+
+.toolbar {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    border-top: 1px solid #e4e4e4;
+}
+
+.icons {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.profile-pic-small {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    margin-right: 6px;
+}
+
+.interact {
+    margin-top: 12px;
+    margin-left: 16px;
+}
+
+.heart-big, .bubble, .send {
+    margin-left: 8px;
+}
+
+.bookmark {
+    margin-top: 10px;
+    margin-right: 16px;
+}
+
+.likes-date {
+    display: flex;
+    margin-top: 8px;
+    margin-left: 16px;
+}
+
+.toolbar p {
+    font-size: 10px;
+    color: gray;
+    text-transform: uppercase;
+    margin-top: 10px;
+    margin-left: 16px;
+    margin-botton: 10px;
+}
