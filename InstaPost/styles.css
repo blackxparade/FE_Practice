@@ -71,6 +71,11 @@ body {
     font-weight: 600;
 }
 
+.username:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}
+
 .op-text {
     margin-top: 10px;
 }
