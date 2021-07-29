@@ -19,12 +19,12 @@ body {
     display: flex;
 }
 
-.post-pic {
+.post-media-img {
     width: 480px;
     height: 100%;
 }
 
-.content-pic {
+.post-media {
     position: relative;
 } 
 
@@ -41,33 +41,29 @@ body {
     color: white;
 }
 
-
-.post-op {
-    width: 100%;
-    height: 72px;
+.post-header {
+    padding: 20px 16px;
     line-height: 0.5;
     display: flex;
-    border-bottom: 1px solid #e4e4e4;
     justify-content: space-between;
     align-items: center;
 }
 
-.content-details {
-    width: 350px;
+.post-details {
+    max-width: 350px;
     display: flex;
     flex-direction: column;
     justify-content:space-between;
 }
 
-.profile-pic {
-    display: inline;
+.profile-img {
     width: 32px;
     height: 32px;
-    margin: 16px;
     border-radius: 50%;
+    margin-right: 16px;
 }
 
-.username {
+strong {
     font-weight: 600;
 }
 
@@ -76,38 +72,38 @@ body {
     cursor: pointer;
 }
 
-.op-text {
-    margin-top: 10px;
+#location {
+    color: black;
+    margin-bottom: 0px;
 }
 
-.op-text p {
-    font-size: 12px;
-}
-
-.tripledot {
-    margin: 16px;
-}
-
-.img-text {
+.post-header-content {
     display: flex;
     align-items: center;
 }
 
-.comments {
+.post-comments {
     height: 375px;
     overflow: scroll;
 }
 
-.comment, .description {
+.description {
+    display: flex;
+    padding: 16px;
+}
+
+.comment {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 16px 16px 16px;
+}
+
+.comment-lh {
     display: flex;
 }
 
-.comment .comment-text {
-    width: 228px;
-}
-
-.description .comment-text {
-    margin-right: 16px;
+.comment-text {
+    margin: 0px;
 }
 
 .comment-footer, .comment-reply {
@@ -122,9 +118,7 @@ body {
 }
 
 .heart {
-    width: 12px;
-    height: 12px;
-    margin: 24px 16px 16px 16px;
+    margin: 12px 0 0 16px;
 }
 
 .newcomment {
@@ -132,22 +126,19 @@ body {
     height: 56px;
     justify-content: space-between;
     align-items: center;
-    border-top: 1px solid #e4e4e4;
+    padding: 0px 16px;
 }
 
-.newcomment-left {
+.newcomment-lh {
     display: flex;
     justify-content: start;
-}
-
-.emojibutton, button {
-    margin: 16px;
 }
 
 #newcomment-input {
     font-size: 14px;
     color: dimgray;
     border: none;
+    margin-left: 16px;
 }
 
 button {
@@ -155,57 +146,54 @@ button {
     border: none;
     color: dodgerblue;
     font-size: 15px;
-    font-weight: 600;
-    padding: none;
-    margin: none;
+    padding: 0px;
 }
 
 .toolbar {
     display: flex;
     flex-direction: column;
-    justify-content: start;
-    border-top: 1px solid #e4e4e4;
+    padding: 12px 16px;
 }
 
-.icons {
+.interactions {
     display: flex;
-    width: 100%;
     justify-content: space-between;
-    align-items: center;
 }
 
-.profile-pic-small {
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
+.interactions-lh {
+    display: flex;
+}
+
+.interactions-lh .icon {
+    margin-right: 8px;
+}
+
+.post-likes-date {
+    display: flex;
+    margin-top: 8px;
+}
+
+.post-likes-date .profile-img {
     margin-right: 6px;
 }
 
-.interact {
-    margin-top: 12px;
-    margin-left: 16px;
+.has-border-bottom {
+    border-bottom: 1px solid #e4e4e4;
 }
 
-.heart-big, .bubble, .send {
-    margin-left: 8px;
+.is-small {
+    width: 20px;
+    height: 20px;
 }
 
-.bookmark {
-    margin-top: 10px;
-    margin-right: 16px;
+.is-subtext {
+    font-size: 12px;
+    color: dimgray;
 }
 
-.likes-date {
-    display: flex;
-    margin-top: 8px;
-    margin-left: 16px;
-}
-
-.toolbar p {
+.is-smallsubtext {
     font-size: 10px;
-    color: gray;
+    color: dimgray;
     text-transform: uppercase;
-    margin-top: 10px;
-    margin-left: 16px;
-    margin-botton: 10px;
+    margin-bottom: 0px;
 }
