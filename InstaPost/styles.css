@@ -122,6 +122,10 @@ strong {
     margin: 12px 0 0 16px;
 }
 
+.heart svg:hover {
+    transform: scale();
+}
+
 .newcomment {
     display: flex;
     height: 56px;
@@ -201,4 +205,14 @@ button {
     color: dimgray;
     text-transform: uppercase;
     margin-bottom: 0px;
+}
+
+@media (max-width: 815px) { 
+    .post {
+        flex-direction: column;
+    }
+
+    .post-details {
+        max-width: 815px;
+    }
 }
