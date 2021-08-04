@@ -4,6 +4,8 @@ html {
 }
 
 body {
+    margin: 0px;
+    padding: 0px;
     background-color: #dbdbdb;
     display: flex;
     justify-content: center;
@@ -26,6 +28,7 @@ body {
 
 .post-media {
     position: relative;
+    height: 600px;
 }
 
 .bloops {
@@ -122,9 +125,33 @@ strong {
     margin: 12px 0 0 16px;
 }
 
-.heart svg:hover {
-    transform: scale();
+.heart-filled {
+    cursor: pointer;
+    width: 13px;
+    stroke: black;
+    stroke-width: 3px;
+    fill: white;
 }
+
+input[type="checkbox"]:checked + .heart-filled {
+    stroke-width: 0px;
+    fill: red;
+}
+
+.heart-filled:hover {
+    stroke: red;
+}
+
+/* hide the original checkbox */
+.like-checkbox {
+    border: 0; 
+    clip: rect(0 0 0 0); 
+    height: 1px; margin: -1px; 
+    overflow: hidden; 
+    padding: 0; 
+    position: absolute; 
+    width: 1px;
+  }
 
 .newcomment {
     display: flex;
@@ -158,6 +185,10 @@ button {
     padding: 0px;
 }
 
+.icon {
+    cursor: pointer;
+}
+
 .toolbar {
     display: flex;
     flex-direction: column;
@@ -174,7 +205,7 @@ button {
 }
 
 .interactions-lh .icon {
-    margin-right: 8px;
+    margin-right: 14px;
 }
 
 .post-likes-date {
@@ -214,5 +245,13 @@ button {
 
     .post-details {
         max-width: 815px;
+    }
+
+    .post-media {
+        height: auto;
+    }
+
+    .post-media-img {
+        width: 100%;
     }
 }
