@@ -20,6 +20,11 @@ p {
     margin: 0;
 }
 
+a {
+    color: #1B95E0;
+    text-decoration: none;
+}
+
 .content {
     display: flex;
     justify-content: center;
@@ -93,6 +98,11 @@ p {
     border-right: 1px solid rgb(239, 243, 244);
     width: 600px;
     height: 100vh;
+    overflow: scroll;
+}
+
+.content-feed::-webkit-scrollbar {
+    display: none;
 }
 
 .content-recommend {
@@ -163,7 +173,7 @@ p {
     align-content: center;
 }
 
-.trends-header .icon:hover {
+.trends-header .icon:hover, .feed-header .icon:hover, .attachments .icon-wrap:hover {
     cursor: pointer;
     box-shadow: 0px 0px 0px 8px rgba(29, 161, 242, 0.1);
     border-radius: 16px;
@@ -226,23 +236,74 @@ p {
     align-content: center;
 }
 
-.username {
+.user-props {
     display: flex;
     flex-direction: column;
     justify-content: center;
 }
 
-.name {
+.username, .userhandle {
     display: flex;
     flex-direction: row;
     align-content: center;
+}
+
+.tweet {
+    padding: 12px 16px;
+    display: flex;
+}
+
+.tweet-content {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.tweet-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 4px;
+}
+
+.tweet-header .icon-wrap {
+    padding: 0 3px;
+}
+
+.tweet-text {
+    line-height: 20px;
+}
+
+.tweet-content img {
+    margin: 16px 0;
+    width: 100%;
+    border-radius: 18px;
+}
+
+.poster-info {
+    display: flex;
+}
+
+.tweet-actions {
+    display: flex;
+    justify-content:space-between;
+    width: 85%;
+}
+
+.action {
+    display: flex;
+}
+
+.action .subtext {
+    padding: 0 12px;
 }
 
 .name .icon-wrap {
     margin-left: 2px;
 }
 
-.handle {
+.userhandle p {
     margin-top: 2px;
 }
 
@@ -271,6 +332,65 @@ p {
     background-color: rgba(29, 161, 242, 0.1);
 }
 
+.feed-header {
+    display: flex;
+    justify-content: space-between;
+    padding: 14px 16px;
+}
+
+.new-tweet {
+    display: flex;
+    flex-direction: row;
+    padding: 12px 16px;
+}
+
+.compose {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.newtweet-textarea {
+    border: 0;
+    font-family: inherit;
+    font-size: 20px;
+    line-height: 24px;
+    padding: 12px 0;
+    display: block;
+    max-width: 500px;
+    overflow: hidden;
+    resize: none;
+    min-height: 40px;
+  }
+
+.newtweet-textarea[contenteditable]:empty::before {
+    content: "What's happening?";
+    color: #536471;
+}
+
+.newtweet-textarea:focus {
+    outline: none;
+}
+
+.toolbar {
+    display: flex;
+    justify-content: space-between;
+}
+
+.attachments {
+    display: flex;
+    align-items: center;
+}
+
+.attachments .icon-wrap {
+    margin-right: 16px;
+}
+
+.divider {
+    height: 12px;
+    background-color: rgb(247, 249, 249);
+}
+
 .subtext {
     font-size: 13px;
     color: rgb(83, 100, 113);
@@ -290,6 +410,10 @@ p {
     border-top: 1px solid rgb(239, 243, 244);
 }
 
+.has-bottom-border {
+    border-bottom: 1px solid rgb(239, 243, 244);
+}
+
 .is-gray {
     color: #536471;
 }
@@ -301,4 +425,23 @@ p {
 .is-selected, .is-accented {
     color: #1DA1F2;
     fill: #1DA1F2;
+}
+
+.but-small {
+    height: 40px;
+    width: auto;
+    box-shadow: none;
+    padding: 0 20px;
+}
+
+.disabled {
+    opacity: 0.5;
+}
+
+.has-hoverbg:hover {
+    cursor: pointer;
+    fill: #1a94e0;
+    box-shadow: 0px 0px 0px 8px rgba(29, 161, 242, 0.1);
+    border-radius: 16px;
+    background-color: rgba(29, 161, 242, 0.1);
 }
