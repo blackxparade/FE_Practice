@@ -32,7 +32,10 @@ a {
 
 .content-nav {
     width: 250px;
-    padding: 0px 12px;
+    padding: 0px 12px 12px 12px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 .icon {
@@ -67,13 +70,10 @@ a {
     fill: #1DA1F2;
 }
 
-.site-logo {
-    margin: 12px 0px 12px 12px;
-}
-
 #twitter-logo {
     fill: #1DA1F2;
     width: 30px;
+    padding: 12px 0px 12px 12px;
 }
 
 .tweet-button {
@@ -89,6 +89,10 @@ a {
     box-shadow: rgba(0, 0, 0, 0.1) 0px 8px 28px 0px;
 }
 
+.tweet-button .icon-wrap {
+    display: none;
+}
+
 .tweet-button:hover {
     background-color: #1a94e0;
 }
@@ -96,6 +100,7 @@ a {
 .content-feed {
     border-left: 1px solid rgb(239, 243, 244);
     border-right: 1px solid rgb(239, 243, 244);
+    max-width: 600px;
     width: 600px;
     height: 100vh;
     overflow: scroll;
@@ -173,13 +178,6 @@ a {
     align-content: center;
 }
 
-.trends-header .icon:hover, .feed-header .icon:hover, .attachments .icon-wrap:hover {
-    cursor: pointer;
-    box-shadow: 0px 0px 0px 8px rgba(29, 161, 242, 0.1);
-    border-radius: 16px;
-    background-color: rgba(29, 161, 242, 0.1);
-}
-
 .trend {
     padding: 12px 16px;
     display: flex;
@@ -216,7 +214,7 @@ a {
     justify-content: space-between;
 }
 
-.profile-item {
+.profile-item, .content-nav-bottom {
     padding: 12px 16px;
     display: flex;
     flex-direction: row;
@@ -224,11 +222,28 @@ a {
     align-content: center;
 }
 
+.content-nav-bottom-wrap {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-content: center;
+    width: 100%;
+}
+
+.content-nav-bottom-wrap .icon-wrap {
+    margin: auto 0px;
+}
+
 .profile-img {
     width: 48px;
     height: 48px;
     border-radius: 50%;
     margin-right: 12px;
+}
+
+.content-nav-bottom .profile-img {
+    width: 40px;
+    height: 40px;
 }
 
 .profile-details {
@@ -391,6 +406,18 @@ a {
     background-color: rgb(247, 249, 249);
 }
 
+footer {
+    padding: 0 16px;
+}
+
+footer a {
+    margin-right: 12px;
+}
+
+footer a:hover{
+    text-decoration: underline;
+}
+
 .subtext {
     font-size: 13px;
     color: rgb(83, 100, 113);
@@ -401,9 +428,12 @@ a {
     fill: rgb(83, 100, 113);
 }
 
+.is-small:hover {
+    fill: #1DA1F2;
+}
+
 .is-medium {
     width: 22px;
-    fill: #1DA1F2;
 }
 
 .has-top-border {
@@ -416,6 +446,10 @@ a {
 
 .is-gray {
     color: #536471;
+}
+
+.is-white {
+    fill: white;
 }
 
 .is-tiny {
@@ -442,6 +476,78 @@ a {
     cursor: pointer;
     fill: #1a94e0;
     box-shadow: 0px 0px 0px 8px rgba(29, 161, 242, 0.1);
-    border-radius: 16px;
+    border-radius: 200px;
     background-color: rgba(29, 161, 242, 0.1);
+}
+
+.action:hover * {
+    cursor: pointer;
+    fill: #1DA1F2;
+    color: #1DA1F2;
+}
+
+@media (max-width: 1265px) {
+    .nav-text, .content-nav-bottom .user-props, .content-nav-bottom .icon-wrap {
+        display: none;
+    }
+
+    .navigation, .content-nav {
+        max-width: 88px;
+        min-width: 64px;
+        margin: 0px;
+    }
+
+    .navigation ul {
+        margin-top: 16px;
+    }
+
+    .content-nav {
+        padding: 0px 0px 16px 0px;
+    }
+
+    .button-label {
+        display: none;
+    }
+
+    .content-nav .tweet-button {
+        width: 46px;
+        height: 46px;
+    }
+
+    .content-nav .tweet-button .icon-wrap {
+        display: block;
+        margin: 0 0 0 6px;
+    }
+
+    .navbutton {
+        padding: 12px;
+        margin: auto;
+        margin-bottom: 10px;
+    }
+
+    .content-nav-top {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    #twitter-logo {
+        padding: 0px;
+    }
+
+    .content-logo {
+        display: flex;
+        justify-content: center;
+        padding: 12px;
+    }
+
+    .content-nav-bottom .profile-details, .content-nav-bottom .profile-details .profile-img {
+        margin: 0px auto;
+    }
+}
+
+@media (max-width: 986px) {
+    .content-recommend {
+        display: none;
+    }
 }
