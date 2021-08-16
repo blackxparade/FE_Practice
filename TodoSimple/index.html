@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/7d77f43f88.js" crossorigin="anonymous"></script>
+    <script src="app.js"></script>
+    <link rel="stylesheet" href="styles.css">
+    <title>Todo Simple</title>
+</head>
+<body>
+    <!-- <i class="fas fa-thumbs-up"></i> -->
+    <div class="todo-panel">
+        <h1 class="header">🧨 TODOs</h1>
+        <div class="new-todo">
+            <button class="add-todo" onclick="addTodo()"><i class="fas fa-plus"></i></button>
+            <input type="text" class="new-todo-input" placeholder="Type your next todo here...">
+        </div>
+        <div class="todo-list">
+            <div class="todo" draggable="true">
+                <div class="todo-left">
+                    <input type="checkbox" onclick="strikeTodo(this)">
+                    <div class="todo-text">Multiline TODO example. Multiline TODO example. Multiline TODO example. </div>
+                </div>
+                <button class="remove-todo" onclick="removeTodo(this)"><i class="fas fa-minus-circle"></i></button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
