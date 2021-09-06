@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com"> 
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> 
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+    <title>Weather Card</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+    <script src="app.js"></script>
+</head>
+<body>
+    
+
+    <div class="card">
+        <div class="city">Budapest</div>
+        <div class="current-date">-</div>
+        <img src="svg/c.svg" id="weather-icon" alt="Current weather icon">
+        <div class="current-weather">
+            <div class="current-temp">--°</div>
+            <div class="weather-details">
+                <div class="weather-text">-</div>
+                <div class="min-temp"> Min --°</div>
+                <div class="max-temp"> Max --°</div>
+            </div>
+        </div>
+    </div>
+    <div class="card-back">
+        <div class="back-header">5 day forecast</div>
+        <div class="day-forecast">
+            <img src="svg/c.svg" class="forecast-icon" alt="Forecast icon">
+            <div class="forecast-temp">22°</div>
+            <div class="weather-details">
+                <div class="weather-text">-</div>
+                <div class="min-temp">--°</div>
+                /
+                <div class="max-temp">--°</div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

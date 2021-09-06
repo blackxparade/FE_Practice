@@ -100,7 +100,7 @@ window.onload=function(){
 
     document.addEventListener("dragenter", function(event) {
         if (event.target.className === "todo") {
-            event.target.style.background = "slategray";
+            event.target.style.background = "lightgray";
         }
     });
 
@@ -112,17 +112,28 @@ window.onload=function(){
 
     document.addEventListener("drop", function(event) {
         event.preventDefault();
-        // let todos = console.log(document.querySelectorAll(".todo"));
-        // let place = 0;
-        // for (let i=0; i<todos.length; i++) {
-        //     if (todos[i] === dragged) {
-        //         place = i;
-        //         break;
-        //     }
-        // }
-        if (event.target.className === "todo") {
+        
+        let todos = event.target.parentElement.childNodes;
+        let draggedIndex = 0;
+        let targetIndex = 0;
+        for (let i=0; i<todos.length; i++) {
+            if (todos[i] === dragged) {
+                draggedIndex = i;
+            }
+
+            if (todos[i] === event.target) {
+                targetIndex = i;
+            }
+        }
+
+        if (event.target.className === "todo" && draggedIndex > targetIndex) {
             event.target.style.background = "";
-            event.target.parentElement.insertBefore(dragged, event.target);
+            event.target.insertAdjacentElement("beforebegin", dragged);
+        }
+
+        if (event.target.className === "todo" && draggedIndex < targetIndex) {
+            event.target.style.background = "";
+            event.target.insertAdjacentElement("afterend", dragged);
         }
     });
   }
