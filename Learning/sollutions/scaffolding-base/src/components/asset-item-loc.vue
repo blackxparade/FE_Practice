@@ -8,7 +8,7 @@
                 <slot name="name"></slot>
             </p>
             <p class="subtitle is-6">
-               <slot name="description"></slot>
+               Location: <span class="has-text-link"><slot name="location"></slot></span>
             </p>
         </div>
     </div>
@@ -17,5 +17,5 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 
-export default defineComponent({ });
+export default defineComponent({});
 </script>
