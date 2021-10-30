@@ -9,17 +9,18 @@
 @import '_theme';
 
 // Instead of importing the entire theme...
-// @import '~bulma';
+@import '~bulma';
 //
 // ...it's recommended to import only what is needed
-@import 'bulma/sass/utilities/_all';
-@import 'bulma/sass/base/_all';
-@import 'bulma/sass/helpers/_all';
-@import 'bulma/sass/elements/button';
-@import 'bulma/sass/elements/container';
-@import 'bulma/sass/elements/title';
-/* scaffolding-disable unless keepExamples */
-@import 'bulma/sass/layout/section';
-@import 'bulma/sass/form/_all';
-@import 'bulma/sass/components/modal';
+// @import 'bulma/sass/utilities/_all';
+// @import 'bulma/sass/base/_all';
+// @import 'bulma/sass/helpers/_all';
+// @import 'bulma/sass/elements/button';
+// @import 'bulma/sass/elements/container';
+// @import 'bulma/sass/elements/title';
+// /* scaffolding-disable unless keepExamples */
+// @import 'bulma/sass/layout/section';
+// @import 'bulma/sass/form/_all';
+// @import 'bulma/sass/components/modal';
+// @import 'bulma/sass/elements/notification';
 /* scaffolding-enable */
