@@ -12,7 +12,7 @@ let currentWeather = {
 
 async function getLocationKey(city) {
     try {
-        const response = await axios.get(`https://www.metaweather.com/api/location/search/?query=${city}`);
+        const response = await axios.get(`https://cors-anywhere.herokuapp.com/https://meta-weather.now.sh/api/location/search/?query=${city}`);
         locationID = response.data[0].woeid;
     } catch (error) {
         console.log(error);
@@ -22,7 +22,7 @@ async function getLocationKey(city) {
 async function getWeather() {
     try {
         await getLocationKey('Budapest');
-        const response = await axios.get(`https://www.metaweather.com/api/location/${locationID}`);
+        const response = await axios.get(`https://cors-anywhere.herokuapp.com/https://meta-weather.now.sh/api/location/${locationID}`);
         weatherObj = response.data;
     } catch (error) {
         console.log(error);
@@ -87,7 +87,7 @@ function setForecast() {
         dayForecast.children[2].children[2].innerHTML = 
             Math.trunc(weatherObj.consolidated_weather[i].max_temp) + '°';
 
-        if (i>1) {
+        if (i > 1) {
             let dayForecastCopy = dayForecast.cloneNode(true);
             document.querySelector('.card-back').appendChild(dayForecastCopy);
             //console.log(document.querySelector('.card-back'));

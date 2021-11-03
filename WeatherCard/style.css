@@ -89,6 +89,7 @@ body {
     flex-direction: row;
     justify-content: flex-start;
     align-items: center;
+    padding: 6px 0px;
     width: 100%;
     border-bottom: 1px solid rgb(240, 240, 240);
 }
@@ -98,7 +99,7 @@ body {
 }
 
 .forecast-icon {
-    height: 96px;
+    height: 80px;
     margin: -11px 0px -11px -16px;
 }
 
