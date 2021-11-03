@@ -61,6 +61,15 @@
 						<td-icon :icon="tdExample" />
 					</span>
 			</bulma-button>
+
+			<!-- task-04-modal-01 -->
+			<bulma-modal>
+				<template v-slot:title>Modal title</template>
+				<template v-slot:content>
+					Quisque ante lacus, malesuada ac auctor vitae, congue non ante. Phasellus lacus ex, semper ac tortor nex, fringilla condumentum orci. Fusce eu rutrum tellus.
+				</template>
+				<template v-slot:button-label>Save changes</template>
+			</bulma-modal>
 		</main>
 	</div>
 </template>
@@ -73,6 +82,7 @@ import AssetItemLoc from './components/asset-item-loc.vue';
 import Notification from './components/notification.vue';
 import NotificationEnhanced from './components/notification-enhanced.vue';
 import BulmaButton from './components/bulma-button.vue';
+import BulmaModal from './components/bulma-modal.vue';
 import { tdExample } from './example-font-awesome-icon-pack';
 
 /* scaffolding-enable */
@@ -84,7 +94,8 @@ export default defineComponent({
 		AssetItemLoc, 
 		Notification,
 		NotificationEnhanced,
-		BulmaButton 
+		BulmaButton,
+		BulmaModal
 	},
 	props: {
 		message: { type: String, default: '' }
