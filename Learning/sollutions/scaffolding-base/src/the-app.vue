@@ -63,13 +63,26 @@
 			</bulma-button>
 
 			<!-- task-04-modal-01 -->
-			<bulma-modal>
+			<!-- <bulma-modal>
 				<template v-slot:title>Modal title</template>
 				<template v-slot:content>
 					Quisque ante lacus, malesuada ac auctor vitae, congue non ante. Phasellus lacus ex, semper ac tortor nex, fringilla condumentum orci. Fusce eu rutrum tellus.
 				</template>
 				<template v-slot:button-label>Save changes</template>
-			</bulma-modal>
+			</bulma-modal> -->
+
+			<!-- task-04-modal-02 -->
+			<!-- <bulma-modal-enhanced>
+				<template v-slot:title>Modal title</template>
+				<template v-slot:content>
+					Quisque ante lacus, malesuada ac auctor vitae, congue non ante. Phasellus lacus ex, semper ac tortor nex, fringilla condumentum orci. Fusce eu rutrum tellus.
+				</template>
+				<template v-slot:button-label>Save changes</template>
+				<template v-slot:buttons-custom>
+					<button class="button">Open Asset</button>
+				</template>
+			</bulma-modal-enhanced> -->
+
 		</main>
 	</div>
 </template>
@@ -83,6 +96,7 @@ import Notification from './components/notification.vue';
 import NotificationEnhanced from './components/notification-enhanced.vue';
 import BulmaButton from './components/bulma-button.vue';
 import BulmaModal from './components/bulma-modal.vue';
+import BulmaModalEnhanced from './components/bulma-modal-enhanced.vue';
 import { tdExample } from './example-font-awesome-icon-pack';
 
 /* scaffolding-enable */
@@ -95,7 +109,8 @@ export default defineComponent({
 		Notification,
 		NotificationEnhanced,
 		BulmaButton,
-		BulmaModal
+		BulmaModal,
+		BulmaModalEnhanced
 	},
 	props: {
 		message: { type: String, default: '' }
