@@ -6,7 +6,7 @@
                 <p class="modal-card-title">
                     <slot name="title">Title</slot>
                 </p>
-                <button class="delete" aria-label="close"></button>
+                <button class="delete" @click="$emit('close')" aria-label="close"></button>
             </header>
             <section class="modal-card-body">
                 <slot name="content">Content</slot>
@@ -15,7 +15,7 @@
                 <button class="button is-success">
                     <slot name="button-label">Label</slot>
                 </button>
-                <button class="button">Cancel</button>
+                <button class="button" @click="$emit('close')">Cancel</button>
             </footer>
         </div>
     </div>

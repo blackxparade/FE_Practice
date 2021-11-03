@@ -48,14 +48,14 @@
 			<!-- task-03-button -->
 			<bulma-button modifiers="is-warning is-loading mr-4"></bulma-button>
 
-			<bulma-button modifiers="is-link is-light mr-4">
+			<bulma-button modifiers="is-link is-light mr-4" @click="showModal = true">
 				    <span class="icon">
 						<td-icon :icon="tdExample" />
 					</span>
     			<span>Label</span>
 			</bulma-button>
 
-			<bulma-button modifiers="is-danger is-outlined">
+			<bulma-button modifiers="is-danger is-outlined" @click="showEnhancedModal = true">
     			<span>Label</span>
 				    <span class="icon">
 						<td-icon :icon="tdExample" />
@@ -63,16 +63,16 @@
 			</bulma-button>
 
 			<!-- task-04-modal-01 -->
-			<!-- <bulma-modal>
+			<bulma-modal v-if="showModal" @close="showModal = false">
 				<template v-slot:title>Modal title</template>
 				<template v-slot:content>
 					Quisque ante lacus, malesuada ac auctor vitae, congue non ante. Phasellus lacus ex, semper ac tortor nex, fringilla condumentum orci. Fusce eu rutrum tellus.
 				</template>
 				<template v-slot:button-label>Save changes</template>
-			</bulma-modal> -->
+			</bulma-modal>
 
 			<!-- task-04-modal-02 -->
-			<!-- <bulma-modal-enhanced>
+			<bulma-modal-enhanced v-if="showEnhancedModal" @close="showEnhancedModal = false">
 				<template v-slot:title>Modal title</template>
 				<template v-slot:content>
 					Quisque ante lacus, malesuada ac auctor vitae, congue non ante. Phasellus lacus ex, semper ac tortor nex, fringilla condumentum orci. Fusce eu rutrum tellus.
@@ -81,7 +81,7 @@
 				<template v-slot:buttons-custom>
 					<button class="button">Open Asset</button>
 				</template>
-			</bulma-modal-enhanced> -->
+			</bulma-modal-enhanced>
 
 		</main>
 	</div>
@@ -115,6 +115,12 @@ export default defineComponent({
 	props: {
 		message: { type: String, default: '' }
 	},
+	data() {
+    	return { 
+			showModal: false,
+			showEnhancedModal: false 
+		}
+  	},
 	setup(props) {
         return {
             tdExample
