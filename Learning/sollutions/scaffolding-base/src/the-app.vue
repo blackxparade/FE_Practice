@@ -46,12 +46,36 @@
 				An error occurred while processing your request. Please try again.
 			</notification>
 
+			<h2>Reviewed</h2>
+
+			<notification-reviewed class="is-light is-success">
+				You have successfully linked one asset.
+			</notification-reviewed>
+			<notification-reviewed class="is-light is-warning">
+				An error occurred while processing your request. Please try again.
+			</notification-reviewed>
+			<notification-reviewed class="is-light is-danger">
+				An error occurred while processing your request. Please try again.
+			</notification-reviewed>
+			<notification-reviewed class="is-danger">
+				It should be dark
+			</notification-reviewed>
+
 			<!-- task-02-notification-02 -->
 			<notification-enhanced notification-type="is-success">
 				Primar lorem ipsum dolor sit amet, consectetur
 				adipiscing elit lorem ipsum dolor. <strong>Pellentesque risus mi</strong>, tempus quis placerat ut, porta nec nulla. Vestibulum rhoncus ac ex sit amet fringilla. Nullam gravida purus diam, et dictum <a>felis venenatis</a> efficitur.
 			</notification-enhanced>
 
+			<h2>Reviewed</h2>
+			<notification-enhanced-reviewed class="is-success">
+				Primar lorem ipsum dolor sit amet, consectetur
+				adipiscing elit lorem ipsum dolor. <strong>Pellentesque risus mi</strong>, tempus quis placerat ut, porta nec nulla. Vestibulum rhoncus ac ex sit amet fringilla. Nullam gravida purus diam, et dictum <a>felis venenatis</a> efficitur.
+			</notification-enhanced-reviewed>
+			<notification-enhanced-reviewed class="is-warning">
+				Primar lorem ipsum dolor sit amet, consectetur
+				adipiscing elit lorem ipsum dolor. <strong>Pellentesque risus mi</strong>, tempus quis placerat ut, porta nec nulla. Vestibulum rhoncus ac ex sit amet fringilla. Nullam gravida purus diam, et dictum <a>felis venenatis</a> efficitur.
+			</notification-enhanced-reviewed>
 			<!-- task-03-button -->
 			<bulma-button modifiers="is-warning is-loading mr-4" />
 
@@ -100,11 +124,13 @@ import AssetItem from './components/asset-item.vue';
 import AssetItemReview from './components/asset-item-review.vue';
 import AssetItemLoc from './components/asset-item-loc.vue';
 import Notification from './components/notification.vue';
+import NotificationReviewed from './components/notification-reviewed.vue';
 import NotificationEnhanced from './components/notification-enhanced.vue';
 import BulmaButton from './components/bulma-button.vue';
 import BulmaModal from './components/bulma-modal.vue';
 import BulmaModalEnhanced from './components/bulma-modal-enhanced.vue';
 import { tdExample } from './example-font-awesome-icon-pack';
+import NotificationEnhancedReviewed from './components/notification-enhanced-reviewed.vue';
 
 /* scaffolding-enable */
 export default defineComponent({
@@ -119,6 +145,8 @@ export default defineComponent({
 		BulmaButton,
 		BulmaModal,
 		BulmaModalEnhanced,
+		NotificationReviewed,
+		NotificationEnhancedReviewed,
 	},
 	props: {
 		message: { type: String, default: '' },
