@@ -76,17 +76,18 @@
 				Primar lorem ipsum dolor sit amet, consectetur
 				adipiscing elit lorem ipsum dolor. <strong>Pellentesque risus mi</strong>, tempus quis placerat ut, porta nec nulla. Vestibulum rhoncus ac ex sit amet fringilla. Nullam gravida purus diam, et dictum <a>felis venenatis</a> efficitur.
 			</notification-enhanced-reviewed>
-			<!-- task-03-button -->
-			<bulma-button modifiers="is-warning is-loading mr-4" />
 
-			<bulma-button modifiers="is-link is-light mr-4" @click="showModal = true">
+			<!-- task-03-button -->
+			<bulma-button class="is-warning is-loading mr-4" />
+
+			<bulma-button class="is-link is-light mr-4" @click="showModal = true">
 				<span class="icon">
 					<td-icon :icon="tdExample" />
 				</span>
 				<span>Label</span>
 			</bulma-button>
 
-			<bulma-button modifiers="is-danger is-outlined" @click="showEnhancedModal = true">
+			<bulma-button class="is-danger is-outlined" @click="showEnhancedModal = true">
 				<span>Label</span>
 				<span class="icon">
 					<td-icon :icon="tdExample" />

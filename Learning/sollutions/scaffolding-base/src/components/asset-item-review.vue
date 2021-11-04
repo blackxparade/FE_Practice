@@ -3,7 +3,7 @@
 		<div class="media-left">
 			<td-icon :icon="icon" />
 		</div>
-		<div class="media-content is-flex is-flex-direction-column ml-4">
+		<div class="media-content is-flex is-flex-direction-column">
 			<p class="title is-4 has-text-weight-normal has-text-link">
 				<span>{{ name }}</span>
 			</p>

@@ -1,5 +1,5 @@
 <template>
-    <button :class="['button', modifiers]">
+    <button class="button">
         <slot>Default</slot>
     </button>
 </template>
@@ -7,9 +7,5 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 
-export default defineComponent({ 
-    props: {
-        modifiers: String
-    }
-});
+export default defineComponent({ });
 </script>
