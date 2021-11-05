@@ -1,21 +1,24 @@
 <template>
-    <div class="modal is-active">
+    <div class="modal">
         <div class="modal-background"></div>
         <div class="modal-card">
             <header class="modal-card-head">
                 <p class="modal-card-title">
-                    <slot name="title">Title</slot>
+                    {{ title }}
                 </p>
-                <button class="delete" @click="$emit('close')" aria-label="close"></button>
+                <button class="delete" aria-label="close"></button>
             </header>
             <section class="modal-card-body">
-                <slot name="content">Content</slot>
+                <slot name="content">{{ description }}</slot>
             </section>
-            <footer class="modal-card-foot">
+            <footer :class="['modal-card-foot', extraFooterClasses]">
                 <button class="button is-success">
-                    <slot name="button-label">Label</slot>
+                    {{ primaryButtonLabel }}
                 </button>
-                <button class="button" @click="$emit('close')">Cancel</button>
+                <button class="button">
+                    {{ secondaryButtonLabel }}
+                </button>
+                <slot name="extra-buttons"/>
             </footer>
         </div>
     </div>
@@ -24,5 +27,13 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 
-export default defineComponent({ });
+export default defineComponent({ 
+    props: {
+        title: {type: String, default: ''},
+        description: {type: String, default: ''},
+        primaryButtonLabel: {type: String, default: 'Primary'},
+        secondaryButtonLabel: {type: String, default: 'Secondary'},
+        extraFooterClasses: {type: String, default: ''}
+    }
+});
 </script>

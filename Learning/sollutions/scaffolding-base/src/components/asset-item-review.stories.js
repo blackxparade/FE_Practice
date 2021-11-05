@@ -1,4 +1,4 @@
-import AssetItemReview from './asset-item-review'
+import AssetItemReview from './asset-item-review';
 import { tdExample } from '../example-font-awesome-icon-pack';
 
 export default { title: 'components / asset-item' };
@@ -16,7 +16,7 @@ export const base = () => {
                 tdExample,
                 sampleAssetItem
             };
-        },
+        }
 	});
 };
 
@@ -37,6 +37,6 @@ export const customSummary = () => {
                 tdExample,
                 sampleAssetItem
             };
-        },
+        }
 	});
 };
