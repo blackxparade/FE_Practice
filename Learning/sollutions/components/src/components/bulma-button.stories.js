@@ -1,23 +1,28 @@
 import BulmaButton from './bulma-button';
 import { tdExample } from 'src/example-font-awesome-icon-pack';
 
-export default { title: 'components / button' }
+export default { title: 'components / button' };
 
 export const base = () => {
-    return ({
-        template: `
-            <bulma-button class="is-primary mr-4">
+	return ({
+		template: `
+		<div :style="{ display: 'flex', gap: '20px'}">
+            <bulma-button class="is-primary">
                 Click me
             </bulma-button>
-            <bulma-button class="is-warning is-loading mr-4" />
+            <bulma-button class="is-warning is-loading" />
+			<button class="button is-primary">
+        		Click Me
+    		</button>
+		</div>
         `,
-        components: { BulmaButton }
-    });
+		components: { BulmaButton },
+	});
 };
 
 export const withIcon = () => {
-    return ({
-        template: `
+	return ({
+		template: `
             <bulma-button class="is-link is-light mr-4">
                 <span class="icon">
                     <td-icon :icon="tdExample" />
@@ -32,11 +37,11 @@ export const withIcon = () => {
                 </span>
             </bulma-button>
         `,
-        components: { BulmaButton },
-        setup() {
-            return {
-                tdExample
-            };
-        }
-    });
+		components: { BulmaButton },
+		setup() {
+			return {
+				tdExample,
+			};
+		},
+	});
 };
