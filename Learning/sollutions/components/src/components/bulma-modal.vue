@@ -15,13 +15,7 @@
 				<slot name="content">{{ description }}</slot>
 			</section>
 			<footer :class="['modal-card-foot', extraFooterClasses]">
-				<button class="button is-success">
-					{{ primaryButtonLabel }}
-				</button>
-				<button class="button">
-					{{ secondaryButtonLabel }}
-				</button>
-				<slot name="extra-buttons" />
+				<slot name="footer" />
 			</footer>
 		</div>
 	</div>
@@ -34,8 +28,6 @@ export default defineComponent({
 	props: {
 		title: { type: String, default: '' },
 		description: { type: String, default: '' },
-		primaryButtonLabel: { type: String, default: 'Primary' },
-		secondaryButtonLabel: { type: String, default: 'Secondary' },
 		extraFooterClasses: { type: String, default: '' },
 	},
 });
