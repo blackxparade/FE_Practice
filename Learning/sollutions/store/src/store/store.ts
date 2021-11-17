@@ -5,7 +5,13 @@ export function Store({ api }: { api: Api }) {
 	const state = {
 		counter: 0,
 		message: null as string | null,
+		items: [
+			{ id: "001", name: "Name01", summary: "Summary01" },
+			{ id: "002", name: "Name02", summary: "Summary02" }
+		],
 	};
+
+
 	type State = typeof state;
 
 	const getters = {
@@ -21,6 +27,9 @@ export function Store({ api }: { api: Api }) {
 		showMessage(state: State, message: string) {
 			state.message = message;
 		},
+		addNewItem(state: State, item: any){
+			state.items.push(item);
+		},
 	};
 
 	const actions = {
@@ -35,6 +44,10 @@ export function Store({ api }: { api: Api }) {
 		},
 		dismissMessage({ commit }: { commit: Commit }) {
 			commit('showMessage', null);
+		},
+		addNewItem({ commit }: { commit: Commit }, item: any) {
+			console.log(item);
+			commit('addNewItem', item);
 		},
 		async loadJoke({ commit }: { commit: Commit }) {
 			commit('showMessage', await api.getChuckNorrisJoke());
