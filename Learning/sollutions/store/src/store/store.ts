@@ -55,9 +55,8 @@ export function Store({ api }: { api: Api }) {
 		dismissMessage({ commit }: { commit: Commit }) {
 			commit('showMessage', null);
 		},
-		addNewItem({ commit }: { commit: Commit }, item: Item) {
-			console.log(item);
-			commit('addNewItem', item);
+		addNewItem({ commit }: { commit: Commit }, item: Pick<Item, 'name' | 'summary'>) {
+			commit('addNewItem', Item({ ...item }));
 		},
 		async loadJoke({ commit }: { commit: Commit }) {
 			commit('showMessage', await api.getChuckNorrisJoke());

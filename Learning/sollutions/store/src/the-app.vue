@@ -51,7 +51,7 @@ export default defineComponent({
 		return {
 			items: computed(() => state.items),
 			dispatchItem: (name: string, summary: string) => {
-				dispatch('addNewItem', {id: "randomid", name: name, summary: summary});
+				dispatch('addNewItem', { name: name, summary: summary });
 			},
 		};
 	},
