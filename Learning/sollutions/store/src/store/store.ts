@@ -1,6 +1,8 @@
 import { Commit } from 'vuex'; // scaffolding-disable-line unless keepExamples
 import { Api } from '../api';
 
+type Item = ReturnType<typeof Item>;
+
 function Item({
 	id = Math.floor(Math.random() * 100),
 	name = '',
@@ -35,7 +37,7 @@ export function Store({ api }: { api: Api }) {
 		showMessage(state: State, message: string) {
 			state.message = message;
 		},
-		addNewItem(state: State, item: any){
+		addNewItem(state: State, item: Item){
 			state.items = [ ...state.items, item ];
 		},
 	};
@@ -53,7 +55,7 @@ export function Store({ api }: { api: Api }) {
 		dismissMessage({ commit }: { commit: Commit }) {
 			commit('showMessage', null);
 		},
-		addNewItem({ commit }: { commit: Commit }, item: any) {
+		addNewItem({ commit }: { commit: Commit }, item: Item) {
 			console.log(item);
 			commit('addNewItem', item);
 		},
