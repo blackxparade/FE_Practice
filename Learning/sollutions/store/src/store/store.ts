@@ -1,13 +1,21 @@
 import { Commit } from 'vuex'; // scaffolding-disable-line unless keepExamples
 import { Api } from '../api';
 
+function Item({
+	id = Math.floor(Math.random() * 100),
+	name = '',
+	summary = '',
+} = {}) {
+	return { id, name, summary };
+}
+
 export function Store({ api }: { api: Api }) {
 	const state = {
 		counter: 0,
 		message: null as string | null,
 		items: [
-			{ id: "001", name: "Name01", summary: "Summary01" },
-			{ id: "002", name: "Name02", summary: "Summary02" }
+			Item({ name: 'Name01', summary: 'Summary01' }),
+			Item({ name: 'Name02', summary: 'Summary02' }),
 		],
 	};
 
