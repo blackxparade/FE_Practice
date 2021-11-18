@@ -8,27 +8,27 @@
 			</div>
 
 			<div style="display: flex; flex-direction: column; gap: 1rem; margin-top: 1rem;">
-				<item v-for="item in items"
-					:key="item.id" 
-					v-bind="item" 
-				/>
+				<item
+					v-for="item in items"
+					:key="item.id"
+					v-bind="item" />
 			</div>
 
-			<modal 
-			v-if="showModal"
-			v-on:nameChange="(value) => { this.name = value }"
-			v-on:summaryChange="(value) => { this.summary = value }" 
-			@close="showModal = false">
+			<modal
+				v-if="showModal"
+				@nameChange="(value) => { name = value }"
+				@summaryChange="(value) => { summary = value }"
+				@close="showModal = false">
 				<template #footer>
-					<button class="button" 
-					@click="() => { dispatchItem(this.name, this.summary); testsummary(); }"
-					:disabled="(!this.name.length || !this.summary.length)">
+					<button
+						class="button"
+						:disabled="(!name.length || !summary.length)"
+						@click="() => { dispatchItem(name, summary); testsummary(); }">
 						Add
 					</button>
 					<button class="button" @click="showModal = false">Close</button>
 				</template>
 			</modal>
-
 		</main>
 	</div>
 </template>
@@ -46,20 +46,20 @@ export default defineComponent({
 		Item,
 		Modal,
 	},
-	data() {
-		return {
-		showModal: false,
-		name: '',
-		summary: '',
-		};
-	},
 	setup(props) {
 		const { state, dispatch } = useStore();
-		return { 
+		return {
 			items: computed(() => state.items),
 			dispatchItem: (name: string, summary: string) => {
 				dispatch('addNewItem', {id: "randomid", name: name, summary: summary});
 			},
+		};
+	},
+	data() {
+		return {
+			showModal: false,
+			name: '',
+			summary: '',
 		};
 	},
 	methods: {
@@ -68,7 +68,7 @@ export default defineComponent({
 			this.summary = '';
 			this.showModal = false;
 			return ;
-		}
+		},
 	},
 });
 /* scaffolding-disable unless keepExamples */
