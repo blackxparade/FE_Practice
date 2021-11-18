@@ -36,7 +36,7 @@ export function Store({ api }: { api: Api }) {
 			state.message = message;
 		},
 		addNewItem(state: State, item: any){
-			state.items.push(item);
+			state.items = [ ...state.items, item ];
 		},
 	};
 
