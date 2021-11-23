@@ -1,4 +1,6 @@
 
+/* Check readme how to run ts code */
+
 /*
     ------- 1  --------
     Add types where you can
@@ -30,7 +32,6 @@ fetchAssets().then((returnedItems) => {
     items = returnedItems
     console.log('fetched items ', items);
 })
-
 
 
 /*
