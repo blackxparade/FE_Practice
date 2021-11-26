@@ -5,7 +5,7 @@
 			has-text-weight-normal 
 			has-text-link"
 			style="display: flex; gap: .5rem;">
-				<input type="checkbox" :id='id'>
+				<input type="checkbox" :id='id' v-model="checked" @change="$emit('checkedItem', {checked, id, name, summary})">
 				<label :for='id'>{{ id }} - {{ name }}</label>
 			</div>
 			<p class="subtitle is-6">
@@ -20,9 +20,14 @@
 import { defineComponent } from 'vue';
 export default defineComponent({
 	props: {
-		id: { type: String, default: 'id' },
+		id: { type: Number, default: '' },
 		name: { type: String, default: 'name' },
 		summary: { type: String, default: 'summary' },
 	},
+	data() {
+		return {
+			checked: false
+		}
+	}
 });
 </script>

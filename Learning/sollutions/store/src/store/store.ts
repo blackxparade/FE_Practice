@@ -7,8 +7,8 @@ function Item({
 	id = Math.floor(Math.random() * 100),
 	name = '',
 	summary = '',
-} = {}) {
-	return { id, name, summary };
+	} = {}) {
+		return { id, name, summary };
 }
 
 export function Store({ api }: { api: Api }) {
@@ -40,6 +40,10 @@ export function Store({ api }: { api: Api }) {
 		addNewItem(state: State, item: Item){
 			state.items = [ ...state.items, item ];
 		},
+		updateItem(state: State, item: Item){
+			let itemIndex = state.items.findIndex(element => element.id === item.id);
+			state.items[itemIndex] = item;
+		}
 	};
 
 	const actions = {
@@ -57,6 +61,9 @@ export function Store({ api }: { api: Api }) {
 		},
 		addNewItem({ commit }: { commit: Commit }, item: Pick<Item, 'name' | 'summary'>) {
 			commit('addNewItem', Item({ ...item }));
+		},
+		updateItem({ commit }: { commit: Commit }, item: Pick<Item, 'id'| 'name' | 'summary'>) {
+			commit('updateItem', item);
 		},
 		async loadJoke({ commit }: { commit: Commit }) {
 			commit('showMessage', await api.getChuckNorrisJoke());
