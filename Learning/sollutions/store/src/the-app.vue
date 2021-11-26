@@ -78,7 +78,8 @@
 				</template>
 				<template #footer>
 					<button
-						class="button">
+						class="button"
+						@click="deleteItems(getDeletableItemIds()); clearData();">
 						Delete
 					</button>
 					<button class="button" @click="clearData()">Close</button>
@@ -110,6 +111,9 @@ export default defineComponent({
 			},
 			updateItem: (id: number, name: string, summary: string) => {
 				dispatch('updateItem', {id: id, name: name, summary: summary});
+			},
+			deleteItems: (ids: number[]) => {
+				dispatch('bulkDeleteItems', ids);
 			}
 		};
 	},
@@ -120,7 +124,7 @@ export default defineComponent({
 			editMode: false,
 			name: '',
 			summary: '',
-			checkedItems: [] as {id: Number, name: string, summary: string}[],
+			checkedItems: [] as {id: number, name: string, summary: string}[],
 		};
 	},
 	methods: {
@@ -148,6 +152,13 @@ export default defineComponent({
 			this.summary = this.checkedItems[0].summary;
 			this.showNewModal = true;
 			this.editMode = true;
+		},
+		getDeletableItemIds() {
+			let toDelete: number[] = [];
+			for (let i=0; i<this.checkedItems.length; i++) {
+				toDelete.push(this.checkedItems[i].id);
+			}
+			return toDelete;
 		}
 	},
 	computed: {

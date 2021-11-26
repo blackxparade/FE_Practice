@@ -37,12 +37,16 @@ export function Store({ api }: { api: Api }) {
 		showMessage(state: State, message: string) {
 			state.message = message;
 		},
-		addNewItem(state: State, item: Item){
+		addNewItem(state: State, item: Item) {
 			state.items = [ ...state.items, item ];
 		},
-		updateItem(state: State, item: Item){
+		updateItem(state: State, item: Item) {
 			let itemIndex = state.items.findIndex(element => element.id === item.id);
 			state.items[itemIndex] = item;
+		},
+		deleteItem(state: State, id: number) {
+			console.log(id);
+			state.items = state.items.filter(element => element.id != id);
 		}
 	};
 
@@ -64,6 +68,11 @@ export function Store({ api }: { api: Api }) {
 		},
 		updateItem({ commit }: { commit: Commit }, item: Pick<Item, 'id'| 'name' | 'summary'>) {
 			commit('updateItem', item);
+		},
+		bulkDeleteItems({ commit }: { commit: Commit }, ids: number[]){
+			for(let i=0; i<ids.length; i++) {
+				commit('deleteItem', ids[i]);
+			}
 		},
 		async loadJoke({ commit }: { commit: Commit }) {
 			commit('showMessage', await api.getChuckNorrisJoke());
