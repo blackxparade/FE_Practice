@@ -13,22 +13,21 @@
 					class="button is-danger is-light" 
 					@click="showDeleteModal = true;"
 					:disabled="checkedItems.length === 0">
-				Delete</button>
+					Delete
+				</button>
 			</div>
 
 			<div style="display: flex; flex-direction: column; gap: 1rem; margin-top: 1rem;">
-				<!-- question: how to uncheck every item from this parent component? -->
-				<item
-					v-for="item in items"
-					:key="item.id"
-					v-bind="item"
-					@checkedItem="addChecked" />
+				<div v-for="item in items" :key="item.id" style="display: flex; align-content: center; gap: .75rem;">
+					<input type="checkbox" :id="item.id" :value="item" v-model="checkedItems" style="margin-top: 1rem;">
+					<label :for="item.id">
+						<item v-bind="item" style="cursor: pointer;"/>
+					</label>
+				</div>
 			</div>
 
 			<modal
 				v-if="showNewModal"
-				@nameChange="(value) => { name = value }"
-				@summaryChange="(value) => { summary = value }"
 				@close="clearData()">
 				<template #title>
 					{{ editMode ? "Edit item" : "Add item"}}
@@ -51,7 +50,7 @@
 						:disabled="(!name.length || !summary.length)"
 						@click="() => { 
 								if (!editMode) {
-									dispatchItem(name, summary); clearData();
+									dispatchItem(name, summary); clearData(); clearSelections();
 								} else {
 									updateItem(checkedItems[0].id, name, summary); clearData();
 								}
@@ -79,7 +78,7 @@
 				<template #footer>
 					<button
 						class="button"
-						@click="deleteItems(getDeletableItemIds()); clearData();">
+						@click="deleteItems(getDeletableItemIds()); clearData(); clearSelections();">
 						Delete
 					</button>
 					<button class="button" @click="clearData()">Close</button>
@@ -124,6 +123,7 @@ export default defineComponent({
 			editMode: false,
 			name: '',
 			summary: '',
+			// string, number, boolean, etc. types with capital or not??? which is the correct form?
 			checkedItems: [] as {id: number, name: string, summary: string}[],
 		};
 	},
@@ -135,17 +135,6 @@ export default defineComponent({
 			this.showDeleteModal = false;
 			this.editMode = false;
 			return ;
-		},
-		// i had to add this method, because i could not make a condition to only emit checked state
-		addChecked(value: {checked: Boolean, id: number, name: string, summary: string}) { 
-			const {checked, id, name, summary} = value;
-			// put the element in checkedItems if it is checked
-			if (checked) {
-				this.checkedItems = [...this.checkedItems, {id, name, summary}]
-			// filter out element if it became unchecked
-			} else {
-				this.checkedItems = this.checkedItems.filter(element => element.id !== id);
-			}
 		},
 		prefillModal() {
 			this.name = this.checkedItems[0].name;
@@ -159,6 +148,9 @@ export default defineComponent({
 				toDelete.push(this.checkedItems[i].id);
 			}
 			return toDelete;
+		},
+		clearSelections() {
+			this.checkedItems = [];
 		}
 	},
 	computed: {

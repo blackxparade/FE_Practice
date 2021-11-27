@@ -45,7 +45,6 @@ export function Store({ api }: { api: Api }) {
 			state.items[itemIndex] = item;
 		},
 		deleteItem(state: State, id: number) {
-			console.log(id);
 			state.items = state.items.filter(element => element.id != id);
 		}
 	};
