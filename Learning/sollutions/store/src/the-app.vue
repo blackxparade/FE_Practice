@@ -71,7 +71,7 @@
 					<strong>Are you sure to delete these items?</strong>
 					<ul style="margin-top: 1rem;">
 						<li v-for="item in checkedItems" :key="item.id">
-							{{ item.id + " - " + item.name + ", " + item.summary}}
+							{{ listItemInfo(item) }}
 						</li>
 					</ul>
 				</template>
@@ -128,6 +128,7 @@ export default defineComponent({
 		};
 	},
 	methods: {
+		listItemInfo(item: any) { return `${item.id} - ${item.name} , ${item.summary}`; },
 		clearData() {
 			this.name = '';
 			this.summary = '';
