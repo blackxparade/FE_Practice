@@ -112,8 +112,8 @@ export default defineComponent({
 				dispatch('updateItem', { id, name, summary });
 			},
 			deleteItems: (ids: number[]) => {
-				dispatch('bulkDeleteItems', ids);
-			}
+				dispatch('deleteItems', ids);
+			},
 		};
 	},
 	data() {

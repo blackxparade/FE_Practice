@@ -7,8 +7,8 @@ function Item({
 	id = Math.floor(Math.random() * 100),
 	name = '',
 	summary = '',
-	} = {}) {
-		return { id, name, summary };
+} = {}) {
+	return { id, name, summary };
 }
 
 export function Store({ api }: { api: Api }) {
@@ -68,7 +68,7 @@ export function Store({ api }: { api: Api }) {
 		updateItem({ commit }: { commit: Commit }, item: Pick<Item, 'id'| 'name' | 'summary'>) {
 			commit('updateItem', item);
 		},
-		bulkDeleteItems({ commit }: { commit: Commit }, ids: number[]){
+		deleteItems({ commit }: { commit: Commit }, ids: number[]){
 			for(let i=0; i<ids.length; i++) {
 				commit('deleteItem', ids[i]);
 			}
