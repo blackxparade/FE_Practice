@@ -106,10 +106,10 @@ export default defineComponent({
 		return {
 			items: computed(() => state.items),
 			dispatchItem: (name: string, summary: string) => {
-				dispatch('addNewItem', { name: name, summary: summary });
+				dispatch('addNewItem', { name, summary });
 			},
 			updateItem: (id: number, name: string, summary: string) => {
-				dispatch('updateItem', {id: id, name: name, summary: summary});
+				dispatch('updateItem', { id, name, summary });
 			},
 			deleteItems: (ids: number[]) => {
 				dispatch('bulkDeleteItems', ids);
