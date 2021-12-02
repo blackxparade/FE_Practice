@@ -3,25 +3,30 @@
 		<main class="main section">
 			<div style="display: flex; gap: .5rem;">
 				<button class="button is-primary is-light" @click="showNewModal = true;">Add item</button>
-				<button 
+				<button
 					class="button is-light"
-					@click="prefillModal"
-					:disabled="checkedItems.length !== 1">
+					:disabled="checkedItems.length !== 1"
+					@click="prefillModal">
 					Edit
 				</button>
-				<button 
-					class="button is-danger is-light" 
-					@click="showDeleteModal = true;"
-					:disabled="checkedItems.length === 0">
+				<button
+					class="button is-danger is-light"
+					:disabled="checkedItems.length === 0"
+					@click="showDeleteModal = true;">
 					Delete
 				</button>
 			</div>
 
 			<div style="display: flex; flex-direction: column; gap: 1rem; margin-top: 1rem;">
 				<div v-for="item in items" :key="item.id" style="display: flex; align-content: center; gap: .75rem;">
-					<input type="checkbox" :id="item.id" :value="item" v-model="checkedItems" style="margin-top: 1rem;">
+					<input
+						:id="item.id"
+						v-model="checkedItems"
+						type="checkbox"
+						:value="item"
+						style="margin-top: 1rem;">
 					<label :for="item.id">
-						<item v-bind="item" style="cursor: pointer;"/>
+						<item v-bind="item" style="cursor: pointer;" />
 					</label>
 				</div>
 			</div>
@@ -30,31 +35,31 @@
 				v-if="showNewModal"
 				@close="clearData()">
 				<template #title>
-					{{ editMode ? "Edit item" : "Add item"}}
+					{{ editMode ? "Edit item" : "Add item" }}
 				</template>
 				<template #content>
-					<input 
-						class="input mb-4" 
-						type="text" 
-						placeholder="Name" 
-						v-model="name">
-					<input 
-						class="input" 
-						type="text" 
-						placeholder="Summary" 
-						v-model="summary">
+					<input
+						v-model="name"
+						class="input mb-4"
+						type="text"
+						placeholder="Name">
+					<input
+						v-model="summary"
+						class="input"
+						type="text"
+						placeholder="Summary">
 				</template>
 				<template #footer>
 					<button
 						class="button"
 						:disabled="(!name.length || !summary.length)"
-						@click="() => { 
-								if (!editMode) {
-									dispatchItem(name, summary); clearData(); clearSelections();
-								} else {
-									updateItem(checkedItems[0].id, name, summary); clearData();
-								}
-							}">
+						@click="() => {
+							if (!editMode) {
+								dispatchItem(name, summary); clearData(); clearSelections();
+							} else {
+								updateItem(checkedItems[0].id, name, summary); clearData();
+							}
+						}">
 						{{ editMode ? "Edit" : "Add" }}
 					</button>
 					<button class="button" @click="clearData()">Close</button>
@@ -124,8 +129,12 @@ export default defineComponent({
 			name: '',
 			summary: '',
 			// string, number, boolean, etc. types with capital or not??? which is the correct form?
-			checkedItems: [] as {id: number, name: string, summary: string}[],
+			checkedItems: [] as {id: number; name: string; summary: string}[],
 		};
+	},
+	computed: {
+		console: () => console,
+		window: () => window,
 	},
 	methods: {
 		listItemInfo(item: any) { return `${item.id} - ${item.name} , ${item.summary}`; },
