@@ -41,12 +41,12 @@ export function Store({ api }: { api: Api }) {
 			state.items = [ ...state.items, item ];
 		},
 		updateItem(state: State, item: Item) {
-			let itemIndex = state.items.findIndex(element => element.id === item.id);
-			state.items[itemIndex] = item;
+			const itemIndex = state.items.findIndex(element => element.id === item.id);
+			state.items[itemIndex] = { ...item };
 		},
 		deleteItem(state: State, id: number) {
 			state.items = state.items.filter(element => element.id != id);
-		}
+		},
 	};
 
 	const actions = {
