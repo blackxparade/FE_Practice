@@ -1,7 +1,7 @@
 /*  Create types for the following functions */
 import { Asset } from './01_Types';
 
-function addTwoNumber(a: number, b: number): number {
+function addTwoNumber(a: number, b: number) {
     return a + b;
 }
 
