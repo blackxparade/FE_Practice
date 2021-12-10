@@ -23,6 +23,6 @@
 		"src/**/*.vue",
 		"test/**/*.js",
 		"test/**/*.ts"
-	],
+, "../../lessons/Typescript/Lessons/Solutions/01_Types_solution.ts"	],
 	"exclude": ["node_modules", "dist"]
 }
