@@ -17,9 +17,9 @@ export type GetAssetsParams = {
 
 // Add types to the params in a way, that only the destructured values can be used for functions.
 
-export function Api({ get }) {
+export function Api() {
 	function getAssets(getAssetParams: GetAssetsParams) {
-		return get(getAssetParams);
+		return /* return some assets  from 01_types */
 	};
 
 	return {
@@ -41,7 +41,7 @@ export function Api({ get }) {
 
 // i dont understand the task here, example?
 /*  Create a derived type for the api, so when we modify later the api, we do not have to redeclare the types again */
-const api = Api( { get: (params) => params })
+const api = Api()
 
 type Api = ReturnType<typeof Api>;
 
@@ -56,13 +56,14 @@ function randomModule({ api }) {
 		fetchStock,
 	}
 }
-//
-/* As a result, fetchedStock should have a type of
+
+const { fetchStock } = randomModule({ api })
+
+/* As a result, fetchedStock params should have a type of
 {
 	searchTerm: string,
 	fetchData: true,
-	resourceCategory: 'stock'  | 'asset'
-
 }
 } */
+/* With the returing value of Assets from 01_types */
 const fetchedStock = fetchStock({ searchTerm: 'stockName1', fetchData: true})
