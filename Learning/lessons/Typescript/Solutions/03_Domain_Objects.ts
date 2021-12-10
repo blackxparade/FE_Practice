@@ -11,13 +11,39 @@ import { Asset } from './01_Types';
 /*  ok i have 0 idea if this works or not. :D
     my issue here was: how can i return an Asset object, filled with the unid, etc.
 */
-function AssetFactory(asset?: Asset, {
+
+function AssetFactory({
 	unid = Math.floor(Math.random() * 100),
 	resourceCategory = 'asset',
-	archived = 'false',
+	archived = false,
+    ...rest
 } = {}) {
-	return { unid, resourceCategory, archived, ...asset };
+	return { unid, resourceCategory, archived, ...rest };
 }
+
+export type OptionalProps<T, K extends keyof T> = Partial<Pick<T, K>> & Omit<T, K>;
+
+const Asset = ({
+    unid = Math.random().toString(),
+    resourceCategory = 'asset',
+    archived = false ,
+    ...rest
+}: OptionalProps<Asset, 'unid' | 'resourceCategory' | 'archived'>) : Asset => {
+    return {
+        unid,
+        resourceCategory,
+        archived: archived ,
+        ...rest,
+    };
+};
+
+export const asset1 = Asset({
+    name: 'Racing car2',
+    icon: 'car-32',
+    status: "Impacted",
+    type: 'car',
+})
+console.log(asset1.unid);
 
 
 /* Now we have a linkable assetItem, with all of the item properties and with these */
