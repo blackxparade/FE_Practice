@@ -15,13 +15,13 @@ function getName(firstName: string, lastName?: string) {
 }
 
 /* declare object desctructure*/
-function isStock({ resourceCategory }: Asset) {
+function isStock({ resourceCategory }: { resourceCategory: 'stock' | 'asset'}) {
    return resourceCategory ===  'stock';
 }
 
 
 function isImpactedStock({ status, resourceCategory }: Asset) {
-   if(status && isStock({ resourceCategory } as Asset)){
+   if(status && isStock({ resourceCategory })){
        return true;
    }
    return false;
