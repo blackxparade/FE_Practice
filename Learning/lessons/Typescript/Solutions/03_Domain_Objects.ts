@@ -46,21 +46,15 @@ export const asset1 = Asset({
 console.log(asset1.unid);
 
 
-/* Now we have a linkable assetItem, with all of the item properties and with these */
+/* Now we have a linkable assetItem, with all of the Asset properties and with these */
 /*  Write a function to create a linkAbleAssetItem */
 /*
     - linkable: boolean,
      capabilityId: 'STOCK_CAPABILITY | ASSET_CAPABILITY | LOCATION_CAPABILITY | PERSON_CAPABILITY',
 */
-// most probably not correct solution, how to do this in TS?
-function linkAbleAssetItem({ linkable: boolean, capabilityId: string, ...rest }) {
-        let linkable: boolean = this.linkable;
-        let capabilityId: 'STOCK_CAPABILITY' | 'ASSET_CAPABILITY' | 'LOCATION_CAPABILITY' | 'PERSON_CAPABILITY' = this.capabilityId;
-	return { linkable, capabilityId, ...rest };
-}
 
 
-/* Now we have a linked assetItem, with all of the item properties and with these */
+/* Now we have a linked assetItem, with all of the Asset properties and with these */
 /*  Write a function to create a linkedAssetItem */
 /*
     - linkedTo : string,
@@ -68,5 +62,3 @@ function linkAbleAssetItem({ linkable: boolean, capabilityId: string, ...rest })
     - linked: boolean,
     - capabilityId: 'STOCK_CAPABILITY | ASSET_CAPABILITY | LOCATION_CAPABILITY | PERSON_CAPABILITY',
 */
-
-// no idea
