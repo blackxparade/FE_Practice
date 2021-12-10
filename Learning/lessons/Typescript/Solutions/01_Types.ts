@@ -1,6 +1,6 @@
 /*  Create types for the following objects */
 
-export interface Asset {
+export type Asset = {
     name: string,
     unid: string,
     icon: string,
