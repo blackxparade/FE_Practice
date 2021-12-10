@@ -18,30 +18,32 @@ export type GetAssetsParams = {
 // Add types to the params in a way, that only the destructured values can be used for functions.
 
 export function Api({ get }) {
-
-	function getAssets(getAssetParams) {
+	function getAssets(getAssetParams: GetAssetsParams) {
 		return get(getAssetParams);
-	}
+	};
 
-	function getStock({searchTerm, fetchData }: 
-        Pick<GetAssetsParams,"searchTerm" | "fetchData">) {
-		return getAssets({ resourceCategory: 'stock', searchTerm, fetchData })
-	}
+	return {
+		getStock({searchTerm, fetchData }:
+			Pick<GetAssetsParams,"searchTerm" | "fetchData">) {
+			return getAssets({ resourceCategory: 'stock', searchTerm, fetchData })
+		},
+		getLinkableAssets({ linkableToAsset, linkableWithDirection, linkableWithCapability }:
+			Pick<GetAssetsParams,"linkableToAsset" | "linkableWithDirection" | "linkableWithCapability">) {
+			return getAssets({resourceCategory: 'asset', linkableToAsset, linkableWithDirection, linkableWithCapability})
+		},
+		getLinkedAsset({ linkedToAsset, linkedWithCapability }:
+			Pick<GetAssetsParams, "linkedToAsset" | "linkedWithCapability">) {
+			return getAssets({resourceCategory: 'asset', linkedToAsset, linkedWithCapability  } )
+		},
 
-	function getLinkableAssets({ linkableToAsset, linkableWithDirection, linkableWithCapability }:
-        Pick<GetAssetsParams,"linkableToAsset" | "linkableWithDirection" | "linkableWithCapability">) {
-		return getAssets({resourceCategory: 'asset', linkableToAsset, linkableWithDirection, linkableWithCapability})
-	}
-
-	function getLinkedAsset({ linkedToAsset, linkedWithCapability }:
-        Pick<GetAssetsParams, "linkedToAsset" | "linkedWithCapability">) {
-		return getAssets({resourceCategory: 'asset', linkedToAsset, linkedWithCapability  } )
 	}
 }
 
 // i dont understand the task here, example?
 /*  Create a derived type for the api, so when we modify later the api, we do not have to redeclare the types again */
 const api = Api( { get: (params) => params })
+
+type Api = ReturnType<typeof Api>;
 
 /* Use the declared types here */
 function randomModule({ api }) {
@@ -54,7 +56,7 @@ function randomModule({ api }) {
 		fetchStock,
 	}
 }
-// 
+//
 /* As a result, fetchedStock should have a type of
 {
 	searchTerm: string,
