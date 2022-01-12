@@ -15,6 +15,8 @@ export function Store({ api }: { api: Api }) {
 	const state = {
 		counter: 0,
 		message: null as string | null,
+		showNewModal: false,
+		showDeleteModal: false,
 		items: [
 			Item({ name: 'Name01', summary: 'Summary01' }),
 			Item({ name: 'Name02', summary: 'Summary02' }),
@@ -47,6 +49,12 @@ export function Store({ api }: { api: Api }) {
 		deleteItem(state: State, id: number) {
 			state.items = state.items.filter(element => element.id != id);
 		},
+		setNewModalVisibility(state: State, value: boolean) {
+			state.showNewModal = value;
+		},
+		setDeleteModalVisibility(state: State, value: boolean) {
+			state.showDeleteModal = value;
+		},
 	};
 
 	const actions = {
@@ -72,6 +80,12 @@ export function Store({ api }: { api: Api }) {
 			for(let i=0; i<ids.length; i++) {
 				commit('deleteItem', ids[i]);
 			}
+		},
+		setNewModalVisibility({ commit }: { commit: Commit }, value: boolean) {
+			commit('setNewModalVisibility', value);
+		},
+		setDeleteModalVisibility({ commit }: { commit: Commit }, value: boolean) {
+			commit('setDeleteModalVisibility', value);
 		},
 		async loadJoke({ commit }: { commit: Commit }) {
 			commit('showMessage', await api.getChuckNorrisJoke());

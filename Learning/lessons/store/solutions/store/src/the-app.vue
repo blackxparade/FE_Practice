@@ -2,7 +2,7 @@
 	<div class="page container">
 		<main class="main section">
 			<div style="display: flex; gap: .5rem;">
-				<button class="button is-primary is-light" @click="showNewModal = true;">Add item</button>
+				<button class="button is-primary is-light" @click="setNewModalVisibility(true)">Add item</button>
 				<button
 					class="button is-light"
 					:disabled="checkedItems.length !== 1"
@@ -12,7 +12,7 @@
 				<button
 					class="button is-danger is-light"
 					:disabled="checkedItems.length === 0"
-					@click="showDeleteModal = true;">
+					@click="setDeleteModalVisibility(true)">
 					Delete
 				</button>
 			</div>
@@ -31,9 +31,20 @@
 				</div>
 			</div>
 
-			<modal
+			<!-- how to move the contents of addItem to a method? where to put it? -->
+			<modal-addItem
+				v-bind="item"
 				v-if="showNewModal"
-				@close="clearData()">
+				@close="setNewModalVisibility(false);"
+				@nameChange="nameChange"
+				@summaryChange="summaryChange"
+				@addItem="dispatchItem(this.item.name, this.item.summary); setNewModalVisibility(false); clearData();">
+			</modal-addItem>
+
+			<!-- NEW MODAL -->
+			<!-- <modal
+				v-if="showNewModal"
+				@close="clearData(); setNewModalVisibility(false);">
 				<template #title>
 					{{ editMode ? "Edit item" : "Add item" }}
 				</template>
@@ -62,13 +73,14 @@
 						}">
 						{{ editMode ? "Edit" : "Add" }}
 					</button>
-					<button class="button" @click="clearData()">Close</button>
+					<button class="button" @click="clearData(); setNewModalVisibility(false);">Close</button>
 				</template>
-			</modal>
+			</modal> -->
 
+			<!-- DELETE MODAL -->
 			<modal
 				v-if="showDeleteModal"
-				@close="clearData()">
+				@close="clearData(); setDeleteModalVisibility(false);">
 				<template #title>
 					Deleting items
 				</template>
@@ -86,7 +98,7 @@
 						@click="deleteItems(getDeletableItemIds()); clearData(); clearSelections();">
 						Delete
 					</button>
-					<button class="button" @click="clearData()">Close</button>
+					<button class="button" @click="clearData(); setDeleteModalVisibility(false);">Close</button>
 				</template>
 			</modal>
 		</main>
@@ -98,18 +110,22 @@ import { computed, defineComponent } from 'vue';
 import { useStore } from 'src/vue-setup';
 import Item from './components/item.vue';
 import Modal from './components/modal.vue';
+import ModalAddItem from './components/modal-addItem.vue';
 
 /* scaffolding-enable */
 export default defineComponent({
 	/* scaffolding-disable unless keepExamples */
 	components: {
 		Item,
+		ModalAddItem, 
 		Modal,
 	},
 	setup(props) {
 		const { state, dispatch } = useStore();
 		return {
 			items: computed(() => state.items),
+			showNewModal: computed(() => state.showNewModal),
+			showDeleteModal: computed(() => state.showDeleteModal),
 			dispatchItem: (name: string, summary: string) => {
 				dispatch('addNewItem', { name, summary });
 			},
@@ -119,16 +135,22 @@ export default defineComponent({
 			deleteItems: (ids: number[]) => {
 				dispatch('deleteItems', ids);
 			},
+			setNewModalVisibility: (value: boolean) => {
+				dispatch('setNewModalVisibility', value);
+			},
+			setDeleteModalVisibility: (value: boolean) => {
+				dispatch('setDeleteModalVisibility', value);
+			},
 		};
 	},
 	data() {
 		return {
-			showNewModal: false,
-			showDeleteModal: false,
 			editMode: false,
-			name: '',
-			summary: '',
-			// string, number, boolean, etc. types with capital or not??? which is the correct form?
+			item: {
+				name: '',
+				summary: '',
+			},
+
 			checkedItems: [] as {id: number; name: string; summary: string}[],
 		};
 	},
@@ -137,19 +159,22 @@ export default defineComponent({
 		window: () => window,
 	},
 	methods: {
+		nameChange(value: string) {
+			this.item.name = value;
+		},
+		summaryChange(value: string) {
+			this.item.summary = value;
+		},
 		listItemInfo(item: any) { return `${item.id} - ${item.name} , ${item.summary}`; },
 		clearData() {
-			this.name = '';
-			this.summary = '';
-			this.showNewModal = false;
-			this.showDeleteModal = false;
+			this.item.name = '';
+			this.item.summary = '';
 			this.editMode = false;
 			return ;
 		},
 		prefillModal() {
-			this.name = this.checkedItems[0].name;
-			this.summary = this.checkedItems[0].summary;
-			this.showNewModal = true;
+			this.item.name = this.checkedItems[0].name;
+			this.item.summary = this.checkedItems[0].summary;
 			this.editMode = true;
 		},
 		getDeletableItemIds() {
@@ -162,10 +187,6 @@ export default defineComponent({
 		clearSelections() {
 			this.checkedItems = [];
 		}
-	},
-	computed: {
-		console: () => console,
-		window: () => window,
 	},
 });
 /* scaffolding-disable unless keepExamples */
