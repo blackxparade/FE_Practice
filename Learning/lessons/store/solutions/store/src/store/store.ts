@@ -16,6 +16,7 @@ export function Store({ api }: { api: Api }) {
 		counter: 0,
 		message: null as string | null,
 		showNewModal: false,
+		showEditModal: false,
 		showDeleteModal: false,
 		items: [
 			Item({ name: 'Name01', summary: 'Summary01' }),
@@ -52,6 +53,9 @@ export function Store({ api }: { api: Api }) {
 		setNewModalVisibility(state: State, value: boolean) {
 			state.showNewModal = value;
 		},
+		setEditModalVisibility(state: State, value: boolean) {
+			state.showEditModal = value;
+		},
 		setDeleteModalVisibility(state: State, value: boolean) {
 			state.showDeleteModal = value;
 		},
@@ -83,6 +87,9 @@ export function Store({ api }: { api: Api }) {
 		},
 		setNewModalVisibility({ commit }: { commit: Commit }, value: boolean) {
 			commit('setNewModalVisibility', value);
+		},
+		setEditModalVisibility({ commit }: { commit: Commit }, value: boolean) {
+			commit('setEditModalVisibility', value);
 		},
 		setDeleteModalVisibility({ commit }: { commit: Commit }, value: boolean) {
 			commit('setDeleteModalVisibility', value);

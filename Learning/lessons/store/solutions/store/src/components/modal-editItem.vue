@@ -1,10 +1,10 @@
 <template>
     <modal>
         <template #title>
-            Add item
+            <slot name="title"/>
         </template>
         <template #content>
-            <!-- how to change parent component's value from here in a nice way (name and summary) -->
+            <!-- how to change parent component's value from here in a nicer way (name and summary) -->
             <input
                 :value="this.name"
                 class="input mb-4"
@@ -24,8 +24,8 @@
             <button
                 class="button"
                 :disabled="(!name.length || !summary.length)"
-                @click="$emit('addItem')">
-                Add
+                @click="$emit('editItem')">
+                 <slot name="actionButtonLabel"/>
             </button>
             <button class="button" @click="$emit('close')">Close</button>
         </template>
@@ -44,10 +44,5 @@ export default defineComponent({
     components: {
 		Modal,
 	},
-    methods: {
-        printProps() {
-            console.log(`Name: ${this.name}, summary: ${this.summary}`);
-        },
-    },
 });
 </script>
