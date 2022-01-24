@@ -39,7 +39,7 @@
 			</div>
 
 			<!-- NEW ITEM MODAL -->
-			<modal-editItem
+			<!-- <modal-editItem
 				v-bind="item"
 				v-if="showNewModal"
 				@close="setNewModalVisibility(false);"
@@ -48,16 +48,36 @@
 				@editItem="addNewItemHandler()">
 				<template #title>Add item</template>
 				<template #actionButtonLabel>Add</template>
+			</modal-editItem> -->
+
+			<modal-editItem
+				v-bind="item"
+				v-if="showNewModal"
+				@close="setNewModalVisibility(false)"
+				@inputChange="inputChange"
+				@modalClose="closeModalHandler()">
+				<template #title>Add item</template>
+				<template #actionButtonLabel>Add</template>
 			</modal-editItem>
 
 			<!-- EDIT ITEM MODAL -->
-			<modal-editItem
+			<!-- <modal-editItem
 				v-bind="item"
 				v-if="showEditModal"
 				@close="setEditModalVisibility(false);"
 				@nameChange="nameChange"
 				@summaryChange="summaryChange"
 				@editItem="editItemHandler()">
+				<template #title>Edit item</template>
+				<template #actionButtonLabel>Edit</template>
+			</modal-editItem> -->
+
+			<modal-editItem
+				v-bind="item"
+				v-if="showEditModal"
+				@close="setEditModalVisibility(false)"
+				@inputChange="inputChange"
+				@modalClose="closeModalHandler()">
 				<template #title>Edit item</template>
 				<template #actionButtonLabel>Edit</template>
 			</modal-editItem>
@@ -116,12 +136,6 @@ export default defineComponent({
 			showNewModal: computed(() => state.showNewModal),
 			showEditModal: computed(() => state.showEditModal),
 			showDeleteModal: computed(() => state.showDeleteModal),
-			dispatchItem: (name: string, summary: string) => {
-				dispatch('addNewItem', { name, summary });
-			},
-			updateItem: (id: number, name: string, summary: string) => {
-				dispatch('updateItem', { id, name, summary });
-			},
 			deleteItems: (ids: number[]) => {
 				dispatch('deleteItems', ids);
 			},
@@ -139,6 +153,8 @@ export default defineComponent({
 	data() {
 		return {
 			item: {
+				isEditMode: false,
+				id: -1,
 				name: '',
 				summary: '',
 			},
@@ -151,11 +167,9 @@ export default defineComponent({
 		window: () => window,
 	},
 	methods: {
-		nameChange(value: string) {
-			this.item.name = value;
-		},
-		summaryChange(value: string) {
-			this.item.summary = value;
+		inputChange(value: any) {
+			this.item.name = value.name;
+			this.item.summary = value.summary;
 		},
 		listItemInfo(item: any) { return `${item.id} - ${item.name}, ${item.summary}`; },
 		clearData() {
@@ -164,6 +178,8 @@ export default defineComponent({
 			return ;
 		},
 		prefillModal() {
+			this.item.isEditMode = true;
+			this.item.id = this.checkedItems[0].id;
 			this.item.name = this.checkedItems[0].name;
 			this.item.summary = this.checkedItems[0].summary;
 			this.setEditModalVisibility(true);
@@ -175,17 +191,10 @@ export default defineComponent({
 			}
 			return toDelete;
 		},
-		addNewItemHandler() {
-			this.dispatchItem(this.item.name, this.item.summary); 
+		closeModalHandler() {
 			this.clearData();
 			this.clearSelections();
-			this.setNewModalVisibility(false); 
-		},
-		editItemHandler() {
-			this.updateItem(this.checkedItems[0].id, this.item.name, this.item.summary);
-			this.clearData();
-			this.clearSelections();
-			this.setEditModalVisibility(false); 
+			this.item.isEditMode = false;
 		},
 		deleteItemHandler(){
 			this.deleteItems(this.getDeletableItemIds()); 
