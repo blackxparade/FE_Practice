@@ -29,7 +29,6 @@
 					<input
 						:id="item.id"
 						v-model="checkedItems"
-						@click="checkedTest(item)"
 						type="checkbox"
 						:value="item"
 						style="margin-top: 1rem;">
@@ -148,12 +147,8 @@ export default defineComponent({
 	computed: {
 		console: () => console,
 		window: () => window,
-
 	},
 	methods: {
-		checkedTest(targetItem: any){
-			console.log(targetItem);
-		},
 		inputChange(value: any) {
 			this.item.name = value.name;
 			this.item.summary = value.summary;
