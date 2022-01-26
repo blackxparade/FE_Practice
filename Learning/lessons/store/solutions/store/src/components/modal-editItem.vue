@@ -60,9 +60,6 @@ export default defineComponent({
 			},
 		};
 	},
-	created: () => {
-
-    },
 	props: {
 		isEditMode: {type: Boolean, default: false},
 		id: {type: Number, default: -1 },

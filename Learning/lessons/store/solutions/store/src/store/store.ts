@@ -22,6 +22,7 @@ export function Store({ api }: { api: Api }) {
 			Item({ name: 'Name01', summary: 'Summary01' }),
 			Item({ name: 'Name02', summary: 'Summary02' }),
 		],
+		checkedItems: [] as {id: number; name: string; summary: string}[],
 	};
 
 
@@ -46,6 +47,9 @@ export function Store({ api }: { api: Api }) {
 		updateItem(state: State, item: Item) {
 			const itemIndex = state.items.findIndex(element => element.id === item.id);
 			state.items[itemIndex] = { ...item };
+		},
+		updateCheckedItems(state: State, items: any) {
+			state.checkedItems = items;
 		},
 		deleteItem(state: State, id: number) {
 			state.items = state.items.filter(element => element.id != id);
@@ -79,6 +83,9 @@ export function Store({ api }: { api: Api }) {
 		},
 		updateItem({ commit }: { commit: Commit }, item: Pick<Item, 'id'| 'name' | 'summary'>) {
 			commit('updateItem', item);
+		},
+		updateCheckedItems({ commit }: { commit: Commit }, items: any) {
+			commit('updateCheckedItems', items);
 		},
 		deleteItems({ commit }: { commit: Commit }, ids: number[]){
 			for(let i=0; i<ids.length; i++) {

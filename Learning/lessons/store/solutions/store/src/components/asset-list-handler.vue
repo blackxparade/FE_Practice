@@ -29,6 +29,7 @@
 					<input
 						:id="item.id"
 						v-model="checkedItems"
+						@click="checkedTest(item)"
 						type="checkbox"
 						:value="item"
 						style="margin-top: 1rem;">
@@ -39,17 +40,6 @@
 			</div>
 
 			<!-- NEW ITEM MODAL -->
-			<!-- <modal-editItem
-				v-bind="item"
-				v-if="showNewModal"
-				@close="setNewModalVisibility(false);"
-				@nameChange="nameChange"
-				@summaryChange="summaryChange"
-				@editItem="addNewItemHandler()">
-				<template #title>Add item</template>
-				<template #actionButtonLabel>Add</template>
-			</modal-editItem> -->
-
 			<modal-editItem
 				v-bind="item"
 				v-if="showNewModal"
@@ -61,17 +51,6 @@
 			</modal-editItem>
 
 			<!-- EDIT ITEM MODAL -->
-			<!-- <modal-editItem
-				v-bind="item"
-				v-if="showEditModal"
-				@close="setEditModalVisibility(false);"
-				@nameChange="nameChange"
-				@summaryChange="summaryChange"
-				@editItem="editItemHandler()">
-				<template #title>Edit item</template>
-				<template #actionButtonLabel>Edit</template>
-			</modal-editItem> -->
-
 			<modal-editItem
 				v-bind="item"
 				v-if="showEditModal"
@@ -136,6 +115,12 @@ export default defineComponent({
 			showNewModal: computed(() => state.showNewModal),
 			showEditModal: computed(() => state.showEditModal),
 			showDeleteModal: computed(() => state.showDeleteModal),
+			checkedItems: computed({
+				get: () => state.checkedItems,
+				set: value => {
+					dispatch('updateCheckedItems', value)
+				}
+			}),
 			deleteItems: (ids: number[]) => {
 				dispatch('deleteItems', ids);
 			},
@@ -158,20 +143,24 @@ export default defineComponent({
 				name: '',
 				summary: '',
 			},
-
-			checkedItems: [] as {id: number; name: string; summary: string}[],
 		};
 	},
 	computed: {
 		console: () => console,
 		window: () => window,
+
 	},
 	methods: {
+		checkedTest(targetItem: any){
+			console.log(targetItem);
+		},
 		inputChange(value: any) {
 			this.item.name = value.name;
 			this.item.summary = value.summary;
 		},
-		listItemInfo(item: any) { return `${item.id} - ${item.name}, ${item.summary}`; },
+		listItemInfo(item: any) { 
+			return `${item.id} - ${item.name}, ${item.summary}`; 
+		},
 		clearData() {
 			this.item.name = '';
 			this.item.summary = '';
