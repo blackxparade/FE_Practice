@@ -2,6 +2,7 @@ import { Commit } from 'vuex'; // scaffolding-disable-line unless keepExamples
 import { Api } from '../api';
 
 type Item = ReturnType<typeof Item>;
+type SelectableItem = ReturnType<typeof SelectableItem>;
 
 function Item({
 	id = Math.floor(Math.random() * 100),
@@ -9,6 +10,10 @@ function Item({
 	summary = '',
 } = {}) {
 	return { id, name, summary };
+}
+
+function SelectableItem<T>(isSelected: boolean, item: T){
+	return { isSelected, item };
 }
 
 export function Store({ api }: { api: Api }) {
@@ -19,8 +24,8 @@ export function Store({ api }: { api: Api }) {
 		showEditModal: false,
 		showDeleteModal: false,
 		items: [
-			Item({ name: 'Name01', summary: 'Summary01' }),
-			Item({ name: 'Name02', summary: 'Summary02' }),
+			SelectableItem(false, Item({ name: 'Name01', summary: 'Summary01' })),
+			SelectableItem(true, Item({ name: 'Name02', summary: 'Summary02' })),
 		],
 		checkedItems: [] as {id: number; name: string; summary: string}[],
 	};
@@ -32,6 +37,9 @@ export function Store({ api }: { api: Api }) {
 		isTired({ counter }: State) {
 			return counter >= 5;
 		},
+		selectedItems({ items }: State) {
+			return items.filter(element => element.isSelected == true);
+		},
 	};
 	type Getters = { [key in keyof typeof getters]: ReturnType<typeof getters[key]> };
 	const mutations = {
@@ -42,17 +50,28 @@ export function Store({ api }: { api: Api }) {
 			state.message = message;
 		},
 		addNewItem(state: State, item: Item) {
-			state.items = [ ...state.items, item ];
+			state.items = [ ...state.items, SelectableItem(false, item) ];
 		},
 		updateItem(state: State, item: Item) {
-			const itemIndex = state.items.findIndex(element => element.id === item.id);
-			state.items[itemIndex] = { ...item };
+			const itemIndex = state.items.findIndex(element => element.item.id === item.id);
+			state.items[itemIndex] = { ...SelectableItem(state.items[itemIndex].isSelected, item) };
 		},
 		updateCheckedItems(state: State, items: any) {
 			state.checkedItems = items;
 		},
 		deleteItem(state: State, id: number) {
-			state.items = state.items.filter(element => element.id != id);
+			state.items = state.items.filter(element => element.item.id != id);
+		},
+		selectionChange(state: State, id: number) {
+			const itemIndex = state.items.findIndex(element => element.item.id === id);
+			state.items[itemIndex].isSelected = !state.items[itemIndex].isSelected;
+		},
+		clearSelections(state: State) {
+			state.items.forEach((item) => {
+				if (item.isSelected === true) {
+					item.isSelected = false;
+				}
+			});
 		},
 		setNewModalVisibility(state: State, value: boolean) {
 			state.showNewModal = value;
@@ -91,6 +110,12 @@ export function Store({ api }: { api: Api }) {
 			for(let i=0; i<ids.length; i++) {
 				commit('deleteItem', ids[i]);
 			}
+		},
+		selectionChange({ commit }: { commit : Commit }, id: number) {
+			commit('selectionChange', id);
+		},
+		clearSelections({ commit }: { commit : Commit }) {
+			commit('clearSelections');
 		},
 		setNewModalVisibility({ commit }: { commit: Commit }, value: boolean) {
 			commit('setNewModalVisibility', value);

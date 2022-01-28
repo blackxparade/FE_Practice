@@ -11,13 +11,13 @@
 				</button>
 				<button
 					class="button is-light"
-					:disabled="checkedItems.length !== 1"
-					@click="prefillModal()">
+					:disabled="selected.length !== 1"
+					@click="prefillModal(); console.log(selected)">
 					Edit
 				</button>
 				<button
 					class="button is-danger is-light"
-					:disabled="checkedItems.length === 0"
+					:disabled="selected.length === 0"
 					@click="setDeleteModalVisibility(true)">
 					Delete
 				</button>
@@ -27,19 +27,20 @@
 			<div style="display: flex; flex-direction: column; gap: 1rem; margin-top: 1rem;">
 				<div v-for="item in items" :key="item.id" style="display: flex; align-content: center; gap: .75rem;">
 					<input
-						:id="item.id"
-						v-model="checkedItems"
+						:id="item.item.id"
+						v-model="selected"
 						type="checkbox"
 						:value="item"
+						@click="selectionChange(item.item.id)"
 						style="margin-top: 1rem;">
-					<label :for="item.id">
-						<item v-bind="item" style="cursor: pointer;" />
+					<label :for="item.item.id">
+						<item v-bind="item.item" style="cursor: pointer;" />
 					</label>
 				</div>
 			</div>
 
 			<!-- NEW ITEM MODAL -->
-			<modal-editItem
+			<!-- <modal-editItem
 				v-bind="item"
 				v-if="showNewModal"
 				@close="setNewModalVisibility(false)"
@@ -47,7 +48,9 @@
 				@modalClose="closeModalHandler()">
 				<template #title>Add item</template>
 				<template #actionButtonLabel>Add</template>
-			</modal-editItem>
+			</modal-editItem> -->
+
+			<modal-newItem />
 
 			<!-- EDIT ITEM MODAL -->
 			<modal-editItem
@@ -70,8 +73,8 @@
 				<template #content>
 					<strong>Are you sure to delete these items?</strong>
 					<ul style="margin-top: 1rem;">
-						<li v-for="item in checkedItems" :key="item.id">
-							{{ listItemInfo(item) }}
+						<li v-for="item in selected" :key="item.item.id">
+							{{ listItemInfo(item.item) }}
 						</li>
 					</ul>
 				</template>
@@ -98,6 +101,7 @@ import { useStore } from 'src/vue-setup';
 import Item from './item.vue';
 import Modal from './modal.vue';
 import ModalEditItem from './modal-editItem.vue';
+import ModalNewItem from './modal-newItem.vue';
 
 /* scaffolding-enable */
 export default defineComponent({
@@ -105,15 +109,17 @@ export default defineComponent({
 	components: {
 		Item,
 		ModalEditItem, 
+		ModalNewItem,
 		Modal,
 	},
 	setup(props) {
-		const { state, dispatch } = useStore();
+		const { state, dispatch, getters } = useStore();
 		return {
 			items: computed(() => state.items),
 			showNewModal: computed(() => state.showNewModal),
 			showEditModal: computed(() => state.showEditModal),
 			showDeleteModal: computed(() => state.showDeleteModal),
+			selected: computed(() => getters.selectedItems),
 			checkedItems: computed({
 				get: () => state.checkedItems,
 				set: value => {
@@ -122,6 +128,9 @@ export default defineComponent({
 			}),
 			deleteItems: (ids: number[]) => {
 				dispatch('deleteItems', ids);
+			},
+			selectionChange: (id: number) => {
+				dispatch('selectionChange', id);
 			},
 			setNewModalVisibility: (value: boolean) => {
 				dispatch('setNewModalVisibility', value);
@@ -162,10 +171,10 @@ export default defineComponent({
 			return ;
 		},
 		prefillModal() {
-			this.item.isEditMode = true;
-			this.item.id = this.checkedItems[0].id;
-			this.item.name = this.checkedItems[0].name;
-			this.item.summary = this.checkedItems[0].summary;
+			// this.item.isEditMode = true;
+			// this.item.id = this.checkedItems[0].id;
+			// this.item.name = this.checkedItems[0].name;
+			// this.item.summary = this.checkedItems[0].summary;
 			this.setEditModalVisibility(true);
 		},
 		getDeletableItemIds() {

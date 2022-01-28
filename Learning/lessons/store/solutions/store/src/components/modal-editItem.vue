@@ -100,9 +100,3 @@ export default defineComponent({
 	},
 });
 </script>
-
-<!-- 1. Add store to modals -->
-<!-- 2. Use setup to fill default values -->
-<!-- 3. Separate the modals into different modules -->
-<!-- 4. Create 3 separable list with all of the functionalities. -->
-<!-- 5. Handle the selections in store -->
