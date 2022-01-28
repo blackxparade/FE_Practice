@@ -1,7 +1,6 @@
 <template>
 	<modal
-    v-if="showNewModal"
-    @close="closeModal">
+	@close="closeModal">
 		<template #title>
 			Add Item
 		</template>
@@ -20,7 +19,7 @@
 		<template #footer>
 			<button
 				class="button"
-				
+				:disabled="(!name.length || !summary.length)"
 				@click="addItem()">
 				Add
 			</button>

@@ -1,31 +1,27 @@
 <template>
-	<modal>
+	<modal
+	@close="closeModal">
 		<template #title>
-			<slot name="title" />
+			Edit item
 		</template>
 		<template #content>
-			<!-- how to change parent component's value from here in a nicer way (name and summary) -->
 			<input
-				:value="name"
+				v-model="this.item.name"
 				class="input mb-4"
-				id="Name"
 				type="text"
-				placeholder="Name"
-				@input="$emit('inputChange', inputChange($event.target))">
+				placeholder="Name">
 			<input
-				:value="summary"
+				v-model="item.summary"
 				class="input"
-				id="Summary"
 				type="text"
-				placeholder="Summary"
-				@input="$emit('inputChange', inputChange($event.target))">
+				placeholder="Summary">
 		</template>
 		<template #footer>
 			<button
 				class="button"
-				:disabled="(!name.length || !summary.length)"
-				@click="changeAction()">
-				<slot name="actionButtonLabel" />
+				:disabled="(!item.name.length || !item.summary.length)"
+				@click="editItem()">
+				Edit
 			</button>
 			<button class="button" @click="closeModal()">Close</button>
 		</template>
@@ -41,62 +37,43 @@ export default defineComponent({
 	components: {
 		Modal,
 	},
+
 	setup(props) {
-		const { state, dispatch } = useStore();
+		const { state, dispatch, getters } = useStore();
 		return {
-			showNewModal: computed(() => state.showNewModal),
-			showEditModal: computed(() => state.showNewModal),
-			dispatchItem: (name: string, summary: string) => {
-				dispatch('addNewItem', { name, summary });
-			},
+			showEditModal: computed(() => state.showEditModal),
+			selectedItems: computed(() => getters.selectedItems),
 			updateItem: (id: number, name: string, summary: string) => {
 				dispatch('updateItem', { id, name, summary });
-			},
-			setNewModalVisibility: (value: boolean) => {
-				dispatch('setNewModalVisibility', value);
 			},
 			setEditModalVisibility: (value: boolean) => {
 				dispatch('setEditModalVisibility', value);
 			},
 		};
 	},
-	props: {
-		isEditMode: {type: Boolean, default: false},
-		id: {type: Number, default: -1 },
-		name: { type: String, default: '' },
-		summary: { type: String, default: '' },
+	data() {
+		return {
+			item: {
+				id: 0,
+				name: '',
+				summary: '',
+			}
+		};
 	},
+	created: function () {
+		// Object.assign(target, source) was used here bc else i got runtime errors
+		// saying dont mutate a vuex object. -> with a simple = it created a reference
+		// but now it copis the object data to this.item.
+    	this.item = Object.assign({}, this.selectedItems[0].item);
+  	},
 	methods: {
 		closeModal() {
-			if (this.isEditMode) {
-				this.setEditModalVisibility(false);
-			} else {
-				this.setNewModalVisibility(false);
-			}
-			this.$emit('modalClose');
+			this.setEditModalVisibility(false);
 		},
-		changeAction() {
-			if (this.isEditMode) {
-				this.updateItem(this.id, this.name, this.summary);
-			} else {
-				this.dispatchItem(this.name, this.summary);
-			}
+		editItem() {
+			this.updateItem(this.item.id, this.item.name, this.item.summary);
 			this.closeModal();	
 		},
-		inputChange(targetValue: HTMLInputElement): any {
-			if (targetValue.id === "Name") {
-				return {
-					name: targetValue.value,
-					summary: this.summary
-				}
-			}
-			if (targetValue.id === "Summary") {
-				return {
-					name: this.name,
-					summary: targetValue.value
-				}
-			}
-		}
 	},
 });
 </script>

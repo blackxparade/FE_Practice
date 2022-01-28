@@ -11,13 +11,13 @@
 				</button>
 				<button
 					class="button is-light"
-					:disabled="selected.length !== 1"
-					@click="prefillModal(); console.log(selected)">
+					:disabled="selectedItems.length !== 1"
+					@click="setEditModalVisibility(true)">
 					Edit
 				</button>
 				<button
 					class="button is-danger is-light"
-					:disabled="selected.length === 0"
+					:disabled="selectedItems.length === 0"
 					@click="setDeleteModalVisibility(true)">
 					Delete
 				</button>
@@ -25,72 +25,34 @@
 
 			<!-- ASSET ITEM LIST -->
 			<div style="display: flex; flex-direction: column; gap: 1rem; margin-top: 1rem;">
-				<div v-for="item in items" :key="item.id" style="display: flex; align-content: center; gap: .75rem;">
+				<div v-for="i in items" :key="i.id" style="display: flex; align-content: center; gap: .75rem;">
 					<input
-						:id="item.item.id"
-						v-model="selected"
+						:id="i.item.id"
+						v-model="selectedItems"
 						type="checkbox"
-						:value="item"
-						@click="selectionChange(item.item.id)"
+						:value="i"
+						@click="selectionChange(i.item.id)"
 						style="margin-top: 1rem;">
-					<label :for="item.item.id">
-						<item v-bind="item.item" style="cursor: pointer;" />
+					<label :for="i.item.id">
+						<item v-bind="i.item" style="cursor: pointer;" />
 					</label>
 				</div>
 			</div>
 
 			<!-- NEW ITEM MODAL -->
-			<!-- <modal-editItem
-				v-bind="item"
-				v-if="showNewModal"
-				@close="setNewModalVisibility(false)"
-				@inputChange="inputChange"
-				@modalClose="closeModalHandler()">
-				<template #title>Add item</template>
-				<template #actionButtonLabel>Add</template>
-			</modal-editItem> -->
-
-			<modal-newItem />
+			<modal-newItem
+			v-if="showNewModal">
+			</modal-newItem>
 
 			<!-- EDIT ITEM MODAL -->
 			<modal-editItem
-				v-bind="item"
-				v-if="showEditModal"
-				@close="setEditModalVisibility(false)"
-				@inputChange="inputChange"
-				@modalClose="closeModalHandler()">
-				<template #title>Edit item</template>
-				<template #actionButtonLabel>Edit</template>
+			v-if="showEditModal">
 			</modal-editItem>
 
 			<!-- DELETE MODAL -->
-			<modal
-				v-if="showDeleteModal"
-				@close="clearData(); setDeleteModalVisibility(false);">
-				<template #title>
-					Deleting items
-				</template>
-				<template #content>
-					<strong>Are you sure to delete these items?</strong>
-					<ul style="margin-top: 1rem;">
-						<li v-for="item in selected" :key="item.item.id">
-							{{ listItemInfo(item.item) }}
-						</li>
-					</ul>
-				</template>
-				<template #footer>
-					<button
-						class="button"
-						@click="deleteItemHandler()">
-						Delete
-					</button>
-					<button 
-						class="button" 
-						@click="setDeleteModalVisibility(false);">
-						Close
-					</button>
-				</template>
-			</modal>
+			<modal-deleteItem
+			v-if="showDeleteModal">
+			</modal-deleteItem>
 		</main>
 	</div>
 </template>
@@ -102,15 +64,17 @@ import Item from './item.vue';
 import Modal from './modal.vue';
 import ModalEditItem from './modal-editItem.vue';
 import ModalNewItem from './modal-newItem.vue';
+import ModalDeleteItem from './modal-deleteItem.vue';
 
 /* scaffolding-enable */
 export default defineComponent({
 	/* scaffolding-disable unless keepExamples */
 	components: {
 		Item,
+		Modal,
 		ModalEditItem, 
 		ModalNewItem,
-		Modal,
+		ModalDeleteItem,
 	},
 	setup(props) {
 		const { state, dispatch, getters } = useStore();
@@ -119,16 +83,7 @@ export default defineComponent({
 			showNewModal: computed(() => state.showNewModal),
 			showEditModal: computed(() => state.showEditModal),
 			showDeleteModal: computed(() => state.showDeleteModal),
-			selected: computed(() => getters.selectedItems),
-			checkedItems: computed({
-				get: () => state.checkedItems,
-				set: value => {
-					dispatch('updateCheckedItems', value)
-				}
-			}),
-			deleteItems: (ids: number[]) => {
-				dispatch('deleteItems', ids);
-			},
+			selectedItems: computed(() => getters.selectedItems),
 			selectionChange: (id: number) => {
 				dispatch('selectionChange', id);
 			},
@@ -140,13 +95,12 @@ export default defineComponent({
 			},
 			setDeleteModalVisibility: (value: boolean) => {
 				dispatch('setDeleteModalVisibility', value);
-			},
+			}
 		};
 	},
 	data() {
 		return {
 			item: {
-				isEditMode: false,
 				id: -1,
 				name: '',
 				summary: '',
@@ -156,49 +110,7 @@ export default defineComponent({
 	computed: {
 		console: () => console,
 		window: () => window,
-	},
-	methods: {
-		inputChange(value: any) {
-			this.item.name = value.name;
-			this.item.summary = value.summary;
-		},
-		listItemInfo(item: any) { 
-			return `${item.id} - ${item.name}, ${item.summary}`; 
-		},
-		clearData() {
-			this.item.name = '';
-			this.item.summary = '';
-			return ;
-		},
-		prefillModal() {
-			// this.item.isEditMode = true;
-			// this.item.id = this.checkedItems[0].id;
-			// this.item.name = this.checkedItems[0].name;
-			// this.item.summary = this.checkedItems[0].summary;
-			this.setEditModalVisibility(true);
-		},
-		getDeletableItemIds() {
-			let toDelete: number[] = [];
-			for (let i=0; i<this.checkedItems.length; i++) {
-				toDelete.push(this.checkedItems[i].id);
-			}
-			return toDelete;
-		},
-		closeModalHandler() {
-			this.clearData();
-			this.clearSelections();
-			this.item.isEditMode = false;
-		},
-		deleteItemHandler(){
-			this.deleteItems(this.getDeletableItemIds()); 
-			this.clearData(); 
-			this.clearSelections(); 
-			this.setDeleteModalVisibility(false);
-		},
-		clearSelections() {
-			this.checkedItems = [];
-		}
-	},
+	}
 });
 /* scaffolding-disable unless keepExamples */
 

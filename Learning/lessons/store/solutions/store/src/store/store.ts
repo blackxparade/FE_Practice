@@ -62,6 +62,10 @@ export function Store({ api }: { api: Api }) {
 		deleteItem(state: State, id: number) {
 			state.items = state.items.filter(element => element.item.id != id);
 		},
+		deleteSelectedItems(state: State) {
+			// filter out the NOT selected items, make a new array with em
+			state.items = state.items.filter(element => element.isSelected === false);
+		},
 		selectionChange(state: State, id: number) {
 			const itemIndex = state.items.findIndex(element => element.item.id === id);
 			state.items[itemIndex].isSelected = !state.items[itemIndex].isSelected;
@@ -110,6 +114,9 @@ export function Store({ api }: { api: Api }) {
 			for(let i=0; i<ids.length; i++) {
 				commit('deleteItem', ids[i]);
 			}
+		},
+		deleteSelectedItems({ commit }: { commit: Commit }) {
+			commit('deleteSelectedItems');	
 		},
 		selectionChange({ commit }: { commit : Commit }, id: number) {
 			commit('selectionChange', id);
