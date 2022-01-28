@@ -6,19 +6,19 @@
 			<div style="display: flex; gap: .5rem;">
 				<button 
 					class="button is-primary is-light" 
-					@click="setNewModalVisibility(true)">
+					@click="openNewModal">
 					Add item
 				</button>
 				<button
 					class="button is-light"
 					:disabled="selectedItems.length !== 1"
-					@click="setEditModalVisibility(true)">
+					@click="openEditModal">
 					Edit
 				</button>
 				<button
 					class="button is-danger is-light"
 					:disabled="selectedItems.length === 0"
-					@click="setDeleteModalVisibility(true)">
+					@click="openDeleteModal">
 					Delete
 				</button>
 			</div>
@@ -60,11 +60,11 @@
 <script lang="ts">
 import { computed, defineComponent } from 'vue';
 import { useStore } from 'src/vue-setup';
-import Item from './item.vue';
-import Modal from './modal.vue';
-import ModalEditItem from './modal-editItem.vue';
-import ModalNewItem from './modal-newItem.vue';
-import ModalDeleteItem from './modal-deleteItem.vue';
+import Item from '../components/item.vue';
+import Modal from '../components/modal.vue';
+import ModalEditItem from '../components/modal-editItem.vue';
+import ModalNewItem from '../components/modal-newItem.vue';
+import ModalDeleteItem from '../components/modal-deleteItem.vue';
 
 /* scaffolding-enable */
 export default defineComponent({
@@ -98,18 +98,20 @@ export default defineComponent({
 			}
 		};
 	},
-	data() {
-		return {
-			item: {
-				id: -1,
-				name: '',
-				summary: '',
-			},
-		};
-	},
 	computed: {
 		console: () => console,
 		window: () => window,
+	},
+	methods: {
+		openNewModal() {
+			this.setNewModalVisibility(true);
+		},
+		openEditModal() {
+			this.setEditModalVisibility(true);
+		},
+		openDeleteModal() {
+			this.setDeleteModalVisibility(true);
+		},
 	}
 });
 /* scaffolding-disable unless keepExamples */

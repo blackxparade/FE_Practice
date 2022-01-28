@@ -26,10 +26,8 @@ export function Store({ api }: { api: Api }) {
 		items: [
 			SelectableItem(false, Item({ name: 'Name01', summary: 'Summary01' })),
 			SelectableItem(true, Item({ name: 'Name02', summary: 'Summary02' })),
-		],
-		checkedItems: [] as {id: number; name: string; summary: string}[],
+		]
 	};
-
 
 	type State = typeof state;
 
@@ -55,12 +53,6 @@ export function Store({ api }: { api: Api }) {
 		updateItem(state: State, item: Item) {
 			const itemIndex = state.items.findIndex(element => element.item.id === item.id);
 			state.items[itemIndex] = { ...SelectableItem(state.items[itemIndex].isSelected, item) };
-		},
-		updateCheckedItems(state: State, items: any) {
-			state.checkedItems = items;
-		},
-		deleteItem(state: State, id: number) {
-			state.items = state.items.filter(element => element.item.id != id);
 		},
 		deleteSelectedItems(state: State) {
 			// filter out the NOT selected items, make a new array with em
@@ -106,14 +98,6 @@ export function Store({ api }: { api: Api }) {
 		},
 		updateItem({ commit }: { commit: Commit }, item: Pick<Item, 'id'| 'name' | 'summary'>) {
 			commit('updateItem', item);
-		},
-		updateCheckedItems({ commit }: { commit: Commit }, items: any) {
-			commit('updateCheckedItems', items);
-		},
-		deleteItems({ commit }: { commit: Commit }, ids: number[]){
-			for(let i=0; i<ids.length; i++) {
-				commit('deleteItem', ids[i]);
-			}
 		},
 		deleteSelectedItems({ commit }: { commit: Commit }) {
 			commit('deleteSelectedItems');	
