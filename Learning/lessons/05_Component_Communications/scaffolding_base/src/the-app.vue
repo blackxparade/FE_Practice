@@ -1,8 +1,11 @@
 <template>
 	<div class="page container">
 		<main class="main section">
+			<h1 class="title">Lesson 01</h1>
 			<app-with-events></app-with-events>
 			<app-with-slots></app-with-slots>
+			<h1 class="title">Lesson 02</h1>
+			<l-2-app-with-events></l-2-app-with-events>
 		</main>
 	</div>
 </template>
@@ -11,12 +14,14 @@
 
 import { ref } from 'vue';
 import { defineComponent } from 'vue';
-import AppWithEvents from './components/events/app-with-events.vue';
-import AppWithSlots from './components/slots/app-with-slots.vue';
+import AppWithEvents from './components/lesson-01-events/app-with-events.vue';
+import AppWithSlots from './components/lesson-01-slots/app-with-slots.vue';
+import L2AppWithEvents from './components/lesson-02-events/l2-app-with-events.vue';
 export default defineComponent({
 	components: {
 		AppWithEvents,
-		AppWithSlots
+		AppWithSlots,
+		L2AppWithEvents,
 	},
 	setup: () => {
 		const message = ref('This is the default message')

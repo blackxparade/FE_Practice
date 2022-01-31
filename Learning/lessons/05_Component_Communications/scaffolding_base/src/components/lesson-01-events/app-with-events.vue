@@ -1,7 +1,7 @@
 <template>
 	<div class="page container">
 		<main class="main section">
-			<h1 class="title">App with slots</h1>
+			<h1 class="subtitle">App with events</h1>
 			<progress class="progress is-small is-primary" max="100"
 			v-if="isShowLoader">
 			15%
