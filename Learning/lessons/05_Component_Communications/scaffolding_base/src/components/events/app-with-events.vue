@@ -1,23 +1,25 @@
 <template>
 	<div class="page container">
 		<main class="main section">
-			<app-with-events></app-with-events>
+			<h1 class="title">App with events</h1>
+			<progress class="progress is-small is-primary" max="100"
+			v-if="isShowLoader">
+			15%
+			</progress>
+			<overview
+			@showLoader="showLoader()">
+			</overview>
 		</main>
 	</div>
 </template>
 
 <script lang="ts">
 
-import { ref } from 'vue';
 import { defineComponent } from 'vue';
-import AppWithEvents from './components/events/app-with-events.vue';
+import Overview from './overview.vue';
 export default defineComponent({
 	components: {
-		AppWithEvents
-	},
-	setup: () => {
-		const message = ref('This is the default message')
-		return { message };
+		Overview
 	},
 	data() {
 		return {
