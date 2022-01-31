@@ -7,6 +7,7 @@
 			<h1 class="title">Lesson 02</h1>
 			<l2-app-with-events></l2-app-with-events>
 			<l2-app-with-slots></l2-app-with-slots>
+			<l2-app-with-injection></l2-app-with-injection>
 		</main>
 	</div>
 </template>
@@ -19,12 +20,14 @@ import AppWithEvents from './components/lesson-01-events/app-with-events.vue';
 import AppWithSlots from './components/lesson-01-slots/app-with-slots.vue';
 import L2AppWithEvents from './components/lesson-02-events/l2-app-with-events.vue';
 import L2AppWithSlots from './components/lesson-02-slots/l2-app-with-slots.vue';
+import L2AppWithInjection from './components/lesson-02-injection/l2-app-with-ijection.vue';
 export default defineComponent({
 	components: {
 		AppWithEvents,
 		AppWithSlots,
 		L2AppWithEvents,
-		L2AppWithSlots
+		L2AppWithSlots,
+		L2AppWithInjection
 	},
 	setup: () => {
 		const message = ref('This is the default message')
