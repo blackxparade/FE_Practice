@@ -1,0 +1,2 @@
+Use the previously created component, and create a presonalizedMessage variable, which will be 'Hello' + message.
+Whenever the message is updated, update and display this variable as well in the template.
