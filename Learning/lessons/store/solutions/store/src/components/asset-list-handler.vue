@@ -2,28 +2,18 @@
 	<div class="page container">
 		<main class="main section">
 
-			<!-- ACTION BUTTONS -->
 			<div style="display: flex; gap: .5rem;">
-				<button 
-					class="button is-primary is-light" 
-					@click="openNewModal">
+				<button class="button is-primary is-light" @click="openNewModal">
 					Add item
 				</button>
-				<button
-					class="button is-light"
-					:disabled="selectedItems.length !== 1"
-					@click="openEditModal">
+				<button class="button is-light" :disabled="selectedItems.length !== 1" @click="openEditModal">
 					Edit
 				</button>
-				<button
-					class="button is-danger is-light"
-					:disabled="selectedItems.length === 0"
-					@click="openDeleteModal">
+				<button class="button is-danger is-light" :disabled="selectedItems.length === 0" @click="openDeleteModal">
 					Delete
 				</button>
 			</div>
 
-			<!-- ASSET ITEM LIST -->
 			<div style="display: flex; flex-direction: column; gap: 1rem; margin-top: 1rem;">
 				<div v-for="i in items" :key="i.id" style="display: flex; align-content: center; gap: .75rem;">
 					<input
@@ -39,20 +29,9 @@
 				</div>
 			</div>
 
-			<!-- NEW ITEM MODAL -->
-			<modal-newItem
-			v-if="showNewModal">
-			</modal-newItem>
-
-			<!-- EDIT ITEM MODAL -->
-			<modal-editItem
-			v-if="showEditModal">
-			</modal-editItem>
-
-			<!-- DELETE MODAL -->
-			<modal-deleteItem
-			v-if="showDeleteModal">
-			</modal-deleteItem>
+			<modal-newItem v-if="showNewModal"></modal-newItem>
+			<modal-editItem v-if="showEditModal"></modal-editItem>
+			<modal-deleteItem v-if="showDeleteModal"></modal-deleteItem>
 		</main>
 	</div>
 </template>
@@ -72,7 +51,7 @@ export default defineComponent({
 	components: {
 		Item,
 		Modal,
-		ModalEditItem, 
+		ModalEditItem,
 		ModalNewItem,
 		ModalDeleteItem,
 	},

@@ -72,7 +72,7 @@ export default defineComponent({
 		},
 		editItem() {
 			this.updateItem(this.item.id, this.item.name, this.item.summary);
-			this.closeModal();	
+			this.closeModal();
 		},
 	},
 });
