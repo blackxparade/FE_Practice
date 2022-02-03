@@ -4,29 +4,29 @@
         <form action="#" @submit.prevent="dataToConsole">
             <div class="columns">
                 <div class="column">
-                    <input 
-                    class="input" 
-                    type="text" 
-                    v-model="formData.firstName"
-                    name="firstname" 
+                    <input
+                    class="input"
+                    type="text"
+                    v-model="firstName"
+                    name="firstname"
                     id="firstname"
                     placeholder="First name">
 
-                    <input 
-                    class="input mt-5" 
-                    type="text" 
-                    v-model="formData.phoneNumber"
-                    name="phonenumber" 
+                    <input
+                    class="input mt-5"
+                    type="text"
+                    v-model="phoneNumber"
+                    name="phonenumber"
                     id="phonenumber"
                     placeholder="Phone number">
                 </div>
 
                 <div class="column">
-                    <input 
-                    class="input" 
-                    type="text" 
-                    v-model="formData.lastName"
-                    name="lastname" 
+                    <input
+                    class="input"
+                    type="text"
+                    v-model="lastName"
+                    name="lastname"
                     id="lastname"
                     placeholder="Last name">
                 </div>
@@ -34,21 +34,21 @@
 
             <div class="columns">
                 <div class="column">
-                    <input 
-                    class="input mt-2" 
-                    type="email" 
-                    v-model="formData.email"
-                    name="email" 
+                    <input
+                    class="input mt-2"
+                    type="email"
+                    v-model="email"
+                    name="email"
                     id="email"
                     placeholder="Email">
                 </div>
 
                 <div class="column">
-                    <input 
-                    class="input mt-2" 
-                    type="password" 
-                    v-model="formData.password"
-                    name="password" 
+                    <input
+                    class="input mt-2"
+                    type="password"
+                    v-model="password"
+                    name="password"
                     id="password"
                     placeholder="Password">
                 </div>
@@ -59,7 +59,7 @@
 </template>
 <script lang="ts">
 
-import { defineComponent, reactive } from 'vue';
+import { defineComponent, reactive, toRefs } from 'vue';
 
 export default defineComponent({
     setup() {
@@ -71,7 +71,7 @@ export default defineComponent({
             password: ""
         });
         return {
-            formData
+            ...toRefs(formData)
         };
     },
 
