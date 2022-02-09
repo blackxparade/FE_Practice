@@ -77,7 +77,7 @@ export default defineComponent({
 
     methods: {
         dataToConsole() {
-            console.log(JSON.parse(JSON.stringify(this.formData)));
+            console.log();
         }
     }
 });
