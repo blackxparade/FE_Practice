@@ -1,5 +1,5 @@
 <template>
-	<div class="mt-6">
+	<div id="listId" class="mt-6">
         <h1 class="subtitle">Reactive list with store</h1>
 
         <div style="display: flex; flex-direction: column; gap: 1rem; margin-top: 1rem;">
@@ -38,9 +38,11 @@ export default defineComponent({
         }
     }, 
 	setup() {
+        let listId = Math.floor(Math.random() * 100);
         return {
+            listId,
             ...useListStore(),
-            ...provideListStore()
+            ...provideListStore(),
         }
     },
     
