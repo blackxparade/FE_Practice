@@ -11,10 +11,10 @@
 					<li>{{ doublePlusOne }}</li>
 				</ul>
 			</div> -->
-			<message></message>
-			<reactive-form class="mt-6"></reactive-form>
-			<list :isMultiSelect="false"></list>
-			<list :isMultiSelect="true"></list>
+			<!-- <message></message>
+			<reactive-form class="mt-6"></reactive-form> -->
+			<list :is-multi-select="false" />
+			<list :is-multi-select="true" />
 		</main>
 	</div>
 </template>
@@ -33,12 +33,12 @@ export default defineComponent({
 		Counter,
 		Message,
 		ReactiveForm,
-		List
+		List,
 	},
 	setup: () => {
 		const { doubleCount, doublePlusOne, counter } = provideCounterStore();
-		return { doubleCount, doublePlusOne, counter};
-	}
+		return { doubleCount, doublePlusOne, counter };
+	},
 });
 
 </script>

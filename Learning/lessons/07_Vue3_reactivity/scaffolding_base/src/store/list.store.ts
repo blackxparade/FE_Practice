@@ -1,109 +1,97 @@
-import { toRefs, reactive, provide, inject, InjectionKey, computed } from 'vue';
+import { provide, inject, InjectionKey, computed, ref } from 'vue';
 type ListStore = ReturnType<typeof setupListStore>
 export const ListStoreSymbol: InjectionKey<ListStore> = Symbol('listStore');
 
-type Item = {
-	id: number
-    name: string,
-	summary: string
+
+type Selectable = {
+	id: number;
+	isSelected: boolean;
 };
 
-type Selectable<T> = {
-	isSelected: boolean,
-	item: T
-};
+export const setupListStore = <T>() => {
+	type SelectableItem = T & Selectable;
 
-type MultiSelectable<T> = {
-	isMultiSelectable: boolean,
-	itemList: T,
-};
+	function SelectableItem(item: T & Pick<Selectable, 'id'>): SelectableItem {
+		return {
+			...item,
+			isSelected: false,
+		};
+	}
 
-export const setupListStore = () => {
-
-	const state = reactive<MultiSelectable<Selectable<Item>[]>>(
-		{ isMultiSelectable: false, 
-		itemList: [
-			{isSelected: false, item: {id: 123, name: "item1", summary: "summary1"}},
-			{isSelected: false, item: {id: 124, name: "item2", summary: "summary2"}},
-			{isSelected: false, item: {id: 125, name: "item3", summary: "summary3"}},
-			{isSelected: false, item: {id: 126, name: "item4", summary: "summary4"}},
-			{isSelected: false, item: {id: 127, name: "item5", summary: "summary5"}}
-		]}
-	);
+	const items = ref<SelectableItem[]>([]);
 
 	/* Getters */
 
 	const isEmpty = computed(() => {
-		return state.itemList.length === 0 ? true : false;
+		return items.value.length === 0 ? true : false;
 	});
 
 	const isAllSelected = computed(() => {
-		let notSelected = state.itemList.filter(element => element.isSelected === false);
+		const notSelected = items.value.filter(element => element.isSelected === false);
 		return notSelected.length === 0 ? true : false;
 	});
 
 	const isMultipleSelected = computed(() => {
-		let selected = state.itemList.filter(element => element.isSelected === true);
+		const selected = items.value.filter(element => element.isSelected === true);
 		return selected.length > 1 ? true : false;
 	});
 
 	const getSelected = computed(() => {
-		let selected = state.itemList.filter(element => element.isSelected === true);
-		return selected.length > 0 ? selected[0] : undefined
+		const selected = items.value.filter(element => element.isSelected === true);
+		return selected.length > 0 ? selected[0] : undefined;
 	});
 
 	const getEverySelected = computed(() => {
-		let selected = state.itemList.filter(element => element.isSelected === true);
-		return selected
+		const selected = items.value.filter(element => element.isSelected === true);
+		return selected;
 	});
 
-	const isItemDisabled = computed((id: number) => {
-		let selected = state.itemList.filter(element => element.isSelected === true);
-		if (!isMultipleSelected && selected[0].item.id != id) {
-			return true
-		} else {
-			return false
-		}
-	});
+	// const isItemDisabled = computed((id: number) => {
+	// 	const selected = items.filter(element => element.isSelected === true);
+	// 	if (!isMultipleSelected.value && selected[0].item.id != id) {
+	// 		return true;
+	// 	} else {
+	// 		return false;
+	// 	}
+	// });
 
 	/* Actions */
 
 	const selectAll = () => {
-		state.itemList.forEach(element => element.isSelected = true);
-	}
+		items.value.forEach(element => element.isSelected = true);
+	};
 
 	const deselectAll = () => {
-		state.itemList.forEach(element => element.isSelected = false);
-	}
+		items.value.forEach(element => element.isSelected = false);
+	};
 
 	const selectItem = (id: number) => {
-		let findItem = state.itemList.filter(element => element.item.id === id);
-		state.itemList[state.itemList.indexOf(findItem[0])].isSelected = true;
-	}
+		const findItem = items.value.filter(element => element.id === id);
+		items[items.value.indexOf(findItem[0])].isSelected = true;
+	};
 
 	const toggleItemSelection = (id: number) => {
-		let findItem = state.itemList.filter(element => element.item.id === id);
-		state.itemList[state.itemList.indexOf(findItem[0])].isSelected = !state.itemList[state.itemList.indexOf(findItem[0])].isSelected;
-	}
+		const findItem = items.value.filter(element => element.item.id === id);
+		items[items.value.indexOf(findItem[0])].isSelected = !items[items.value.indexOf(findItem[0])].isSelected;
+	};
 
-	const setSelectability = (isMultiSelectable: boolean) => {
-		state.isMultiSelectable = isMultiSelectable;
-		console.log(isMultiSelectable);
-	}
+	const setItems = (itemList: T[]) => {
+		items.value = itemList.map((item) => (SelectableItem(item))) as any;
+	};
+
+
 
 	return {
-		...toRefs(state),
+		items,
 		isEmpty,
 		isAllSelected,
 		isMultipleSelected,
 		getSelected,
 		getEverySelected,
-		isItemDisabled,
 		selectAll,
 		deselectAll,
 		selectItem,
 		toggleItemSelection,
-		setSelectability
 	};
 
 };
