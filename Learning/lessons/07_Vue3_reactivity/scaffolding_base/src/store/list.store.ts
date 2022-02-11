@@ -1,17 +1,16 @@
-import { provide, inject, InjectionKey, computed, ref } from 'vue';
-type ListStore = ReturnType<typeof setupListStore>
-export const ListStoreSymbol: InjectionKey<ListStore> = Symbol('listStore');
-
+import { computed, ref } from 'vue';
 
 type Selectable = {
 	id: number;
 	isSelected: boolean;
 };
 
-export const setupListStore = <T>() => {
-	type SelectableItem = T & Selectable;
+export const setupListBaseStore = <T>() => {
 
-	function SelectableItem(item: T & Pick<Selectable, 'id'>): SelectableItem {
+	type SelectableItem = T & Selectable;
+	type SelectableItemOption = T & Pick<Selectable, 'id'>;
+
+	function SelectableItem(item: SelectableItemOption): SelectableItem {
 		return {
 			...item,
 			isSelected: false,
@@ -46,15 +45,6 @@ export const setupListStore = <T>() => {
 		return selected;
 	});
 
-	// const isItemDisabled = computed((id: number) => {
-	// 	const selected = items.filter(element => element.isSelected === true);
-	// 	if (!isMultipleSelected.value && selected[0].item.id != id) {
-	// 		return true;
-	// 	} else {
-	// 		return false;
-	// 	}
-	// });
-
 	/* Actions */
 
 	const selectAll = () => {
@@ -66,16 +56,32 @@ export const setupListStore = <T>() => {
 	};
 
 	const selectItem = (id: number) => {
-		const findItem = items.value.filter(element => element.id === id);
-		items[items.value.indexOf(findItem[0])].isSelected = true;
+		items.value = items.value.map(element => {
+			if(element.id === id){
+				element.isSelected = true;
+			}
+			return element;
+		} ) as any;
+	};
+	const setItemSelectionById = (id: number, checked: boolean) => {
+		items.value = items.value.map(element => {
+			if(element.id === id){
+				element.isSelected = checked;
+			}
+			return element;
+		} ) as any;
 	};
 
 	const toggleItemSelection = (id: number) => {
-		const findItem = items.value.filter(element => element.item.id === id);
-		items[items.value.indexOf(findItem[0])].isSelected = !items[items.value.indexOf(findItem[0])].isSelected;
+		items.value = items.value.map(element => {
+			if(element.id === id){
+				element.isSelected = !element.isSelected;
+			}
+			return element;
+		} ) as any;
 	};
 
-	const setItems = (itemList: T[]) => {
+	const setItems = (itemList: SelectableItemOption[]) => {
 		items.value = itemList.map((item) => (SelectableItem(item))) as any;
 	};
 
@@ -92,16 +98,8 @@ export const setupListStore = <T>() => {
 		deselectAll,
 		selectItem,
 		toggleItemSelection,
+		setItemSelectionById,
+		setItems,
 	};
 
-};
-
-export const provideListStore = () => {
-	const listStore = setupListStore();
-	provide(ListStoreSymbol, listStore);
-	return listStore;
-};
-
-export const useListStore = () => {
-	return inject(ListStoreSymbol)!;
 };
