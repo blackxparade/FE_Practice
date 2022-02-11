@@ -1,0 +1,1 @@
+The Main goal for this module is to show the differencies between what native Vue3 Reactivity can do and what are the limitations of Pinia.
