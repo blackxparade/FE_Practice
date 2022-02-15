@@ -7,8 +7,8 @@
         <template #content>
             <strong>Are you sure to delete these items?</strong>
             <ul style="margin-top: 1rem;">
-                <li v-for="i in selectedItems" :key="i.item.id">
-                    {{ listItemInfo(i.item) }}
+                <li v-for="item in getEverySelected" :key="item.id">
+                    {{ listItemInfo(item) }}
                 </li>
             </ul>
         </template>
@@ -28,9 +28,9 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent } from 'vue';
-import { useStore } from 'src/vue-setup';
+import { defineComponent } from 'vue';
 import { useModalStore } from 'src/modules/modal.store';
+import { useAssetListStore } from 'src/modules/asset-list.store';
 import Modal from './modal.vue';
 
 export default defineComponent({
@@ -38,20 +38,10 @@ export default defineComponent({
 		Modal
 	},
 	setup(props) {
-		const { state, dispatch, getters } = useStore();
+
 		return {
-            //showDeleteModal: computed(() => state.showDeleteModal),
-			selectedItems: computed(() => getters.selectedItems),
-            clearSelections: () => {
-                dispatch('clearSelections');
-            },
-            deleteSelectedItems: () => {
-				dispatch('deleteSelectedItems');
-			},
-			// setDeleteModalVisibility: (value: boolean) => {
-			// 	dispatch('setDeleteModalVisibility', value);
-			// },
-            ...useModalStore()
+            ...useModalStore(),
+            ...useAssetListStore()
 		};
 	},
     data() {
@@ -66,7 +56,6 @@ export default defineComponent({
 		},
 		closeModal() {
 			this.setDeleteModalVisibility(false);
-			this.clearSelections();
 		},
 		deleteItems() {
 			this.deleteSelectedItems();

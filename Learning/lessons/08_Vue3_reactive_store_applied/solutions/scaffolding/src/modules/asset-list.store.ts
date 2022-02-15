@@ -6,7 +6,7 @@ export const AssetListStoreSymbol: InjectionKey<AssetListStore> = Symbol('assetL
 
 
 export const setupListStore = () => {
-	const { items, ...rest } = setupListBaseStore<Item>();
+	const { items, SelectableItem, ...rest } = setupListBaseStore<Item>();
 	
 	const updateItem = (item: Item) => {
 		items.value = items.value.map(element => {
@@ -18,8 +18,13 @@ export const setupListStore = () => {
 		} ) as any;
 	};
 
+	const addItem = (item: Item) => {
+		items.value.push(SelectableItem(item));
+	};
+
 	return {
 		items,
+		addItem,
 		updateItem,
 		...rest,
 	};

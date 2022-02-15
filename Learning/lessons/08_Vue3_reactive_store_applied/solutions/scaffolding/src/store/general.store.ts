@@ -85,6 +85,10 @@ export const setupListBaseStore = <T>() => {
 		items.value = itemList.map((item) => (SelectableItem(item))) as any;
 	};
 
+	const deleteSelectedItems = () => {
+		items.value = items.value.filter(element => element.isSelected === false);
+	};
+
 	return {
 		items,
 		isEmpty,
@@ -98,6 +102,8 @@ export const setupListBaseStore = <T>() => {
 		toggleItemSelection,
 		setItemSelectionById,
 		setItems,
+		SelectableItem,
+		deleteSelectedItems
 	};
 
 };

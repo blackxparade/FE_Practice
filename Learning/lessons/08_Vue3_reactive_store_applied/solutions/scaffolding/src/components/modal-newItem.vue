@@ -29,24 +29,19 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent } from 'vue';
-import { useStore } from 'src/vue-setup';
+import { defineComponent } from 'vue';
+import { Item } from 'src/domain/item';
 import Modal from './modal.vue';
 import { useModalStore } from 'src/modules/modal.store';
+import { useAssetListStore } from 'src/modules/asset-list.store';
 
 export default defineComponent({
 	components: {
 		Modal
 	},
-	setup(props) {
-		const { state, dispatch } = useStore();
+	setup() {
 		return {
-			dispatchItem: (name: string, summary: string) => {
-				dispatch('addNewItem', { name, summary });
-			},
-            clearSelections: () => {
-                dispatch('clearSelections');
-            },
+			...useAssetListStore(),
 			...useModalStore(),
 		};
 	},
@@ -59,10 +54,10 @@ export default defineComponent({
 	methods: {
 		closeModal() {
 			this.setNewModalVisibility(false);
-			this.clearSelections();
 		},
 		addItem() {
-			this.dispatchItem(this.name, this.summary);
+			console.log("yay");
+			this.addItem(Item({ name: this.name, summary: this.summary }));
 			this.closeModal();	
 		}
 	},
