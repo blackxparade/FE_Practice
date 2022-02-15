@@ -19,7 +19,7 @@
 import { defineComponent } from 'vue';
 export default defineComponent({
 	props: {
-		id: { type: Number, default: '' },
+		id: { type: Number, default: 0 },
 		name: { type: String, default: 'name' },
 		summary: { type: String, default: 'summary' },
 	}

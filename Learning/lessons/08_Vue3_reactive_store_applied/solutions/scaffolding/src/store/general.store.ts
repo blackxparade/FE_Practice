@@ -103,7 +103,7 @@ export const setupListBaseStore = <T>() => {
 		setItemSelectionById,
 		setItems,
 		SelectableItem,
-		deleteSelectedItems
+		deleteSelectedItems,
 	};
 
 };

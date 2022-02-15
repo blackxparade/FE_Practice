@@ -20,7 +20,7 @@
 			<button
 				class="button"
 				:disabled="(!name.length || !summary.length)"
-				@click="addItem()">
+				@click="addItemHandler()">
 				Add
 			</button>
 			<button class="button" @click="closeModal()">Close</button>
@@ -55,8 +55,7 @@ export default defineComponent({
 		closeModal() {
 			this.setNewModalVisibility(false);
 		},
-		addItem() {
-			console.log("yay");
+		addItemHandler() {
 			this.addItem(Item({ name: this.name, summary: this.summary }));
 			this.closeModal();	
 		}
