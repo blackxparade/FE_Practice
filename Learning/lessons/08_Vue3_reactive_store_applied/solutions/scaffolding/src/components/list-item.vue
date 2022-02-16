@@ -1,8 +1,8 @@
 <template>
 		<div class="media-content is-flex is-flex-direction-column">
-			<div class="title 
-			is-4 
-			has-text-weight-normal 
+			<div class="title
+			is-4
+			has-text-weight-normal
 			has-text-link"
 			style="display: flex; gap: .5rem;">
 				{{ id }} - {{ name }}

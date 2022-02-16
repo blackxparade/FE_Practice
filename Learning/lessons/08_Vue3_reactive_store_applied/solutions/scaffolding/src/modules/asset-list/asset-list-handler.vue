@@ -78,7 +78,7 @@ export default defineComponent({
 
 	setup() {
 		const { ...rest } = provideModalStore();
-		const { items, setItems, getSelected, getEverySelected, setItemSelectionById } = provideAssetListStore();
+		const { items, setItems, getEverySelected, setItemSelectionById } = provideAssetListStore();
 		const sampleItems = [
 			Item({ name: 'item1', summary: 'summary1' }),
 			Item({ name: 'item2', summary: 'summary2' }),
@@ -89,24 +89,11 @@ export default defineComponent({
 		setItems(sampleItems);
 		return {
 			...rest,
-			sampleItems,
-			getSelected,
 			getEverySelected,
 			setItemSelectionById,
 			items
 		};
 	},
-	methods: {
-		openNewModal() {
-			this.setNewModalVisibility(true);
-		},
-		openEditModal() {
-			this.setEditModalVisibility(true);
-		},
-		openDeleteModal() {
-			this.setDeleteModalVisibility(true);
-		},
-	}
 });
 /* scaffolding-disable unless keepExamples */
 

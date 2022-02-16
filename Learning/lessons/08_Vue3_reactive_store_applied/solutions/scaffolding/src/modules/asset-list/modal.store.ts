@@ -19,13 +19,25 @@ export const setupModalStore = () => {
 		showDeleteModal.value = value;
 	};
 
+	const openNewModal = () => {
+		setNewModalVisibility(true);
+	};
+	const openEditModal = () => {
+		setEditModalVisibility(true);
+	};
+	const openDeleteModal = () => {
+		setDeleteModalVisibility(true);
+	};
 	return {
 		showNewModal,
 		showEditModal,
 		showDeleteModal,
 		setNewModalVisibility,
 		setEditModalVisibility,
-		setDeleteModalVisibility
+		setDeleteModalVisibility,
+		openNewModal,
+		openEditModal,
+		openDeleteModal,
 	};
 };
 

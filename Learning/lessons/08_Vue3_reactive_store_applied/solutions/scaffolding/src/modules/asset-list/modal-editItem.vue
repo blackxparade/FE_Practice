@@ -43,8 +43,7 @@ export default defineComponent({
 	setup() {
 		const { getSelected, updateItem } = useAssetListStore();
 		const { setEditModalVisibility } = useModalStore();
-		let item = Item({name: "", summary: ""});
-		item = Object.assign({}, getSelected.value) as Item;
+		let item = Item({name: getSelected.value!.name, summary: getSelected.value!.summary});
 		const editItem = () => {
 			updateItem(item);
 			setEditModalVisibility(false);
