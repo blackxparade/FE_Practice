@@ -29,9 +29,9 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import { useModalStore } from 'src/modules/modal.store';
-import { useAssetListStore } from 'src/modules/asset-list.store';
-import Modal from './modal.vue';
+import { useModalStore } from './modal.store';
+import { useAssetListStore } from './asset-list.store';
+import Modal from 'src/components/modal.vue';
 
 export default defineComponent({
 	components: {
@@ -41,17 +41,17 @@ export default defineComponent({
 		const listItemInfo = (item: any) => {
 				return `${item.id} - ${item.name}, ${item.summary}`;
 		};
-		const { closeModal, setDeleteModalVisibility } = useModalStore()
-		const { deleteSelectedItems } = useAssetListStore()
+		const { setDeleteModalVisibility } = useModalStore()
+		const { deleteSelectedItems, getEverySelected } = useAssetListStore()
 		const deleteItems = () => {
 				deleteSelectedItems();
-				closeModal();
+                setDeleteModalVisibility(false);
 		};
-
 		return {
 			listItemInfo,
 			deleteItems,
 			setDeleteModalVisibility,
+            getEverySelected
 		};
 	},
 });

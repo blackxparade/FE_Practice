@@ -4,7 +4,7 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import AssetListHandler from './modules/asset-list-handler.vue';
+import AssetListHandler from './modules/asset-list/asset-list-handler.vue';
 
 /* scaffolding-enable */
 export default defineComponent({

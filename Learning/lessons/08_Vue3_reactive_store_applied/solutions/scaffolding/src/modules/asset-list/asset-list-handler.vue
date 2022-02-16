@@ -59,20 +59,18 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 import { provideModalStore } from './modal.store';
-import { provideAssetListStore } from 'src/modules/asset-list.store';
-import ListItem from '../components/list-item.vue';
+import { provideAssetListStore } from './asset-list.store';
+import ListItem from 'src/components/list-item.vue';
 import { Item } from 'src/domain';
-import Modal from '../components/modal.vue';
-import ModalEditItem from '../components/modal-editItem.vue';
-import ModalNewItem from '../components/modal-newItem.vue';
-import ModalDeleteItem from '../components/modal-deleteItem.vue';
+import ModalEditItem from './modal-editItem.vue';
+import ModalNewItem from './modal-newItem.vue';
+import ModalDeleteItem from './modal-deleteItem.vue';
 
 /* scaffolding-enable */
 export default defineComponent({
 	/* scaffolding-disable unless keepExamples */
 	components: {
 		ListItem,
-		Modal,
 		ModalEditItem,
 		ModalNewItem,
 		ModalDeleteItem,
