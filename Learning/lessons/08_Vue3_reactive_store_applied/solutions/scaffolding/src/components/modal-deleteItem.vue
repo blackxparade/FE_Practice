@@ -1,6 +1,6 @@
 <template>
 	<modal
-	@close="closeModal">
+	@close="setDeleteModalVisibility(false)">
         <template #title>
             Deleting items
         </template>
@@ -18,9 +18,9 @@
                 @click="deleteItems()">
                 Delete
             </button>
-            <button 
-                class="button" 
-                @click="closeModal()">
+            <button
+                class="button"
+                @click="setDeleteModalVisibility(false)">
                 Close
             </button>
         </template>
@@ -37,30 +37,22 @@ export default defineComponent({
 	components: {
 		Modal
 	},
-	setup(props) {
+	setup() {
+		const listItemInfo = (item: any) => {
+				return `${item.id} - ${item.name}, ${item.summary}`;
+		};
+		const { closeModal, setDeleteModalVisibility } = useModalStore()
+		const { deleteSelectedItems } = useAssetListStore()
+		const deleteItems = () => {
+				deleteSelectedItems();
+				closeModal();
+		};
 
 		return {
-            ...useModalStore(),
-            ...useAssetListStore()
+			listItemInfo,
+			deleteItems,
+			setDeleteModalVisibility,
 		};
-	},
-    data() {
-		return {
-            name: '',
-            summary: '',
-		};
-	},
-	methods: {
-        listItemInfo(item: any) { 
-			return `${item.id} - ${item.name}, ${item.summary}`; 
-		},
-		closeModal() {
-			this.setDeleteModalVisibility(false);
-		},
-		deleteItems() {
-			this.deleteSelectedItems();
-			this.closeModal();	
-		}
 	},
 });
 </script>

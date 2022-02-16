@@ -4,8 +4,8 @@
 
 			<!-- ACTION BUTTONS -->
 			<div style="display: flex; gap: .5rem;">
-				<button 
-					class="button is-primary is-light" 
+				<button
+					class="button is-primary is-light"
 					@click="openNewModal">
 					Add item
 				</button>
@@ -73,7 +73,7 @@ export default defineComponent({
 	components: {
 		ListItem,
 		Modal,
-		ModalEditItem, 
+		ModalEditItem,
 		ModalNewItem,
 		ModalDeleteItem,
 	},
@@ -97,10 +97,6 @@ export default defineComponent({
 			setItemSelectionById,
 			items
 		};
-	},
-	computed: {
-		console: () => console,
-		window: () => window,
 	},
 	methods: {
 		openNewModal() {
