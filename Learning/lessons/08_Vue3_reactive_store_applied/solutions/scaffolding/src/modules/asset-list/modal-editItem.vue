@@ -50,8 +50,6 @@ export default defineComponent({
 		};
 		return {
 			setEditModalVisibility,
-			getSelected,
-			updateItem,
 			editItem,
 			item
 		};

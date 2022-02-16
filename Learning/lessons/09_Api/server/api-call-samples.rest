@@ -1,0 +1,21 @@
+
+# Get all posts
+# GET http://localhost:3000/posts HTTP/1.1
+
+
+# Get 1 post
+# GET http://localhost:3000/posts/1 HTTP/1.1
+
+
+# Create 1 post
+# POST http://localhost:3000/posts HTTP/1.1
+# content-type: application/json
+
+# {
+#     "id": 3,
+#     "title": "third post",
+#     "author": "Johg"
+# }
+
+# Delete 1 post
+# DELETE http://localhost:3000/posts/3 HTTP/1.1

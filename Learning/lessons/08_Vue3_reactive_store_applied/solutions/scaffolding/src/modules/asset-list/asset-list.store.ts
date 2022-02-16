@@ -1,13 +1,14 @@
 import { Item } from 'src/domain';
 import { inject, InjectionKey, provide } from 'vue';
 import { setupListBaseStore } from 'src/store/general.store';
+
 type AssetListStore = ReturnType<typeof setupListStore>
 export const AssetListStoreSymbol: InjectionKey<AssetListStore> = Symbol('assetListStore');
 
 
 export const setupListStore = () => {
 	const { items, SelectableItem, ...rest } = setupListBaseStore<Item>();
-	
+
 	const updateItem = (item: Item) => {
 		items.value = items.value.map(element => {
 			if(element.id === item.id){
