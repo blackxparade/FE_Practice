@@ -1,0 +1,56 @@
+{
+  "lists": [
+    {
+      "title": "Elso lista",
+      "id": 1
+    },
+    {
+      "title": "Masodik lista",
+      "id": 2
+    },
+    {
+      "title": "Harmadik lista",
+      "id": 3
+    },
+    {
+      "id": 4,
+      "title": "test4"
+    },
+    {
+      "title": "elso uj lista",
+      "id": 7256
+    }
+  ],
+  "items": [
+    {
+      "id": 1,
+      "listId": 1,
+      "name": "name1",
+      "summary": "random summary"
+    },
+    {
+      "id": 2,
+      "listId": 1,
+      "name": "name2",
+      "summary": "random summary"
+    },
+    {
+      "id": 3,
+      "listId": 2,
+      "name": "name3",
+      "summary": "random summary"
+    },
+    {
+      "id": 4,
+      "listId": 3,
+      "name": "name4",
+      "summary": "random summary"
+    },
+    {
+      "id": 5,
+      "listId": 4,
+      "name": "name5",
+      "summary": "random summary"
+    }
+  ]
+}

@@ -1,0 +1,28 @@
+{
+	"compilerOptions": {
+		"strict": true,
+
+		"target": "ESNext",
+		"module": "ESNext",
+		"allowJs": true,
+		"noEmit": true,
+		"sourceMap": true,
+		"skipLibCheck": true,
+		"moduleResolution": "node",
+		"resolveJsonModule": true,
+		"allowSyntheticDefaultImports": true,
+		"baseUrl": "./",
+		"paths": {
+			"src/*": ["src/*"],
+			"test/*": ["test/*"]
+		},
+	},
+	"include": [
+		"src/**/*.js",
+		"src/**/*.ts",
+		"src/**/*.vue",
+		"test/**/*.js",
+		"test/**/*.ts"
+	],
+	"exclude": ["node_modules", "dist"]
+}
