@@ -2,7 +2,7 @@
 	<div>
         <div style="display: flex; gap: .5rem;">
             <input class="input" type="text" placeholder="New list title" v-model="listNameInput">
-            <button class="button" @click="saveNewList()">Add new list</button>
+            <button class="button" :disabled="!listNameInput.length" @click="saveNewList()">Add new list</button>
         </div>
 
         
@@ -32,6 +32,7 @@ export default defineComponent({
         const lists = getLists();
         const saveNewList = () => {
             postListToApi(List(listNameInput.value));
+            listNameInput.value = "";
         };
         return {
             lists,
