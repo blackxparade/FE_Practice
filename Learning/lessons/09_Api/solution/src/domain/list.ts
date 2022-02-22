@@ -3,9 +3,9 @@ export type List = {
     title: string;
 };
 
-export function List(title: string ): List {
+export function List({title, id = Math.floor(Math.random() * 10000)}: {title: string, id?: number }): List {
 	return {
-		id: Math.floor(Math.random() * 10000),
+		id,
 		title: title
 	};
 }

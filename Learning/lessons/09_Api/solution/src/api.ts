@@ -1,5 +1,6 @@
 import axios, { AxiosInstance } from 'axios';
 import { List } from 'src/domain';
+import { inject, InjectionKey } from 'vue';
 
 export type AxiosPartial = Pick<AxiosInstance, 'get'|'post'|'put'|'delete'>;
 
@@ -11,21 +12,21 @@ export function Api({ get, post, put }: AxiosPartial = Axios()) {
 			const { data } = await get('joke-api/jokes/random?escape=javascript');
 			return data.value.joke;
 		},
-		async getListsCall(): Promise<Object> {
-			const { data } = await get('lists');
-			return data;
+		async getListsCall() {
+			const { data } = await get<List[]>('lists');
+			return data.map((element) => (List({ ...element })));
 		},
 		async postListCall(list: List) {
-			await post('lists', list);
+			return await post('lists', list);
 		},
 		async editListCall(list: List) {
-			await put('lists/' + list.id, {title: list.title});
+			return await put('lists/' + list.id, {title: list.title});
 		},
 		/* scaffolding-enable */
 	};
 }
 export type Api = ReturnType<typeof Api>;
-
+export const ApiSymbol: InjectionKey<Api> = Symbol('api');
 
 // Use to set convenient defaults.
 // * It's recommended that a request starts with a '/'
@@ -34,3 +35,7 @@ export type Api = ReturnType<typeof Api>;
 function Axios() {
 	return axios.create({ baseURL: 'http://localhost:3000/' });
 }
+
+export const useApi = () => {
+	return inject(ApiSymbol)!
+};

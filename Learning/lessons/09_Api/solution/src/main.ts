@@ -5,6 +5,7 @@ import { RouterView } from 'vue-router';
 import { i18n, router, store, storeKey, widgets } from './vue-setup';
 /* scaffolding-disable unless keepExamples */
 import { fetchTranslations } from './vue-setup';
+import { Api, ApiSymbol } from './api';
 
 // Start fetching any non-default translations right after
 fetchTranslations({ locale: 'zh-cn', languageCode: 'zh' });
@@ -17,4 +18,5 @@ createApp(RouterView)
 	.use(i18n).use(router)
 	.use(store, storeKey)
 	.use(widgets)
+	.provide(ApiSymbol, Api())
 	.mount(document.body);

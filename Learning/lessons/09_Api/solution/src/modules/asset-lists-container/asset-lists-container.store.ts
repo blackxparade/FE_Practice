@@ -1,21 +1,20 @@
-import { ref, Ref, inject, InjectionKey, provide } from 'vue';
+import { ref, inject, InjectionKey, provide } from 'vue';
 import { List } from 'src/domain';
 import { Api } from 'src/api';
 type AssetListsStore = ReturnType<typeof setupAssetListsStore>
 export const AssetListStoreSymbol: InjectionKey<AssetListsStore> = Symbol('assetListsStore');
 
-export const setupAssetListsStore = () => {
-	const lists = ref([] as List[]);
-	const { getListsCall, postListCall, editListCall } = Api();
+type storeDeps = {
+	api: Api
+}
+
+export const setupAssetListsStore = ({ api }: storeDeps) => {
+	const lists = ref<List[]>();
+	const { getListsCall, postListCall, editListCall } = api;
 
     const getListsFromApi = async() => {
 		const data = await getListsCall();
-		lists.value = data as List[];
-	};
-
-	const getLists = (): Ref<List[]> => {
-		getListsFromApi()
-		return lists;
+		lists.value = data;
 	};
 
 	const postListToApi = async(list: List) => {
@@ -27,16 +26,16 @@ export const setupAssetListsStore = () => {
 		await editListCall(list);
 		getListsFromApi();
 	};
-	
+
 	return {
-		getLists,
+		lists,
 		postListToApi,
 		putListToApi
 	};
 };
 
-export const provideAssetListsStore = () => {
-	const assetListStore = setupAssetListsStore();
+export const provideAssetListsStore = (storDeps: storeDeps) => {
+	const assetListStore = setupAssetListsStore(storDeps);
 	provide(AssetListStoreSymbol, assetListStore);
 	return assetListStore;
 };

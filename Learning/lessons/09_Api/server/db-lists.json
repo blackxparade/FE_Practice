@@ -1,12 +1,27 @@
 {
   "lists": [
     {
-      "title": "Elso lista",
-      "id": 1
+      "title": "Elso listaaa",
+      "id": 1,
+      "items": [
+        {
+          "id": 1,
+          "listId": 1,
+          "name": "name1",
+          "summary": "random summary"
+        },
+        {
+          "id": 2,
+          "listId": 1,
+          "name": "name2",
+          "summary": "random summary"
+        }
+      ]
     },
     {
-      "title": "Masodik lista",
-      "id": 2
+      "id": 2,
+      "title": "topkek",
+      "items": []
     },
     {
       "title": "Harmadik lista",
@@ -19,6 +34,10 @@
     {
       "title": "elso uj lista",
       "id": 7256
+    },
+    {
+      "id": 9553,
+      "title": "first"
     }
   ],
   "items": [

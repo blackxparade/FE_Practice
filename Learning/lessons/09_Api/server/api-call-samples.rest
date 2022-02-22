@@ -1,6 +1,6 @@
 
 # Get all posts
-# GET http://localhost:3000/posts HTTP/1.1
+GET http://localhost:3000/lists HTTP/1.1
 
 
 # Get 1 post
@@ -15,6 +15,15 @@
 # {
 #     "id": 6,
 #     "title": "topkek"
+# }
+
+# PUT http://localhost:3000/lists/2 HTTP/1.1
+# content-type: application/json
+
+# {
+#     "id": 6,
+#     "title": "topkek",
+#     "items": []
 # }
 
 # Delete 1 post
