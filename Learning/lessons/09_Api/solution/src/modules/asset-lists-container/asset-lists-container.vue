@@ -29,8 +29,9 @@ export default defineComponent({
 	},
     setup() {
 		const api = useApi()
-        const { lists, postListToApi } = provideAssetListsStore({ api });
+        const { lists, postListToApi, getListsFromApi } = provideAssetListsStore({ api });
         const listNameInput = ref("");
+        getListsFromApi();
         const saveNewList = () => {
             postListToApi(List({ title: listNameInput.value }));
             listNameInput.value = "";
@@ -38,7 +39,7 @@ export default defineComponent({
         return {
             lists,
             listNameInput,
-            saveNewList
+            saveNewList,
         }
     }
 });

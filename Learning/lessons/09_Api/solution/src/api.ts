@@ -4,7 +4,7 @@ import { inject, InjectionKey } from 'vue';
 
 export type AxiosPartial = Pick<AxiosInstance, 'get'|'post'|'put'|'delete'>;
 
-export function Api({ get, post, put }: AxiosPartial = Axios()) {
+export function Api({ get, post, put, delete: del }: AxiosPartial = Axios()) {
 	return {
 		/* scaffolding-disable unless keepExamples */
 		async getChuckNorrisJoke(): Promise<string> {
@@ -13,6 +13,7 @@ export function Api({ get, post, put }: AxiosPartial = Axios()) {
 			return data.value.joke;
 		},
 		async getListsCall() {
+			
 			const { data } = await get<List[]>('lists');
 			return data.map((element) => (List({ ...element })));
 		},
@@ -22,6 +23,9 @@ export function Api({ get, post, put }: AxiosPartial = Axios()) {
 		async editListCall(list: List) {
 			return await put('lists/' + list.id, {title: list.title});
 		},
+		async deleteListCall(id: number) {
+			return await del('lists/' + id);
+		}
 		/* scaffolding-enable */
 	};
 }

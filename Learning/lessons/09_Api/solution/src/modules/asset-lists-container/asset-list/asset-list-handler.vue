@@ -1,13 +1,16 @@
 <template>
 	<div class="page container" style="margin-top: 3rem;">
 
-			<div style="display: flex; gap: 1rem;" >
-				<h3 class="title is-3">{{ title }}</h3>
-				<button class="button is-small is-light" @click="openEditListModal()">Edit title</button>
+			<div style="display: flex; flex-direction: column; gap: 1rem;" >
+				<h3 class="title is-3" style="margin-bottom: 0;">{{ title }}</h3>
+				<div class="div" style="display: flex; gap: .5rem;">
+					<button class="button is-small is-light" @click="openEditListModal()">Edit title</button>
+					<button class="button is-small is-light is-danger" @click="deleteList(id)">Delete list</button>
+				</div>
 			</div>
 
 			<!-- ACTION BUTTONS -->
-			<div style="display: flex; gap: .5rem; margin-top: 1rem;">
+			<div style="display: flex; gap: .5rem; margin-top: 3rem;">
 				<button
 					class="button is-primary is-light"
 					@click="openNewModal">
@@ -67,6 +70,7 @@
 import { defineComponent } from 'vue';
 import { provideModalStore } from './modal.store';
 import { provideAssetListStore } from './asset-list.store';
+import { useAssetListsStore } from '../asset-lists-container.store';
 import ListItem from 'src/components/list-item.vue';
 import { Item } from 'src/domain';
 import ModalEditItem from './modal-editItem.vue';
@@ -92,6 +96,7 @@ export default defineComponent({
 
 	setup(props) {
 		const { ...rest } = provideModalStore();
+		const { deleteList } = useAssetListsStore();
 		const { items, setItems, getEverySelected, setItemSelectionById } = provideAssetListStore();
 		const sampleItems = [
 			Item({ name: 'item1', summary: 'summary1' }),
@@ -106,6 +111,7 @@ export default defineComponent({
 			getEverySelected,
 			setItemSelectionById,
 			items,
+			deleteList
 		};
 	},
 });
