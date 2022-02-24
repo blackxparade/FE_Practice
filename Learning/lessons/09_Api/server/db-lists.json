@@ -1,7 +1,15 @@
 {
   "lists": [
     {
-      "title": "Harmadik lista",
+      "title": "Harmadik lista333",
+      "items": [
+        {
+          "id": 4,
+          "listId": 3,
+          "name": "name4",
+          "summary": "random summary"
+        }
+      ],
       "id": 3
     },
     {

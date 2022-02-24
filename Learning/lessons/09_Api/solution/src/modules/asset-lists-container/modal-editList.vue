@@ -35,15 +35,15 @@ export default defineComponent({
 		Modal
 	},
 	props: {
-		id: { type: Number, default: 0 },
-		title: { type: String, default: '' }
+		id: { type: Number }
 	},
 	setup(props) {
 		const { setEditListModalVisibility } = useModalStore();
-		const { putListToApi } = useAssetListsStore();
-		const listTitle = ref(props.title);
+		const { putListToApi, lists } = useAssetListsStore();
+		let list = ref(lists.value!.filter(element => element.id === props.id)[0]);
+		const listTitle = ref(list.value.title);
 		const sendTitleToApi = () => {
-			putListToApi({id: props.id, title: listTitle.value});
+			putListToApi({id: list.value.id, title: listTitle.value, items: list.value.items});
 			setEditListModalVisibility(false);
 		};
 		return {

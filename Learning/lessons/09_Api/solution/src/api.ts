@@ -13,7 +13,6 @@ export function Api({ get, post, put, delete: del }: AxiosPartial = Axios()) {
 			return data.value.joke;
 		},
 		async getListsCall() {
-			
 			const { data } = await get<List[]>('lists');
 			return data.map((element) => (List({ ...element })));
 		},
@@ -21,7 +20,7 @@ export function Api({ get, post, put, delete: del }: AxiosPartial = Axios()) {
 			return await post('lists', list);
 		},
 		async editListCall(list: List) {
-			return await put('lists/' + list.id, {title: list.title});
+			return await put('lists/' + list.id, {title: list.title, items: list.items});
 		},
 		async deleteListCall(id: number) {
 			return await del('lists/' + id);

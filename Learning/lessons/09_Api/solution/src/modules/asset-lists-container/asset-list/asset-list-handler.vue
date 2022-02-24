@@ -2,7 +2,7 @@
 	<div class="page container" style="margin-top: 3rem;">
 
 			<div style="display: flex; flex-direction: column; gap: 1rem;" >
-				<h3 class="title is-3" style="margin-bottom: 0;">{{ title }}</h3>
+				<h3 class="title is-3" style="margin-bottom: 0;">{{ lists[index].title }}</h3>
 				<div class="div" style="display: flex; gap: .5rem;">
 					<button class="button is-small is-light" @click="openEditListModal()">Edit title</button>
 					<button class="button is-small is-light is-danger" @click="deleteList(id)">Delete list</button>
@@ -67,7 +67,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { defineComponent, ref } from 'vue';
 import { provideModalStore } from './modal.store';
 import { provideAssetListStore } from './asset-list.store';
 import { useAssetListsStore } from '../asset-lists-container.store';
@@ -91,12 +91,13 @@ export default defineComponent({
 
 	props: {
 		id: { type: Number, default: 0 },
-		title: { type: String, default: '' }
 	},
 
 	setup(props) {
 		const { ...rest } = provideModalStore();
-		const { deleteList } = useAssetListsStore();
+		const { deleteList, lists } = useAssetListsStore();
+		const list = lists.value!.filter(element => element.id === props.id)[0];
+		const index = lists.value!.indexOf(list);
 		const { items, setItems, getEverySelected, setItemSelectionById } = provideAssetListStore();
 		const sampleItems = [
 			Item({ name: 'item1', summary: 'summary1' }),
@@ -105,13 +106,15 @@ export default defineComponent({
 			Item({ name: 'item4', summary: 'summary4' }),
 			Item({ name: 'item5', summary: 'summary5' }),
 		];
-		setItems(sampleItems);
+		setItems(list.items);
 		return {
 			...rest,
 			getEverySelected,
 			setItemSelectionById,
 			items,
-			deleteList
+			lists,
+			index,
+			deleteList,
 		};
 	},
 });

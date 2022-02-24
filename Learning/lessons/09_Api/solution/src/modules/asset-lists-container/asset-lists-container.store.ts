@@ -14,6 +14,7 @@ export const setupAssetListsStore = ({ api }: storeDeps) => {
 
     const getListsFromApi = async() => {
 		const data = await getListsCall();
+		console.log(data);
 		lists.value = data;
 	};
 
