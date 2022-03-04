@@ -16,6 +16,10 @@ export function Api({ get, post, put, delete: del }: AxiosPartial = Axios()) {
 			const { data } = await get<List[]>('lists');
 			return data.map((element) => (List({ ...element })));
 		},
+		async getListCall(id: number) {
+			const { data } = await get<List>('lists/' + id);
+			return List({ ...data });
+		},
 		async postListCall(list: List) {
 			return await post('lists', list);
 		},

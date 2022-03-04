@@ -10,12 +10,18 @@ type storeDeps = {
 
 export const setupAssetListsStore = ({ api }: storeDeps) => {
 	const lists = ref<List[]>();
-	const { getListsCall, postListCall, editListCall, deleteListCall } = api;
+	const { getListsCall, getListCall, postListCall, editListCall, deleteListCall } = api;
 
     const getListsFromApi = async() => {
 		const data = await getListsCall();
-		console.log(data);
+		// console.log(data);
 		lists.value = data;
+	};
+
+	const getListFromApi = async(id: number) => {
+		const data = await getListCall(id);
+		return data;
+		//console.log(data);
 	};
 
 	const postListToApi = async(list: List) => {
@@ -36,6 +42,7 @@ export const setupAssetListsStore = ({ api }: storeDeps) => {
 	return {
 		lists,
 		getListsFromApi,
+		getListFromApi,
 		postListToApi,
 		putListToApi,
 		deleteList

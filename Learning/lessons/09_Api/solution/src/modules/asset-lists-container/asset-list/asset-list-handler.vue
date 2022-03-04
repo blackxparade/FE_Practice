@@ -2,7 +2,7 @@
 	<div class="page container" style="margin-top: 3rem;">
 
 			<div style="display: flex; flex-direction: column; gap: 1rem;" >
-				<h3 class="title is-3" style="margin-bottom: 0;">{{ lists[index].title }}</h3>
+				<h3 class="title is-3" style="margin-bottom: 0;">{{ list?.title }}</h3>
 				<div class="div" style="display: flex; gap: .5rem;">
 					<button class="button is-small is-light" @click="openEditListModal()">Edit title</button>
 					<button class="button is-small is-light is-danger" @click="deleteList(id)">Delete list</button>
@@ -72,7 +72,7 @@ import { provideModalStore } from './modal.store';
 import { provideAssetListStore } from './asset-list.store';
 import { useAssetListsStore } from '../asset-lists-container.store';
 import ListItem from 'src/components/list-item.vue';
-import { Item } from 'src/domain';
+import { Item, List } from 'src/domain';
 import ModalEditItem from './modal-editItem.vue';
 import ModalNewItem from './modal-newItem.vue';
 import ModalDeleteItem from './modal-deleteItem.vue';
@@ -95,9 +95,13 @@ export default defineComponent({
 
 	setup(props) {
 		const { ...rest } = provideModalStore();
-		const { deleteList, lists } = useAssetListsStore();
-		const list = lists.value!.filter(element => element.id === props.id)[0];
-		const index = lists.value!.indexOf(list);
+		const { deleteList, getListFromApi } = useAssetListsStore();
+		const list = ref<List>();
+		const getListData = async() => {
+			list.value = await getListFromApi(props.id);
+			setItems(list.value.items);
+			return list;
+		};
 		const { items, setItems, getEverySelected, setItemSelectionById } = provideAssetListStore();
 		const sampleItems = [
 			Item({ name: 'item1', summary: 'summary1' }),
@@ -106,17 +110,21 @@ export default defineComponent({
 			Item({ name: 'item4', summary: 'summary4' }),
 			Item({ name: 'item5', summary: 'summary5' }),
 		];
-		setItems(list.items);
 		return {
 			...rest,
 			getEverySelected,
 			setItemSelectionById,
 			items,
-			lists,
-			index,
+			setItems,
+			list,
+			getListData,
 			deleteList,
 		};
 	},
+
+	created() {
+		this.getListData();
+  	}
 });
 /* scaffolding-disable unless keepExamples */
 
