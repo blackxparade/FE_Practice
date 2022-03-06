@@ -49,8 +49,8 @@ export const setupAssetListsStore = ({ api }: storeDeps) => {
 	};
 };
 
-export const provideAssetListsStore = (storDeps: storeDeps) => {
-	const assetListStore = setupAssetListsStore(storDeps);
+export const provideAssetListsStore = (storeDeps: storeDeps) => {
+	const assetListStore = setupAssetListsStore(storeDeps);
 	provide(AssetListStoreSymbol, assetListStore);
 	return assetListStore;
 };

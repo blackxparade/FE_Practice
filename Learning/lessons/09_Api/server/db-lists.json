@@ -1,41 +1,39 @@
 {
   "lists": [
     {
-      "title": "Harmadik lista334",
+      "title": "another one1",
       "items": [
         {
-          "id": 4,
-          "listId": 3,
-          "name": "name4",
-          "summary": "random summary"
+          "id": 90,
+          "name": "asdf1",
+          "summary": "sdaf324",
+          "isSelected": false
         }
       ],
-      "id": 3
+      "id": 8991
     },
     {
-      "id": 8991,
-      "title": "another one"
+      "title": "again and again",
+      "items": [
+        {
+          "id": 50,
+          "name": "ya",
+          "summary": "yay",
+          "isSelected": false
+        }
+      ],
+      "id": 5569
     },
     {
-      "id": 4293,
-      "title": "and another"
-    },
-    {
-      "id": 5569,
-      "title": "again and again"
-    },
-    {
-      "id": 2461,
       "title": "legujabb",
-      "items": []
+      "items": [],
+      "id": 2461
+    },
+    {
+      "title": "asdf",
+      "items": [],
+      "id": 5908
     }
   ],
-  "items": [
-    {
-      "id": 4,
-      "listId": 3,
-      "name": "name4",
-      "summary": "random summary"
-    }
-  ]
+  "items": []
 }

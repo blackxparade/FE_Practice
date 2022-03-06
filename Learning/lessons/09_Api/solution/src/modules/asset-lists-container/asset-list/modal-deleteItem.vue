@@ -15,7 +15,7 @@
         <template #footer>
             <button
                 class="button"
-                @click="deleteItems()">
+                @click="delItems()">
                 Delete
             </button>
             <button
@@ -42,14 +42,14 @@ export default defineComponent({
 				return `${item.id} - ${item.name}, ${item.summary}`;
 		};
 		const { setDeleteModalVisibility } = useModalStore()
-		const { deleteSelectedItems, getEverySelected } = useAssetListStore()
-		const deleteItems = () => {
-				deleteSelectedItems();
+		const { deleteItems, getEverySelected } = useAssetListStore()
+		const delItems = () => {
+				deleteItems();
                 setDeleteModalVisibility(false);
 		};
 		return {
 			listItemInfo,
-			deleteItems,
+			delItems,
 			setDeleteModalVisibility,
             getEverySelected
 		};

@@ -28,8 +28,7 @@ export default defineComponent({
 		AssetListHandler
 	},
     setup() {
-		const api = useApi()
-
+		const api = useApi();
         const { lists, postListToApi, getListsFromApi } = provideAssetListsStore({ api });
         const listNameInput = ref("");
         getListsFromApi();

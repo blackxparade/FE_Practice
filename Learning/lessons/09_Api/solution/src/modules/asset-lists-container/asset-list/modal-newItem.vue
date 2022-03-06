@@ -49,7 +49,6 @@ export default defineComponent({
 			setNewModalVisibility(false)
 		};
 		return {
-			addItem,
 			setNewModalVisibility,
 			addItemHandler,
 			name,

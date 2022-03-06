@@ -47,7 +47,9 @@
 
 			<!-- NEW ITEM MODAL -->
 			<modal-newItem
-			v-if="showNewModal">
+			v-if="showNewModal"
+			:id="id"
+			:title="title">
 			</modal-newItem>
 
 			<!-- EDIT ITEM MODAL -->
@@ -77,6 +79,7 @@ import ModalEditItem from './modal-editItem.vue';
 import ModalNewItem from './modal-newItem.vue';
 import ModalDeleteItem from './modal-deleteItem.vue';
 import ModalEditList from '../modal-editList.vue';
+import { useApi } from 'src/api';
 
 /* scaffolding-enable */
 export default defineComponent({
@@ -91,9 +94,11 @@ export default defineComponent({
 
 	props: {
 		id: { type: Number, default: 0 },
+		title: { type: String, default: "" }
 	},
 
 	setup(props) {
+		const api = useApi();
 		const { ...rest } = provideModalStore();
 		const { deleteList, getListFromApi } = useAssetListsStore();
 		const list = ref<List>();
@@ -102,7 +107,9 @@ export default defineComponent({
 			setItems(list.value.items);
 			return list;
 		};
-		const { items, setItems, getEverySelected, setItemSelectionById } = provideAssetListStore();
+		const { items, id, title, setItems, getEverySelected, setItemSelectionById } = provideAssetListStore({ api });
+		id.value = props.id;
+		title.value = props.title;
 		const sampleItems = [
 			Item({ name: 'item1', summary: 'summary1' }),
 			Item({ name: 'item2', summary: 'summary2' }),

@@ -29,7 +29,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from 'vue';
+import { defineComponent } from 'vue';
 import { useModalStore } from './modal.store';
 import { useAssetListStore } from './asset-list.store';
 import Modal from 'src/components/modal.vue';
@@ -43,7 +43,7 @@ export default defineComponent({
 	setup() {
 		const { getSelected, updateItem } = useAssetListStore();
 		const { setEditModalVisibility } = useModalStore();
-		let item = Item({name: getSelected.value!.name, summary: getSelected.value!.summary});
+		let item = Item({id: getSelected.value!.id, name: getSelected.value!.name, summary: getSelected.value!.summary});
 		const editItem = () => {
 			updateItem(item);
 			setEditModalVisibility(false);
