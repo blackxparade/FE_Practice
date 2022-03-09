@@ -72,7 +72,7 @@
 import { defineComponent, ref, toRefs } from 'vue';
 import { provideModalStore } from './modal.store';
 import { provideAssetListStore } from './asset-list.store';
-import { useAssetListsStore } from '../asset-lists-container.store';
+import { useAssetListsStore } from '../asset-lists.store';
 import ListItem from 'src/components/list-item.vue';
 import { Item, List } from 'src/domain';
 import ModalEditItem from './modal-editItem.vue';

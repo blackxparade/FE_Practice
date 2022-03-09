@@ -17,7 +17,7 @@
 <script lang="ts">
 import { defineComponent, ref } from 'vue';
 import { List } from 'src/domain';
-import { provideAssetListsStore } from './asset-lists-container.store';
+import { provideAssetListsStore } from './asset-lists.store';
 import AssetListHandler from './asset-list/asset-list-handler.vue';
 import { useApi } from 'src/api';
 
