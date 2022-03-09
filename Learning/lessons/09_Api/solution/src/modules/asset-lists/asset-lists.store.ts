@@ -12,6 +12,16 @@ export const setupAssetListsStore = ({ api }: storeDeps) => {
 	const lists = ref<List[]>();
 	const { getListsCall, getListCall, postListCall, editListCall, deleteListCall } = api;
 
+	const listNameInput = ref("");
+
+	const saveNewList = (title: string) => {
+		return postListToApi(List({ title }));
+	};
+
+	const resetInputValue = () =>{
+		listNameInput.value = "";
+	}
+
     const getListsFromApi = async() => {
 		const data = await getListsCall();
 		// console.log(data);
@@ -36,11 +46,14 @@ export const setupAssetListsStore = ({ api }: storeDeps) => {
 
 	const deleteList = async(id: number) => {
 		await deleteListCall(id);
-		getListsFromApi(); 
+		getListsFromApi();
 	}
 
 	return {
 		lists,
+		listNameInput,
+		saveNewList,
+		resetInputValue,
 		getListsFromApi,
 		getListFromApi,
 		postListToApi,

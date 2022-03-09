@@ -2,7 +2,7 @@
 	<div>
         <div style="display: flex; gap: .5rem;">
             <input class="input" type="text" placeholder="New list title" v-model="listNameInput">
-            <button class="button" :disabled="!listNameInput.length" @click="saveNewList()">Add new list</button>
+            <button class="button" :disabled="!listNameInput.length" @click="saveList(listNameInput)">Add new list</button>
         </div>
 
 
@@ -16,7 +16,6 @@
 
 <script lang="ts">
 import { defineComponent, ref } from 'vue';
-import { List } from 'src/domain';
 import { provideAssetListsStore } from './asset-lists.store';
 import AssetListHandler from './asset-list/asset-list-handler.vue';
 import { useApi } from 'src/api';
@@ -29,17 +28,18 @@ export default defineComponent({
 	},
     setup() {
 		const api = useApi();
-        const { lists, postListToApi, getListsFromApi } = provideAssetListsStore({ api });
-        const listNameInput = ref("");
+        const { lists, getListsFromApi, saveNewList, listNameInput, resetInputValue } = provideAssetListsStore({ api });
         getListsFromApi();
-        const saveNewList = () => {
-            postListToApi(List({ title: listNameInput.value }));
-            listNameInput.value = "";
-        };
+
+		const saveList = (title: string) => {
+			saveNewList(title).then(() => {
+				resetInputValue();
+			})
+		};
         return {
             lists,
             listNameInput,
-            saveNewList,
+            saveList,
         }
     }
 });
