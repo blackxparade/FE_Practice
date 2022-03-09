@@ -1,7 +1,7 @@
 {
   "lists": [
     {
-      "title": "another one1",
+      "title": "another one1222",
       "items": [
         {
           "id": 90,
@@ -13,25 +13,15 @@
       "id": 8991
     },
     {
-      "title": "again and again",
+      "title": "asdf",
       "items": [
         {
-          "id": 50,
-          "name": "ya",
-          "summary": "yay",
+          "id": 18,
+          "name": "sdsd",
+          "summary": "sdsd",
           "isSelected": false
         }
       ],
-      "id": 5569
-    },
-    {
-      "title": "legujabb",
-      "items": [],
-      "id": 2461
-    },
-    {
-      "title": "asdf",
-      "items": [],
       "id": 5908
     }
   ],

@@ -63,13 +63,13 @@
 			</modal-deleteItem>
 
 			<modal-editList
-			v-bind="{id: id, title: title}" 
+			v-bind="{id: id, title: title}"
 			v-if="showEditListModal" />
 	</div>
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from 'vue';
+import { defineComponent, ref, toRefs } from 'vue';
 import { provideModalStore } from './modal.store';
 import { provideAssetListStore } from './asset-list.store';
 import { useAssetListsStore } from '../asset-lists-container.store';
@@ -107,16 +107,8 @@ export default defineComponent({
 			setItems(list.value.items);
 			return list;
 		};
-		const { items, id, title, setItems, getEverySelected, setItemSelectionById } = provideAssetListStore({ api });
-		id.value = props.id;
-		title.value = props.title;
-		const sampleItems = [
-			Item({ name: 'item1', summary: 'summary1' }),
-			Item({ name: 'item2', summary: 'summary2' }),
-			Item({ name: 'item3', summary: 'summary3' }),
-			Item({ name: 'item4', summary: 'summary4' }),
-			Item({ name: 'item5', summary: 'summary5' }),
-		];
+
+		const { items, id, title, setItems, getEverySelected, setItemSelectionById } = provideAssetListStore({ api, ...toRefs(props) });
 		return {
 			...rest,
 			getEverySelected,
@@ -124,6 +116,8 @@ export default defineComponent({
 			items,
 			setItems,
 			list,
+			id,
+			title,
 			getListData,
 			deleteList,
 		};
