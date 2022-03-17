@@ -10,9 +10,10 @@ type storeDeps = {
 	api: Api,
 	id: Ref<number>,
 	title: Ref<string>,
+	refreshList: Function,
 }
 
-export const setupListStore = ({ api, id, title }: storeDeps) => {
+export const setupListStore = ({ api, id, title, refreshList }: storeDeps) => {
 	const { items, SelectableItem, deleteSelectedItems, ...rest } = setupListBaseStore<Item>();
 	const { editListCall } = api;
 
@@ -47,8 +48,6 @@ export const setupListStore = ({ api, id, title }: storeDeps) => {
 
 	return {
 		items,
-		id,
-		title,
 		updateItem,
 		deleteItems,
 		addItem,

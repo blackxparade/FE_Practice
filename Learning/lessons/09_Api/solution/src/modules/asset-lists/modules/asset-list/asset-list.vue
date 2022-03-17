@@ -2,7 +2,7 @@
 	<div class="page container" style="margin-top: 3rem;">
 
 			<div style="display: flex; flex-direction: column; gap: 1rem;" >
-				<h3 class="title is-3" style="margin-bottom: 0;">{{ getListFromApi(props.id).value }}</h3>
+				<h3 class="title is-3" style="margin-bottom: 0;"></h3>
 				<div class="div" style="display: flex; gap: .5rem;">
 					<button class="button is-small is-light" @click="openEditListModal()">Edit title</button>
 					<button class="button is-small is-light is-danger" @click="deleteList(id)">Delete list</button>
@@ -64,7 +64,7 @@
 
 			<modal-editList
 			v-bind="{id: id, title: title}"
-			v-if="showEditListModal" 
+			v-if="showEditListModal"
 			@sentTitle="this.getListData()"/>
 	</div>
 </template>
@@ -73,7 +73,7 @@
 import { defineComponent, ref, toRefs } from 'vue';
 import { provideModalStore } from './modal.store';
 import { provideAssetListStore } from './asset-list.store';
-import { useAssetListsStore } from '../asset-lists.store';
+import { useAssetListsStore } from '../../asset-lists.store';
 import ListItem from 'src/components/list-item.vue';
 import { List } from 'src/domain';
 import ModalEditItem from './modal-editItem.vue';
@@ -95,7 +95,8 @@ export default defineComponent({
 
 	props: {
 		id: { type: Number, default: 0 },
-		title: { type: String, default: "" }
+		title: { type: String, default: "" },
+		refreshList: { type: Function, required: true }
 	},
 
 	setup(props) {
@@ -108,8 +109,8 @@ export default defineComponent({
 			setItems(list.value.items);
 			return list;
 		};
-
-		const { items, id, title, setItems, getEverySelected, setItemSelectionById } = provideAssetListStore({ api, ...toRefs(props) });
+		const { id, title } = toRefs(props);
+		const { items, setItems, getEverySelected, setItemSelectionById } = provideAssetListStore({ api, id, title, refreshList: props.refreshList });
 		return {
 			...rest,
 			getEverySelected,

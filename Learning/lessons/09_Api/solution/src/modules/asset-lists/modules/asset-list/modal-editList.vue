@@ -26,7 +26,7 @@
 <script lang="ts">
 import { defineComponent, ref } from 'vue';
 import { useModalStore } from './modal.store';
-import { useAssetListsStore } from '../asset-lists.store';
+import { useAssetListsStore } from '../../asset-lists.store';
 import Modal from 'src/components/modal.vue';
 
 export default defineComponent({

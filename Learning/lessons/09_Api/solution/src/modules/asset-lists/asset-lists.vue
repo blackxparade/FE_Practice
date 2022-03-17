@@ -8,7 +8,7 @@
 
         <div style="display: flex; flex-wrap: wrap; gap: 4rem;">
             <div v-for="list in lists" :key="list.id">
-                <asset-list v-bind="list" />
+                <asset-list v-bind="list" :refresh-list="getListsFromApi" />
             </div>
         </div>
 	</div>
@@ -17,7 +17,7 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 import { provideAssetListsStore } from './asset-lists.store';
-import { AssetList } from './asset-list/';
+import { AssetList } from './modules/asset-list';
 import { useApi } from 'src/api';
 
 /* scaffolding-enable */
@@ -36,6 +36,7 @@ export default defineComponent({
 			})
 		};
         return {
+			getListsFromApi,
             lists,
             listNameInput,
             saveList,
