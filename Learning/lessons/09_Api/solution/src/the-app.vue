@@ -8,7 +8,7 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import AssetLists from './modules/asset-lists/asset-lists.vue';
+import { AssetLists } from './modules/asset-lists';
 
 /* scaffolding-enable */
 export default defineComponent({

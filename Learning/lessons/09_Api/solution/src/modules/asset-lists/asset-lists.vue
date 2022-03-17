@@ -8,29 +8,28 @@
 
         <div style="display: flex; flex-wrap: wrap; gap: 4rem;">
             <div v-for="list in lists" :key="list.id">
-                <asset-list-handler v-bind="list" />
+                <asset-list v-bind="list" />
             </div>
         </div>
 	</div>
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from 'vue';
+import { defineComponent } from 'vue';
 import { provideAssetListsStore } from './asset-lists.store';
-import AssetListHandler from './asset-list/asset-list-handler.vue';
+import { AssetList } from './asset-list/';
 import { useApi } from 'src/api';
 
 /* scaffolding-enable */
 export default defineComponent({
 	/* scaffolding-disable unless keepExamples */
 	components: {
-		AssetListHandler
+		AssetList
 	},
     setup() {
 		const api = useApi();
         const { lists, getListsFromApi, saveNewList, listNameInput, resetInputValue } = provideAssetListsStore({ api });
         getListsFromApi();
-
 		const saveList = (title: string) => {
 			saveNewList(title).then(() => {
 				resetInputValue();
