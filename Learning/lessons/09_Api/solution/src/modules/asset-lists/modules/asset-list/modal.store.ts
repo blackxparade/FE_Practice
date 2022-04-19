@@ -1,8 +1,15 @@
 import { ref, inject, InjectionKey, provide } from 'vue';
+import { Api } from 'src/api';
+import { Item, List } from 'src/domain';
 type ModalStore = ReturnType<typeof setupModalStore>
 export const ModalStoreSymbol: InjectionKey<ModalStore> = Symbol('modalStore');
 
-export const setupModalStore = () => {
+type storeDeps = {
+	api: Api
+}
+
+export const setupModalStore = ({ api }: storeDeps) => {
+	const { editListCall } = api;
 	const showNewModal = ref(false);
 	const showEditModal = ref(false);
 	const showDeleteModal = ref(false);
@@ -52,8 +59,8 @@ export const setupModalStore = () => {
 	};
 };
 
-export const provideModalStore = () => {
-	const modalStore = setupModalStore();
+export const provideModalStore = (storeDeps: storeDeps) => {
+	const modalStore = setupModalStore(storeDeps);
 	provide(ModalStoreSymbol, modalStore);
 	return modalStore;
 };

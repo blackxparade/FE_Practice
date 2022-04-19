@@ -5,7 +5,7 @@
 				<h3 class="title is-3" style="margin-bottom: 0;">{{ title }}</h3>
 				<div class="div" style="display: flex; gap: .5rem;">
 					<button class="button is-small is-light" @click="openEditListModal()">Edit title</button>
-					<button class="button is-small is-light is-danger" @click="deleteList(id)">Delete list</button>
+					<button class="button is-small is-light is-danger" @click="deleteList(id); refreshList();">Delete list</button>
 				</div>
 			</div>
 
@@ -101,8 +101,7 @@ export default defineComponent({
 
 	setup(props) {
 		const api = useApi();
-		const { ...rest } = provideModalStore();
-		const { deleteList, getListFromApi } = useAssetListsStore();
+		const { getListFromApi, getListsFromApi } = useAssetListsStore();
 		const list = ref<List>();
 		const getListData = async() => {
 			list.value = await getListFromApi(props.id);
@@ -110,7 +109,8 @@ export default defineComponent({
 			return list;
 		};
 		const { id, title } = toRefs(props);
-		const { items, setItems, getEverySelected, setItemSelectionById } = provideAssetListStore({ api, id, title, refreshList: props.refreshList });
+		const { items, setItems, deleteList, getEverySelected, setItemSelectionById } = provideAssetListStore({ api, id, title, refreshList: props.refreshList });
+			const { ...rest } = provideModalStore({ api });
 		return {
 			...rest,
 			getEverySelected,
@@ -121,6 +121,7 @@ export default defineComponent({
 			title,
 			getListData,
 			deleteList,
+			getListsFromApi
 		};
 	},
 

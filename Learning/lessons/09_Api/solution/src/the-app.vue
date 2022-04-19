@@ -18,3 +18,8 @@ export default defineComponent({
 	}
 });
 </script>
+
+<!-- 
+TODOS:
+	- API calls should be in stores where they are used, so there won't be a big global store
+--->

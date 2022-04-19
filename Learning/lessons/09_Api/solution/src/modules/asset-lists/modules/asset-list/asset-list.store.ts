@@ -1,6 +1,6 @@
 import { Item, List } from 'src/domain';
 import { Api } from 'src/api';
-import { inject, InjectionKey, provide, Ref, ref } from 'vue';
+import { inject, InjectionKey, provide, Ref } from 'vue';
 import { setupListBaseStore } from 'src/store/general.store';
 
 type AssetListStore = ReturnType<typeof setupListStore>
@@ -15,7 +15,7 @@ type storeDeps = {
 
 export const setupListStore = ({ api, id, title, refreshList }: storeDeps) => {
 	const { items, SelectableItem, deleteSelectedItems, ...rest } = setupListBaseStore<Item>();
-	const { editListCall } = api;
+	const { editListCall, deleteListCall } = api;
 
 	const updateItemToStore = (item: Item) => {
 		items.value = items.value.map(element => {
@@ -46,10 +46,15 @@ export const setupListStore = ({ api, id, title, refreshList }: storeDeps) => {
 		await editListCall(List({title: title.value, id: id.value, items: items.value}));
 	}
 
+	const deleteList = async(id: number) => {
+		await deleteListCall(id);
+	}
+
 	return {
 		items,
 		updateItem,
 		deleteItems,
+		deleteList,
 		addItem,
 		...rest,
 	};
