@@ -25,6 +25,7 @@
 import { defineComponent } from 'vue';
 
 export default defineComponent({
+	name: 'TdModal',
 	props: {
 		description: { type: String, default: '' },
 	},

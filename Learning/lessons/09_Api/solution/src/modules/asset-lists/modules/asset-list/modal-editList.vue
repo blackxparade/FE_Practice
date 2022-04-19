@@ -1,5 +1,5 @@
 <template>
-	<modal
+	<td-modal
 	@close="setEditListModalVisibility(false)">
 		<template #title>
 			Edit list title
@@ -20,19 +20,15 @@
 			</button>
 			<button class="button" @click="setEditListModalVisibility(false)">Close</button>
 		</template>
-	</modal>
+	</td-modal>
 </template>
 
 <script lang="ts">
 import { defineComponent, ref } from 'vue';
 import { useModalStore } from './modal.store';
 import { useAssetListsStore } from '../../asset-lists.store';
-import Modal from 'src/components/modal.vue';
 
 export default defineComponent({
-	components: {
-		Modal
-	},
 	props: {
 		id: { type: Number }
 	},

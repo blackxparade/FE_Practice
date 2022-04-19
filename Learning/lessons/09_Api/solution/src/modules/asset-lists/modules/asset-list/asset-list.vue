@@ -13,7 +13,7 @@
 			<div style="display: flex; gap: .5rem; margin-top: 3rem;">
 				<button
 					class="button is-primary is-light"
-					@click="openNewModal">
+					@click="openNewModal()">
 					Add item
 				</button>
 				<button
@@ -46,11 +46,7 @@
 			</div>
 
 			<!-- NEW ITEM MODAL -->
-			<modal-newItem
-			v-if="showNewModal"
-			:id="id"
-			:title="title">
-			</modal-newItem>
+			<modal-newItem> </modal-newItem>
 
 			<!-- EDIT ITEM MODAL -->
 			<modal-editItem
@@ -73,11 +69,11 @@
 import { defineComponent, ref, toRefs } from 'vue';
 import { provideModalStore } from './modal.store';
 import { provideAssetListStore } from './asset-list.store';
+import { provideNewItemModalStore, ModalNewItem } from './modules/modal-newItem';
 import { useAssetListsStore } from '../../asset-lists.store';
 import ListItem from 'src/components/list-item.vue';
 import { List } from 'src/domain';
 import ModalEditItem from './modal-editItem.vue';
-import ModalNewItem from './modal-newItem.vue';
 import ModalDeleteItem from './modal-deleteItem.vue';
 import ModalEditList from './modal-editList.vue';
 import { useApi } from 'src/api';
@@ -109,10 +105,12 @@ export default defineComponent({
 			return list;
 		};
 		const { id, title } = toRefs(props);
-		const { items, setItems, deleteList, getEverySelected, setItemSelectionById } = provideAssetListStore({ api, id, title, refreshList: props.refreshList });
-			const { ...rest } = provideModalStore({ api });
+		const { items, setItems, deleteList, getEverySelected, setItemSelectionById, addItem } = provideAssetListStore({ api, id, title, refreshList: props.refreshList });
+		const { openNewModal } = provideNewItemModalStore({ addItem, id: id.value, title: title.value });
+		const { ...rest } = provideModalStore({ api });
 		return {
 			...rest,
+			openNewModal,
 			getEverySelected,
 			setItemSelectionById,
 			items,

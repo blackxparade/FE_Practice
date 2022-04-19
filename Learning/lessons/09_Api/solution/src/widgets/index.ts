@@ -6,4 +6,5 @@ export { default as TdIcon } from './td-icon.vue';
 /* scaffolding-disable unless keepExamples */
 export { default as TdModalCard } from './td-modal-card.vue';
 export { LionDialog } from './lion-components';
+export { default as TdModal } from '../components/td-modal.vue';
 /* scaffolding-enable */

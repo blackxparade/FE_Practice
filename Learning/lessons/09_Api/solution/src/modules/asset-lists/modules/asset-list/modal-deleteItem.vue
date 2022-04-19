@@ -1,5 +1,5 @@
 <template>
-	<modal
+	<td-modal
 	@close="setDeleteModalVisibility(false)">
         <template #title>
             Deleting items
@@ -24,19 +24,15 @@
                 Close
             </button>
         </template>
-    </modal>
+    </td-modal>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue';
 import { useModalStore } from './modal.store';
 import { useAssetListStore } from './asset-list.store';
-import Modal from 'src/components/modal.vue';
 
 export default defineComponent({
-	components: {
-		Modal
-	},
 	setup() {
 		const listItemInfo = (item: any) => {
 				return `${item.id} - ${item.name}, ${item.summary}`;

@@ -1,6 +1,7 @@
 <template>
-	<modal
-	@close="setNewModalVisibility(false)">
+	<td-modal
+	v-if="showNewModal"
+	@close="closeNewModal()">
 		<template #title>
 			Add Item
 		</template>
@@ -23,34 +24,31 @@
 				@click="addItemHandler()">
 				Add
 			</button>
-			<button class="button" @click="setNewModalVisibility(false)">Close</button>
+			<button class="button" @click="closeNewModal()">Close</button>
 		</template>
-	</modal>
+	</td-modal>
 </template>
 
 <script lang="ts">
 import { defineComponent, ref } from 'vue';
 import { Item } from 'src/domain/item';
-import Modal from 'src/components/modal.vue';
-import { useModalStore } from './modal.store';
-import { useAssetListStore } from './asset-list.store';
+import { useNewItemModalStore } from './modal-newItem.store';
+import { useAssetListStore } from './../../asset-list.store';
 
 export default defineComponent({
-	components: {
-		Modal
-	},
 	setup() {
 		const name = ref("");
 		const summary = ref("");
-		const { setNewModalVisibility } = useModalStore();
+		const { closeNewModal, showNewModal } = useNewItemModalStore();
 		const { addItem } = useAssetListStore();
 		const addItemHandler = () => {
 			addItem(Item({ name: name.value, summary: summary.value }));
-			setNewModalVisibility(false)
+			closeNewModal()
 		};
 		return {
-			setNewModalVisibility,
+			closeNewModal,
 			addItemHandler,
+			showNewModal,
 			name,
 			summary
 		};

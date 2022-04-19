@@ -9,15 +9,9 @@ type storeDeps = {
 }
 
 export const setupModalStore = ({ api }: storeDeps) => {
-	const { editListCall } = api;
-	const showNewModal = ref(false);
 	const showEditModal = ref(false);
 	const showDeleteModal = ref(false);
 	const showEditListModal = ref(false);
-
-	const setNewModalVisibility = (value: boolean) => {
-		showNewModal.value = value;
-	};
 
 	const setEditModalVisibility = (value: boolean) => {
 		showEditModal.value = value;
@@ -31,9 +25,6 @@ export const setupModalStore = ({ api }: storeDeps) => {
 		showDeleteModal.value = value;
 	};
 
-	const openNewModal = () => {
-		setNewModalVisibility(true);
-	};
 	const openEditModal = () => {
 		setEditModalVisibility(true);
 	};
@@ -44,15 +35,12 @@ export const setupModalStore = ({ api }: storeDeps) => {
 		setDeleteModalVisibility(true);
 	};
 	return {
-		showNewModal,
 		showEditModal,
 		showDeleteModal,
 		showEditListModal,
-		setNewModalVisibility,
 		setEditModalVisibility,
 		setEditListModalVisibility,
 		setDeleteModalVisibility,
-		openNewModal,
 		openEditModal,
 		openEditListModal,
 		openDeleteModal,
