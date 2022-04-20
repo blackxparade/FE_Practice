@@ -19,7 +19,7 @@
 				<button
 					class="button is-light"
 					:disabled="getEverySelected.length !== 1"
-					@click="openEditModal">
+					@click="openEditModal()">
 					Edit
 				</button>
 				<button
@@ -49,9 +49,7 @@
 			<modal-newItem> </modal-newItem>
 
 			<!-- EDIT ITEM MODAL -->
-			<modal-editItem
-			v-if="showEditModal">
-			</modal-editItem>
+			<modal-editItem> </modal-editItem>
 
 			<!-- DELETE MODAL -->
 			<modal-deleteItem> </modal-deleteItem>
@@ -69,10 +67,10 @@ import { provideModalStore } from './modal.store';
 import { provideAssetListStore } from './asset-list.store';
 import { provideNewItemModalStore, ModalNewItem } from './modules/modal-newItem';
 import { provideDeleteItemModalStore, ModalDeleteItem } from './modules/modal-deleteItem';
+import { provideEditItemModalStore, ModalEditItem } from './modules/modal-editItem';
 import { useAssetListsStore } from '../../asset-lists.store';
 import ListItem from 'src/components/list-item.vue';
 import { List } from 'src/domain';
-import ModalEditItem from './modal-editItem.vue';
 import ModalEditList from './modal-editList.vue';
 import { useApi } from 'src/api';
 
@@ -81,9 +79,9 @@ export default defineComponent({
 	/* scaffolding-disable unless keepExamples */
 	components: {
 		ListItem,
-		ModalEditItem,
 		ModalNewItem,
 		ModalDeleteItem,
+		ModalEditItem,
 		ModalEditList
 	},
 
@@ -103,14 +101,16 @@ export default defineComponent({
 			return list;
 		};
 		const { id, title } = toRefs(props);
-		const { items, setItems, deleteList, getEverySelected, setItemSelectionById, addItem, deleteItems } = provideAssetListStore({ api, id, title, refreshList: props.refreshList });
+		const { items, setItems, deleteList, getEverySelected, getSelected, setItemSelectionById, addItem, deleteItems, updateItem } = provideAssetListStore({ api, id, title, refreshList: props.refreshList });
 		const { openNewModal } = provideNewItemModalStore({ addItem, id: id.value, title: title.value });
-		const { openDeleteModal } = provideDeleteItemModalStore({deleteItems, getEverySelected, id: id.value, title: title.value});
+		const { openDeleteModal } = provideDeleteItemModalStore({ deleteItems, getEverySelected, id: id.value, title: title.value });
+		const { openEditModal } = provideEditItemModalStore({ updateItem, getSelected, id: id.value, title: title.value });
 		const { ...rest } = provideModalStore({ api });
 		return {
 			...rest,
 			openNewModal,
 			openDeleteModal,
+			openEditModal,
 			getEverySelected,
 			setItemSelectionById,
 			items,
