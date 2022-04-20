@@ -1,7 +1,7 @@
 <template>
 	<td-modal
 	v-if="showNewModal"
-	@close="closeNewModal()">
+	@close="clearCloseNewModal()">
 		<template #title>
 			Add Item
 		</template>
@@ -24,7 +24,7 @@
 				@click="addItemHandler()">
 				Add
 			</button>
-			<button class="button" @click="closeNewModal()">Close</button>
+			<button class="button" @click="clearCloseNewModal()">Close</button>
 		</template>
 	</td-modal>
 </template>
@@ -43,14 +43,24 @@ export default defineComponent({
 		const { addItem } = useAssetListStore();
 		const addItemHandler = () => {
 			addItem(Item({ name: name.value, summary: summary.value }));
-			closeNewModal()
+			closeNewModal();
+			clearData();
+		};
+		const clearData = () => {
+			name.value = "";
+			summary.value = "";
+		};
+		const clearCloseNewModal = () => {
+			closeNewModal();
+			clearData();
 		};
 		return {
 			closeNewModal,
 			addItemHandler,
 			showNewModal,
 			name,
-			summary
+			summary,
+			clearCloseNewModal
 		};
 	}
 });
