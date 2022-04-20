@@ -25,7 +25,7 @@
 				<button
 					class="button is-danger is-light"
 					:disabled="getEverySelected.length === 0"
-					@click="openDeleteModal">
+					@click="openDeleteModal()">
 					Delete
 				</button>
 			</div>
@@ -54,9 +54,7 @@
 			</modal-editItem>
 
 			<!-- DELETE MODAL -->
-			<modal-deleteItem
-			v-if="showDeleteModal">
-			</modal-deleteItem>
+			<modal-deleteItem> </modal-deleteItem>
 
 			<modal-editList
 			v-bind="{id: id, title: title}"
@@ -70,11 +68,11 @@ import { defineComponent, ref, toRefs } from 'vue';
 import { provideModalStore } from './modal.store';
 import { provideAssetListStore } from './asset-list.store';
 import { provideNewItemModalStore, ModalNewItem } from './modules/modal-newItem';
+import { provideDeleteItemModalStore, ModalDeleteItem } from './modules/modal-deleteItem';
 import { useAssetListsStore } from '../../asset-lists.store';
 import ListItem from 'src/components/list-item.vue';
 import { List } from 'src/domain';
 import ModalEditItem from './modal-editItem.vue';
-import ModalDeleteItem from './modal-deleteItem.vue';
 import ModalEditList from './modal-editList.vue';
 import { useApi } from 'src/api';
 
@@ -105,12 +103,14 @@ export default defineComponent({
 			return list;
 		};
 		const { id, title } = toRefs(props);
-		const { items, setItems, deleteList, getEverySelected, setItemSelectionById, addItem } = provideAssetListStore({ api, id, title, refreshList: props.refreshList });
+		const { items, setItems, deleteList, getEverySelected, setItemSelectionById, addItem, deleteItems } = provideAssetListStore({ api, id, title, refreshList: props.refreshList });
 		const { openNewModal } = provideNewItemModalStore({ addItem, id: id.value, title: title.value });
+		const { openDeleteModal } = provideDeleteItemModalStore({deleteItems, getEverySelected, id: id.value, title: title.value});
 		const { ...rest } = provideModalStore({ api });
 		return {
 			...rest,
 			openNewModal,
+			openDeleteModal,
 			getEverySelected,
 			setItemSelectionById,
 			items,

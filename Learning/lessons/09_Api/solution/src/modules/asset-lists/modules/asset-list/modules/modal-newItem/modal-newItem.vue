@@ -33,14 +33,12 @@
 import { defineComponent, ref } from 'vue';
 import { Item } from 'src/domain/item';
 import { useNewItemModalStore } from './modal-newItem.store';
-import { useAssetListStore } from './../../asset-list.store';
 
 export default defineComponent({
 	setup() {
 		const name = ref("");
 		const summary = ref("");
-		const { closeNewModal, showNewModal } = useNewItemModalStore();
-		const { addItem } = useAssetListStore();
+		const { closeNewModal, showNewModal, addItem } = useNewItemModalStore();
 		const addItemHandler = () => {
 			addItem(Item({ name: name.value, summary: summary.value }));
 			closeNewModal();

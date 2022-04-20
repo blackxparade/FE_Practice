@@ -1,6 +1,7 @@
 <template>
 	<td-modal
-	@close="setDeleteModalVisibility(false)">
+    v-if="showDeleteModal"
+	@close="closeDeleteModal()">
         <template #title>
             Deleting items
         </template>
@@ -20,7 +21,7 @@
             </button>
             <button
                 class="button"
-                @click="setDeleteModalVisibility(false)">
+                @click="closeDeleteModal()">
                 Close
             </button>
         </template>
@@ -29,24 +30,23 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import { useModalStore } from './modal.store';
-import { useAssetListStore } from './asset-list.store';
+import { useDeleteItemModalStore } from './modal-deleteItem.store';
 
 export default defineComponent({
 	setup() {
 		const listItemInfo = (item: any) => {
 				return `${item.id} - ${item.name}, ${item.summary}`;
 		};
-		const { setDeleteModalVisibility } = useModalStore()
-		const { deleteItems, getEverySelected } = useAssetListStore()
+		const { closeDeleteModal, showDeleteModal, deleteItems, getEverySelected } = useDeleteItemModalStore();
 		const delItems = () => {
 				deleteItems();
-                setDeleteModalVisibility(false);
+                closeDeleteModal();
 		};
 		return {
 			listItemInfo,
 			delItems,
-			setDeleteModalVisibility,
+			closeDeleteModal,
+            showDeleteModal,
             getEverySelected
 		};
 	},
