@@ -30,35 +30,29 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from 'vue';
+import { defineComponent } from 'vue';
 import { Item } from 'src/domain/item';
 import { useNewItemModalStore } from './modal-newItem.store';
 
 export default defineComponent({
 	setup() {
-		const name = ref("");
-		const summary = ref("");
-		const { closeNewModal, showNewModal, addItem } = useNewItemModalStore();
+		const { closeNewModal, showNewModal, addItem, clearData, name, summary } = useNewItemModalStore();
 		const addItemHandler = () => {
 			addItem(Item({ name: name.value, summary: summary.value }));
 			closeNewModal();
 			clearData();
 		};
-		const clearData = () => {
-			name.value = "";
-			summary.value = "";
-		};
+
 		const clearCloseNewModal = () => {
 			closeNewModal();
 			clearData();
 		};
 		return {
-			closeNewModal,
+			clearCloseNewModal,
 			addItemHandler,
 			showNewModal,
 			name,
-			summary,
-			clearCloseNewModal
+			summary
 		};
 	}
 });

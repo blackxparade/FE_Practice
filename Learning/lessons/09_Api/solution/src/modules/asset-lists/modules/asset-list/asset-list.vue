@@ -102,9 +102,9 @@ export default defineComponent({
 		};
 		const { id, title } = toRefs(props);
 		const { items, setItems, deleteList, getEverySelected, getSelected, setItemSelectionById, addItem, deleteItems, updateItem } = provideAssetListStore({ api, id, title, refreshList: props.refreshList });
-		const { openNewModal } = provideNewItemModalStore({ addItem, id: id.value, title: title.value });
-		const { openDeleteModal } = provideDeleteItemModalStore({ deleteItems, getEverySelected, id: id.value, title: title.value });
-		const { openEditModal } = provideEditItemModalStore({ updateItem, getSelected, id: id.value, title: title.value });
+		const { openNewModal } = provideNewItemModalStore({ addItem });
+		const { openDeleteModal } = provideDeleteItemModalStore({ deleteItems, getEverySelected });
+		const { openEditModal } = provideEditItemModalStore({ updateItem, getSelected });
 		const { ...rest } = provideModalStore({ api });
 		return {
 			...rest,

@@ -5,12 +5,10 @@ export const ModalStoreSymbol: InjectionKey<ModalStore> = Symbol('modalStore');
 
 type storeDeps = {
 	deleteItems: () => Promise<void>,
-	getEverySelected: ComputedRef<{ id: number, name: string, summary: string, isSelected: boolean }[]>,
-	id: number,
-	title: string
+	getEverySelected: ComputedRef<{ id: number, name: string, summary: string, isSelected: boolean }[]>
 }
 
-export const setupDeleteItemModalStore = ({ deleteItems, getEverySelected, id, title }: storeDeps) => {
+export const setupDeleteItemModalStore = ({ deleteItems, getEverySelected }: storeDeps) => {
 	const showDeleteModal = ref(false);
 
 	const closeDeleteModal = () => {
@@ -26,9 +24,7 @@ export const setupDeleteItemModalStore = ({ deleteItems, getEverySelected, id, t
 		closeDeleteModal,
 		openDeleteModal,
 		deleteItems,
-		getEverySelected,
-		id,
-		title
+		getEverySelected
 	};
 };
 

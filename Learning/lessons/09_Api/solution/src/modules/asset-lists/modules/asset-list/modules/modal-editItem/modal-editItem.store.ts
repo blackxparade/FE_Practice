@@ -5,12 +5,10 @@ export const ModalStoreSymbol: InjectionKey<ModalStore> = Symbol('modalStore');
 
 type storeDeps = {
 	updateItem: (item: Item) => Promise<void>,
-	getSelected: ComputedRef<{id: number, name: string, summary: string, isSelected: boolean } | undefined>,
-	id: number,
-	title: string
+	getSelected: ComputedRef<{id: number, name: string, summary: string, isSelected: boolean } | undefined>
 }
 
-export const setupEditItemModalStore = ({ updateItem, getSelected, id, title }: storeDeps) => {
+export const setupEditItemModalStore = ({ updateItem, getSelected }: storeDeps) => {
 	const showEditModal = ref(false);
 	const item = ref(Item({name: "", summary: ""}));
 
@@ -29,10 +27,7 @@ export const setupEditItemModalStore = ({ updateItem, getSelected, id, title }: 
 		closeEditModal,
 		openEditModal,
 		updateItem,
-		getSelected,
-		item,
-		id,
-		title
+		item
 	};
 };
 

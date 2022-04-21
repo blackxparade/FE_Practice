@@ -5,12 +5,12 @@ export const ModalStoreSymbol: InjectionKey<ModalStore> = Symbol('modalStore');
 
 type storeDeps = {
 	addItem: (item: Item) => Promise<void>
-	id: number,
-	title: string
 }
 
-export const setupNewItemModalStore = ({ addItem, id, title }: storeDeps) => {
+export const setupNewItemModalStore = ({ addItem }: storeDeps) => {
 	const showNewModal = ref(false);
+	const name = ref("");
+	const summary = ref("");
 
 	const closeNewModal = () => {
 		showNewModal.value = false;
@@ -20,13 +20,19 @@ export const setupNewItemModalStore = ({ addItem, id, title }: storeDeps) => {
 		showNewModal.value = true;
 	};
 
+	const clearData = () => {
+		name.value = "";
+		summary.value = "";
+	};
+
 	return {
 		showNewModal,
 		closeNewModal,
 		openNewModal,
 		addItem,
-		id,
-		title
+		name,
+		summary,
+		clearData
 	};
 };
 
