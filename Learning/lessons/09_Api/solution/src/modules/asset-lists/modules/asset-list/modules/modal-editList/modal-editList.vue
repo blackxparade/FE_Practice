@@ -1,6 +1,7 @@
 <template>
 	<td-modal
-	@close="setEditListModalVisibility(false)">
+	v-if="showEditListModal"
+	@close="closeEditListModal()">
 		<template #title>
 			Edit list title
 		</template>
@@ -18,32 +19,31 @@
 				@click="sendTitleToApi(); this.$emit('sentTitle');">
 				Edit
 			</button>
-			<button class="button" @click="setEditListModalVisibility(false)">Close</button>
+			<button class="button" @click="closeEditListModal()">Close</button>
 		</template>
 	</td-modal>
 </template>
 
 <script lang="ts">
 import { defineComponent, ref } from 'vue';
-import { useModalStore } from './modal.store';
-import { useAssetListsStore } from '../../asset-lists.store';
+import { useEditListModalStore } from './modal-editList.store';
 
 export default defineComponent({
 	props: {
 		id: { type: Number }
 	},
 	setup(props) {
-		const { setEditListModalVisibility } = useModalStore();
-		const { putListToApi, lists } = useAssetListsStore();
-		let list = ref(lists.value!.filter(element => element.id === props.id)[0]);
+		const { showEditListModal, closeEditListModal, putListToApi, lists } = useEditListModalStore();
+		const list = ref(lists.value!.filter(element => element.id === props.id)[0]);
 		const listTitle = ref(list.value.title);
 		const sendTitleToApi = () => {
 			putListToApi({id: list.value.id, title: listTitle.value, items: list.value.items});
-			setEditListModalVisibility(false);
+			closeEditListModal();
 		};
 		return {
 			listTitle,
-			setEditListModalVisibility,
+			showEditListModal,
+			closeEditListModal,
 			sendTitleToApi
 		};
 	}

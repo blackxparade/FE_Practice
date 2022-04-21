@@ -56,7 +56,6 @@
 
 			<modal-editList
 			v-bind="{id: id, title: title}"
-			v-if="showEditListModal"
 			@sentTitle="this.getListData()"/>
 	</div>
 </template>
@@ -68,10 +67,10 @@ import { provideAssetListStore } from './asset-list.store';
 import { provideNewItemModalStore, ModalNewItem } from './modules/modal-newItem';
 import { provideDeleteItemModalStore, ModalDeleteItem } from './modules/modal-deleteItem';
 import { provideEditItemModalStore, ModalEditItem } from './modules/modal-editItem';
+import { provideEditListModalStore, ModalEditList } from './modules/modal-editList';
 import { useAssetListsStore } from '../../asset-lists.store';
 import ListItem from 'src/components/list-item.vue';
 import { List } from 'src/domain';
-import ModalEditList from './modal-editList.vue';
 import { useApi } from 'src/api';
 
 /* scaffolding-enable */
@@ -93,7 +92,7 @@ export default defineComponent({
 
 	setup(props) {
 		const api = useApi();
-		const { getListFromApi, getListsFromApi } = useAssetListsStore();
+		const { getListFromApi } = useAssetListsStore();
 		const list = ref<List>();
 		const getListData = async() => {
 			list.value = await getListFromApi(props.id);
@@ -102,24 +101,25 @@ export default defineComponent({
 		};
 		const { id, title } = toRefs(props);
 		const { items, setItems, deleteList, getEverySelected, getSelected, setItemSelectionById, addItem, deleteItems, updateItem } = provideAssetListStore({ api, id, title, refreshList: props.refreshList });
+		const { putListToApi, lists } = useAssetListsStore();
 		const { openNewModal } = provideNewItemModalStore({ addItem });
 		const { openDeleteModal } = provideDeleteItemModalStore({ deleteItems, getEverySelected });
 		const { openEditModal } = provideEditItemModalStore({ updateItem, getSelected });
+		const { openEditListModal } = provideEditListModalStore({ putListToApi, lists });
 		const { ...rest } = provideModalStore({ api });
 		return {
 			...rest,
 			openNewModal,
 			openDeleteModal,
 			openEditModal,
+			openEditListModal,
 			getEverySelected,
 			setItemSelectionById,
 			items,
-			setItems,
 			id,
 			title,
 			getListData,
-			deleteList,
-			getListsFromApi
+			deleteList
 		};
 	},
 
