@@ -12,6 +12,7 @@ type storeDeps = {
 
 export const setupEditItemModalStore = ({ updateItem, getSelected, id, title }: storeDeps) => {
 	const showEditModal = ref(false);
+	const item = ref(Item({name: "", summary: ""}));
 
 	const closeEditModal = () => {
 		showEditModal.value = false;
@@ -19,6 +20,8 @@ export const setupEditItemModalStore = ({ updateItem, getSelected, id, title }: 
 
 	const openEditModal = () => {
 		showEditModal.value = true;
+		const tempitem = getSelected.value ?? item.value;
+		item.value = tempitem!;
 	};
 
 	return {
@@ -27,6 +30,7 @@ export const setupEditItemModalStore = ({ updateItem, getSelected, id, title }: 
 		openEditModal,
 		updateItem,
 		getSelected,
+		item,
 		id,
 		title
 	};

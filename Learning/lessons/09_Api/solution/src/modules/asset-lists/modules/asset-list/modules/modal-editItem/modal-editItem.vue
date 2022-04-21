@@ -11,19 +11,19 @@
 				class="input mb-4"
 				type="text"
 				placeholder="Name">
-			<!-- <input
-				v-model="selectedItem.value.summary"
+			<input
+				v-model="item.summary"
 				class="input"
 				type="text"
-				placeholder="Summary"> -->
+				placeholder="Summary">
 		</template>
 		<template #footer>
-			<!-- <button
+			<button
 				class="button"
-				:disabled="(!selectedItem.value.name.length || !selectedItem.value.summary.length)"
+				:disabled="(!item.name.length || !item.summary.length)"
 				@click="editItem()">
 				Edit
-			</button> -->
+			</button>
 			<button class="button" @click="closeEditModal()">Close</button>
 		</template>
 	</td-modal>
@@ -32,15 +32,13 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 import { useEditItemModalStore } from './modal-editItem.store';
-import { Item } from 'src/domain';
 
 export default defineComponent({
 	setup() {
-		const { closeEditModal, updateItem, showEditModal, getSelected } = useEditItemModalStore();
-		let item = getSelected.value!;
-
+		const { closeEditModal, updateItem, showEditModal, item } = useEditItemModalStore();
+	
 		const editItem = () => {
-			updateItem(item!);
+			updateItem(item.value);
 			closeEditModal();
 		};
 		return {
