@@ -1,0 +1,1 @@
+export { default as AssetLists } from './asset-lists.vue';
