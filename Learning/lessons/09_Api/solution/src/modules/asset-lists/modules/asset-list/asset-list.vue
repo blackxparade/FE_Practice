@@ -100,7 +100,7 @@ export default defineComponent({
 			return list;
 		};
 		const { id, title } = toRefs(props);
-		const { items, setItems, deleteList, getEverySelected, getSelected, setItemSelectionById, addItem, deleteItems, updateItem } = provideAssetListStore({ api, id, title, refreshList: props.refreshList });
+		const { items, setItems, deleteList, getEverySelected, getSelected, addItem, deleteItems, updateItem, ...others } = provideAssetListStore({ api, id, title, refreshList: props.refreshList });
 		const { putListToApi, lists } = useAssetListsStore();
 		const { openNewModal } = provideNewItemModalStore({ addItem });
 		const { openDeleteModal } = provideDeleteItemModalStore({ deleteItems, getEverySelected });
@@ -109,12 +109,12 @@ export default defineComponent({
 		const { ...rest } = provideModalStore({ api });
 		return {
 			...rest,
+			...others,
 			openNewModal,
 			openDeleteModal,
 			openEditModal,
 			openEditListModal,
 			getEverySelected,
-			setItemSelectionById,
 			items,
 			id,
 			title,
