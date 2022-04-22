@@ -1,7 +1,7 @@
 <template>
 	<td-modal
     v-if="showDeleteModal"
-	@close="closeDeleteModal()">
+	@close="closeDeleteModal()" data-testid="modal-delete-item">
         <template #title>
             Deleting items
         </template>

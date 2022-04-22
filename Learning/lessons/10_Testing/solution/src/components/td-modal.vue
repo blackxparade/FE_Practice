@@ -7,7 +7,7 @@
 					<slot name="title">Title</slot>
 				</p>
 
-				<button class="delete" @click="$emit('close')">
+				<button  data-testid="td-modal-close-button"  class="delete" @click="$emit('close')">
 					<span class="sr-only"> Close</span>
 				</button>
 			</header>
