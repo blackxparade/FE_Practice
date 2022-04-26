@@ -5,25 +5,28 @@ import ModalDeleteItem from './modal-deleteItem.vue';
 import { setupDeleteItemModalStore, ModalStoreSymbol } from './modal-deleteItem.store';
 import { plugins } from 'test/mount';
 test('Modal should be visibile', () => {
-	const { wrapper, modalDeleteItem } =  setup();
+	const { modalDeleteItem } =  setup();
 	expect(modalDeleteItem().exists()).toBe(true);
 });
 
-test('Clicking on close modal close, should close the modal', () => {
+test('Clicking on close modal close, should close the modal', async () => {
 	// Use declated data-testid in td-modal (maybe extraction?)
+	const { wrapper } = setup();
+	await wrapper.find('[data-testid="td-modal-close-button"]').trigger('click');
+    expect(wrapper.emitted('close')).toHaveLength(1);
 });
 
-test('Should show the recieved items', () => {
-	// Check dom textContent
-});
+// test('Should show the recieved items', () => {
+// 	// Check dom textContent
+// });
 
-test('Should delete the items', () => {
-	// jest.fn() to have been called
-});
+// test('Should delete the items', () => {
+// 	// jest.fn() to have been called
+// });
 
-test('Clicking on close button should close the modal', () => {
-	// Trigger click on dom element, ( maybe await nextTick)
-});
+// test('Clicking on close button should close the modal', () => {
+// 	// Trigger click on dom element, ( maybe await nextTick)
+// });
 
 
 
@@ -45,10 +48,7 @@ function setup() {
 			plugins
 		}
 	});
-
 	const modalDeleteItem = () => ( wrapper.find('[data-testid="modal-delete-item"]') );
-
-
 	return { wrapper, modalDeleteItem };
 }
 
