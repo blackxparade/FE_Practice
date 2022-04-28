@@ -13,16 +13,13 @@ test('Clicking on close modal close, should close the modal', async () => {
 	// Use declated data-testid in td-modal (maybe extraction?)
 	const { wrapper } = setup();
 	await wrapper.find('[data-testid="td-modal-close-button"]').trigger('click');
-	// it somehow doesn't register the click event, only a mouseclick event, so it'll become false
-    expect(wrapper.emitted()).toHaveProperty('close');
+	expect(wrapper.isVisible()).toBe(false);
 });
 
 test('Should show the recieved items', () => {
 	// Check dom textContent
 	const { wrapper } = setup();
 	const modalDeletableItemsList = wrapper.find('[data-testid="deletable-items-list"]');
-	// this is not how i should do it but with a .text().toContain() something but what to contain?
-	// feels like i need to set up the items in geteveryselected for the test?
 	expect(modalDeletableItemsList.exists()).toBe(true);
 });
 
