@@ -4,12 +4,6 @@
       "title": "sad2",
       "items": [
         {
-          "id": 76,
-          "name": "f",
-          "summary": "g",
-          "isSelected": false
-        },
-        {
           "id": 86,
           "name": "123",
           "summary": "123",
@@ -35,42 +29,6 @@
         }
       ],
       "id": 753
-    },
-    {
-      "title": "yay22",
-      "items": [
-        {
-          "id": 7,
-          "name": "new listitem",
-          "summary": "123",
-          "isSelected": false
-        },
-        {
-          "id": 24,
-          "name": "another one",
-          "summary": "111",
-          "isSelected": false
-        }
-      ],
-      "id": 265
-    },
-    {
-      "title": "new list1",
-      "items": [
-        {
-          "id": 75,
-          "name": "yiss",
-          "summary": "1",
-          "isSelected": false
-        },
-        {
-          "id": 40,
-          "name": "aight",
-          "summary": "22",
-          "isSelected": false
-        }
-      ],
-      "id": 6469
     }
   ],
   "items": []

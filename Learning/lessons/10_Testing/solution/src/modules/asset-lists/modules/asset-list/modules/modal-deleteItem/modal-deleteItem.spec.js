@@ -13,20 +13,33 @@ test('Clicking on close modal close, should close the modal', async () => {
 	// Use declated data-testid in td-modal (maybe extraction?)
 	const { wrapper } = setup();
 	await wrapper.find('[data-testid="td-modal-close-button"]').trigger('click');
-    expect(wrapper.emitted('close')).toHaveLength(1);
+	// it somehow doesn't register the click event, only a mouseclick event, so it'll become false
+    expect(wrapper.emitted()).toHaveProperty('close');
 });
 
-// test('Should show the recieved items', () => {
-// 	// Check dom textContent
-// });
+test('Should show the recieved items', () => {
+	// Check dom textContent
+	const { wrapper } = setup();
+	const modalDeletableItemsList = wrapper.find('[data-testid="deletable-items-list"]');
+	// this is not how i should do it but with a .text().toContain() something but what to contain?
+	// feels like i need to set up the items in geteveryselected for the test?
+	expect(modalDeletableItemsList.exists()).toBe(true);
+});
 
-// test('Should delete the items', () => {
-// 	// jest.fn() to have been called
-// });
+test('Should delete the items', () => {
+	const { wrapper, deleteItems } = setup();
+	wrapper.find('[data-testid="delete-items-button"]').trigger('click');
+	let asd = deleteItems();
+	// if i want to call deleteItems it says "is not a function", no idea what to do from here
+	expect(deleteItems).toHaveBeenCalled();
+});
 
-// test('Clicking on close button should close the modal', () => {
-// 	// Trigger click on dom element, ( maybe await nextTick)
-// });
+test('Clicking on close button should close the modal', async () => {
+	// Trigger click on dom element, ( maybe await nextTick)
+	const { wrapper } = setup();
+	await wrapper.find('[data-testid="close-button"]').trigger('click');
+	expect(wrapper.isVisible()).toBe(false);
+});
 
 
 
