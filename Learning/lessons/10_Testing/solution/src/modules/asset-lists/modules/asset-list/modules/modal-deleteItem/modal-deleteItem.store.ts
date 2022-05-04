@@ -19,7 +19,18 @@ export const setupDeleteItemModalStore = ({ deleteItems, getEverySelected }: sto
 		showDeleteModal.value = true;
 	};
 
+	const listItemInfo = (item: any) => {
+		return `${item.id} - ${item.name}, ${item.summary}`;
+	};
+
+	const deleteAndClose = () => {
+		deleteItems();
+		closeDeleteModal();
+	};
+
 	return {
+		deleteAndClose,
+		listItemInfo,
 		showDeleteModal,
 		closeDeleteModal,
 		openDeleteModal,

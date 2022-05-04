@@ -4,39 +4,46 @@ import { ref } from 'vue';
 import ModalDeleteItem from './modal-deleteItem.vue';
 import { setupDeleteItemModalStore, ModalStoreSymbol } from './modal-deleteItem.store';
 import { plugins } from 'test/mount';
-test('Modal should be visibile', () => {
-	const { modalDeleteItem } =  setup();
-	expect(modalDeleteItem().exists()).toBe(true);
+import { headerCloseButton } from 'test/widget-selectors/td-modal';
+
+describe('Modal delete Item', () => {
+
+	test('Modal should be visibile', () => {
+		const { modalDeleteItem } =  setup();
+		expect(modalDeleteItem().exists()).toBe(true);
+	});
+
+	test('Clicking on close modal close, should close the modal', async () => {
+		// Use declated data-testid in td-modal (maybe extraction?)
+		const { wrapper, modalCloseButton } = setup();
+		await modalCloseButton().trigger('click');
+		expect(wrapper.isVisible()).toBe(false);
+	});
+
+	test('Should show the recieved items', () => {
+		// Check dom textContent
+		const { wrapper, getEverySelected, store } = setup();
+		const modalDeletableItemsList = wrapper.findAll('[data-testid="deletable-items-list"]');
+		expect(modalDeletableItemsList.length).toBe(getEverySelected.value.length);
+		expect(modalDeletableItemsList[0].text()).toBe(store.listItemInfo(getEverySelected.value[0]));
+	});
+
+	test('Should delete the items', () => {
+		const { wrapper, store } = setup();
+		wrapper.find('[data-testid="delete-items-button"]').trigger('click');
+		expect(store.deleteItems).toHaveBeenCalled();
+	});
+
+	test('Clicking on close button should close the modal', async () => {
+		// Trigger click on dom element, ( maybe await nextTick)
+		const { wrapper } = setup();
+		await wrapper.find('[data-testid="close-button"]').trigger('click');
+		expect(wrapper.isVisible()).toBe(false);
+	});
+
+
 });
 
-test('Clicking on close modal close, should close the modal', async () => {
-	// Use declated data-testid in td-modal (maybe extraction?)
-	const { wrapper } = setup();
-	await wrapper.find('[data-testid="td-modal-close-button"]').trigger('click');
-	expect(wrapper.isVisible()).toBe(false);
-});
-
-test('Should show the recieved items', () => {
-	// Check dom textContent
-	const { wrapper } = setup();
-	const modalDeletableItemsList = wrapper.find('[data-testid="deletable-items-list"]');
-	expect(modalDeletableItemsList.exists()).toBe(true);
-});
-
-test('Should delete the items', () => {
-	const { wrapper, deleteItems } = setup();
-	wrapper.find('[data-testid="delete-items-button"]').trigger('click');
-	let asd = deleteItems();
-	// if i want to call deleteItems it says "is not a function", no idea what to do from here
-	expect(deleteItems).toHaveBeenCalled();
-});
-
-test('Clicking on close button should close the modal', async () => {
-	// Trigger click on dom element, ( maybe await nextTick)
-	const { wrapper } = setup();
-	await wrapper.find('[data-testid="close-button"]').trigger('click');
-	expect(wrapper.isVisible()).toBe(false);
-});
 
 
 
@@ -59,6 +66,7 @@ function setup() {
 		}
 	});
 	const modalDeleteItem = () => ( wrapper.find('[data-testid="modal-delete-item"]') );
-	return { wrapper, modalDeleteItem };
+	const modalCloseButton = headerCloseButton.bind(wrapper)
+	return { wrapper, modalDeleteItem, store, getEverySelected, modalCloseButton };
 }
 

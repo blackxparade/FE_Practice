@@ -31,21 +31,7 @@ import { useDeleteItemModalStore } from './modal-deleteItem.store';
 
 export default defineComponent({
 	setup() {
-		const listItemInfo = (item: any) => {
-				return `${item.id} - ${item.name}, ${item.summary}`;
-		};
-		const { closeDeleteModal, showDeleteModal, deleteItems, getEverySelected } = useDeleteItemModalStore();
-		const delItems = () => {
-				deleteItems();
-                closeDeleteModal();
-		};
-		return {
-			listItemInfo,
-			delItems,
-			closeDeleteModal,
-            showDeleteModal,
-            getEverySelected
-		};
+		return { ...useDeleteItemModalStore() };
 	},
 });
 </script>
