@@ -30,9 +30,16 @@ describe('Edit list modal', () => {
         expect(modalEditListPrimaryButton.element.disabled).toBe(true);
     });
 
+    test('Should edit list title', async () => {
+        const { modalEditListPrimaryButton, store } = setup();
+        await modalEditListPrimaryButton.trigger('click');
+        expect(store.putListToApi).toHaveBeenCalled();
+    });
+
     test('Clicking on close button should close the modal', async () => {
         const { wrapper, modalEditListCloseButton } = setup();
         await modalEditListCloseButton.trigger('click');
+        // not really working for some reason
         expect(wrapper.isVisible()).toBe(false);
     });
 });
