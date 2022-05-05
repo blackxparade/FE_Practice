@@ -38,11 +38,9 @@ export default defineComponent({
 	setup(props) {
 		const { showEditListModal, closeEditListModal, sendTitleToApiAndClose, lists, list } = useEditListModalStore();
 		list.value = ref(lists.value!.filter(element => element.id === props.id)[0]).value;
-		//const listTitle = ref(list.value.title);
 
 		return {
 			list,
-			//listTitle,
 			showEditListModal,
 			closeEditListModal,
 			sendTitleToApiAndClose

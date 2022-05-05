@@ -1,7 +1,8 @@
 <template>
 	<td-modal
 	v-if="showNewModal"
-	@close="clearCloseNewModal()">
+	@close="clearCloseNewModal()"
+	data-testid="modal-new-item">
 		<template #title>
 			Add Item
 		</template>
@@ -10,50 +11,35 @@
 				v-model="name"
 				class="input mb-4"
 				type="text"
-				placeholder="Name">
+				placeholder="Name"
+				data-testid="modal-new-item-input-name">
 			<input
 				v-model="summary"
 				class="input"
 				type="text"
-				placeholder="Summary">
+				placeholder="Summary"
+				data-testid="modal-new-item-input-summary">
 		</template>
 		<template #footer>
 			<button
 				class="button"
 				:disabled="(!name.length || !summary.length)"
-				@click="addItemHandler()">
+				data-testid="modal-new-item-button-primary"
+				@click="addItemHandler(name, summary)">
 				Add
 			</button>
-			<button class="button" @click="clearCloseNewModal()">Close</button>
+			<button class="button" @click="clearCloseNewModal()" data-testid="modal-new-item-button-close">Close</button>
 		</template>
 	</td-modal>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import { Item } from 'src/domain/item';
 import { useNewItemModalStore } from './modal-newItem.store';
 
 export default defineComponent({
 	setup() {
-		const { closeNewModal, showNewModal, addItem, clearData, name, summary } = useNewItemModalStore();
-		const addItemHandler = () => {
-			addItem(Item({ name: name.value, summary: summary.value }));
-			closeNewModal();
-			clearData();
-		};
-
-		const clearCloseNewModal = () => {
-			closeNewModal();
-			clearData();
-		};
-		return {
-			clearCloseNewModal,
-			addItemHandler,
-			showNewModal,
-			name,
-			summary
-		};
+		return { ...useNewItemModalStore() };
 	}
 });
 </script>

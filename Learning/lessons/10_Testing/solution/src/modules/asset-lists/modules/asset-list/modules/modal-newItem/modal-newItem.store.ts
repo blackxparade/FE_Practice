@@ -25,6 +25,17 @@ export const setupNewItemModalStore = ({ addItem }: storeDeps) => {
 		summary.value = "";
 	};
 
+	const addItemHandler = (name: string, summary: string) => {
+		addItem(Item({ name, summary }));
+		closeNewModal();
+		clearData();
+	};
+
+	const clearCloseNewModal = () => {
+		closeNewModal();
+		clearData();
+	};
+
 	return {
 		showNewModal,
 		closeNewModal,
@@ -32,7 +43,8 @@ export const setupNewItemModalStore = ({ addItem }: storeDeps) => {
 		addItem,
 		name,
 		summary,
-		clearData
+		clearCloseNewModal,
+		addItemHandler
 	};
 };
 
