@@ -1,18 +1,12 @@
 {
   "lists": [
     {
-      "title": "sad2",
+      "title": "yay122",
       "items": [
         {
           "id": 86,
           "name": "123",
           "summary": "123",
-          "isSelected": false
-        },
-        {
-          "id": 82,
-          "name": "888",
-          "summary": "8881",
           "isSelected": false
         },
         {

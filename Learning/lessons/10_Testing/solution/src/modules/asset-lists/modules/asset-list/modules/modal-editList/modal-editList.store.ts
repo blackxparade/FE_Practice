@@ -1,4 +1,4 @@
-import { List } from 'src/domain';
+import { List, Item } from 'src/domain';
 import { ref, Ref, inject, InjectionKey, provide } from 'vue';
 type ModalStore = ReturnType<typeof setupEditListModalStore>
 export const ModalStoreSymbol: InjectionKey<ModalStore> = Symbol('modalStore');
@@ -10,6 +10,7 @@ type storeDeps = {
 
 export const setupEditListModalStore = ({ putListToApi, lists }: storeDeps) => {
 	const showEditListModal = ref(false);
+	const list = ref(List({title: ""}));
 
 	const closeEditListModal = () => {
 		showEditListModal.value = false;
@@ -19,12 +20,18 @@ export const setupEditListModalStore = ({ putListToApi, lists }: storeDeps) => {
 		showEditListModal.value = true;
 	};
 
+	const sendTitleToApiAndClose = (list: List) => {		
+		putListToApi({id: list.id, title: list.title, items: list.items});
+		closeEditListModal();
+	};
+
 	return {
 		showEditListModal,
 		closeEditListModal,
 		openEditListModal,
-		putListToApi,
+		sendTitleToApiAndClose,
 		lists,
+		list,
 	};
 };
 

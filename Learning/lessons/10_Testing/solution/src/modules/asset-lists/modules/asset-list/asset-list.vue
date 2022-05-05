@@ -55,7 +55,7 @@
 			<modal-deleteItem> </modal-deleteItem>
 
 			<modal-editList
-			v-bind="{id: id, title: title}"
+			v-bind="id"
 			@sentTitle="this.getListData()"/>
 	</div>
 </template>

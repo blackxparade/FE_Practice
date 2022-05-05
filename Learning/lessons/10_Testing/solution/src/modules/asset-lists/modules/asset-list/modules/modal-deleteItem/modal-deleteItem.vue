@@ -14,7 +14,7 @@
             </ul>
         </template>
         <template #footer>
-            <button class="button" @click="delItems()" data-testid="delete-items-button">
+            <button class="button" @click="deleteAndClose()" data-testid="delete-items-button">
                 Delete
             </button>
             <button

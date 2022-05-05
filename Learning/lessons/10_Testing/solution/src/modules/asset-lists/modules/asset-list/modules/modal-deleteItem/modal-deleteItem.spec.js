@@ -13,7 +13,7 @@ describe('Modal delete Item', () => {
 		expect(modalDeleteItem().exists()).toBe(true);
 	});
 
-	test('Clicking on close modal close, should close the modal', async () => {
+	test('Clicking on the top-right modal close button should close the modal', async () => {
 		// Use declated data-testid in td-modal (maybe extraction?)
 		const { wrapper, modalCloseButton } = setup();
 		await modalCloseButton().trigger('click');
@@ -43,9 +43,6 @@ describe('Modal delete Item', () => {
 
 
 });
-
-
-
 
 function setup() {
 	const deleteItems = jest.fn();

@@ -1,25 +1,28 @@
 <template>
 	<td-modal
 	v-if="showEditListModal"
-	@close="closeEditListModal()">
+	@close="closeEditListModal()"
+	data-testid="modal-edit-list">
 		<template #title>
 			Edit list title
 		</template>
 		<template #content>
 			<input
-				v-model="listTitle"
+				v-model="list.title"
 				class="input mb-4"
 				type="text"
-				placeholder="List title">
+				placeholder="List title"
+				data-testid="modal-edit-list-input">
 		</template>
 		<template #footer>
 			<button
 				class="button"
-				:disabled="(!listTitle.length)"
-				@click="sendTitleToApi(); this.$emit('sentTitle');">
+				:disabled="(!list.title.length)"
+				@click="sendTitleToApiAndClose(list); this.$emit('sentTitle');"
+				data-testid="modal-edit-list-primary">
 				Edit
 			</button>
-			<button class="button" @click="closeEditListModal()">Close</button>
+			<button class="button" @click="closeEditListModal()" data-testid="modal-edit-list-close">Close</button>
 		</template>
 	</td-modal>
 </template>
@@ -33,18 +36,16 @@ export default defineComponent({
 		id: { type: Number }
 	},
 	setup(props) {
-		const { showEditListModal, closeEditListModal, putListToApi, lists } = useEditListModalStore();
-		const list = ref(lists.value!.filter(element => element.id === props.id)[0]);
-		const listTitle = ref(list.value.title);
-		const sendTitleToApi = () => {
-			putListToApi({id: list.value.id, title: listTitle.value, items: list.value.items});
-			closeEditListModal();
-		};
+		const { showEditListModal, closeEditListModal, sendTitleToApiAndClose, lists, list } = useEditListModalStore();
+		list.value = ref(lists.value!.filter(element => element.id === props.id)[0]).value;
+		//const listTitle = ref(list.value.title);
+
 		return {
-			listTitle,
+			list,
+			//listTitle,
 			showEditListModal,
 			closeEditListModal,
-			sendTitleToApi
+			sendTitleToApiAndClose
 		};
 	}
 });
