@@ -22,22 +22,21 @@ describe('Modal delete Item', () => {
 
 	test('Should show the recieved items', () => {
 		// Check dom textContent
-		const { wrapper, getEverySelected, store } = setup();
-		const modalDeletableItemsList = wrapper.findAll('[data-testid="deletable-items-list"]');
-		expect(modalDeletableItemsList.length).toBe(getEverySelected.value.length);
-		expect(modalDeletableItemsList[0].text()).toBe(store.listItemInfo(getEverySelected.value[0]));
+		const { modalDeletableItemsList, getEverySelected, store } = setup();
+		expect(modalDeletableItemsList().length).toBe(getEverySelected.value.length);
+		expect(modalDeletableItemsList()[0].text()).toBe(store.listItemInfo(getEverySelected.value[0]));
 	});
 
-	test('Should delete the items', () => {
-		const { wrapper, store } = setup();
-		wrapper.find('[data-testid="delete-items-button"]').trigger('click');
+	test('Should delete the items', async () => {
+		const { modalDeleteItemDeleteButton, store } = setup();
+		await modalDeleteItemDeleteButton().trigger('click');
 		expect(store.deleteItems).toHaveBeenCalled();
 	});
 
 	test('Clicking on close button should close the modal', async () => {
 		// Trigger click on dom element, ( maybe await nextTick)
-		const { wrapper } = setup();
-		await wrapper.find('[data-testid="close-button"]').trigger('click');
+		const { wrapper, modalDeleteItemCloseButton } = setup();
+		await modalDeleteItemCloseButton().trigger('click');
 		expect(wrapper.isVisible()).toBe(false);
 	});
 
@@ -62,8 +61,11 @@ function setup() {
 			plugins
 		}
 	});
-	const modalDeleteItem = () => ( wrapper.find('[data-testid="modal-delete-item"]') );
+	const modalDeleteItem = () => wrapper.find('[data-testid="modal-delete-item"]');
+	const modalDeletableItemsList = () => wrapper.findAll('[data-testid="deletable-items-list"]');
+	const modalDeleteItemDeleteButton = () => wrapper.find('[data-testid="delete-items-button"]');
+	const modalDeleteItemCloseButton = () => wrapper.find('[data-testid="close-button"]');
 	const modalCloseButton = headerCloseButton.bind(wrapper)
-	return { wrapper, modalDeleteItem, store, getEverySelected, modalCloseButton };
+	return { wrapper, modalDeleteItem, store, getEverySelected, modalCloseButton, modalDeletableItemsList, modalDeleteItemDeleteButton, modalDeleteItemCloseButton };
 }
 
