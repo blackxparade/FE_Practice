@@ -25,7 +25,7 @@
 				class="button"
 				:disabled="(!name.length || !summary.length)"
 				data-testid="modal-new-item-button-primary"
-				@click="addItemHandler(name, summary)">
+				@click="yoloAdd(name, summary)">
 				Add
 			</button>
 			<button class="button" @click="clearCloseNewModal()" data-testid="modal-new-item-button-close">Close</button>

@@ -44,7 +44,7 @@ export const setupNewItemModalStore = ({ addItem }: storeDeps) => {
 		name,
 		summary,
 		clearCloseNewModal,
-		addItemHandler
+		addItemHandler,
 	};
 };
 

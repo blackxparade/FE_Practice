@@ -23,15 +23,18 @@ describe('New item modal', () => {
         expect(modalNewItemInputName().element.value).toBe('');
         expect(modalNewItemInputSummary().element.value).toBe('');
     });
-    
+
     test('Should add new item', async () => {
         const { modalNewItemButtonPrimary, store, modalNewItemInputName, modalNewItemInputSummary } = setup();
+		const name = 'newname';
+		const summary = 'newsummary';
         await modalNewItemInputName().setValue("newname");
         await modalNewItemInputSummary().setValue("newsummary");
         await modalNewItemButtonPrimary().trigger('click');
-        expect(store.addItem).toHaveBeenCalled();
+        expect(store.addItem.mock.calls[0][0]['name']).toEqual(name);
+        expect(store.addItem.mock.calls[0][0]['summary']).toEqual(summary);
     });
-    
+
     test('Add button should be disabled when nothing is in input', async () => {
         const { modalNewItemInputName, modalNewItemInputSummary, modalNewItemButtonPrimary } = setup();
         await modalNewItemInputName().setValue('');

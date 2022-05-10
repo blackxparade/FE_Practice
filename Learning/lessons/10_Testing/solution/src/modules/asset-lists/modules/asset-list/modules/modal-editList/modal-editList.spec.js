@@ -1,7 +1,7 @@
 import { mount } from '@vue/test-utils';
 import { plugins } from 'test/mount';
 import { ref } from 'vue';
-import { testList1, testList2 } from 'test/fixtures/lists';
+import { Household } from 'test/fixtures/lists';
 import ModalEditList from './modal-editList.vue';
 import { setupEditListModalStore, ModalStoreSymbol } from './modal-editList.store';
 import { headerCloseButton } from 'test/widget-selectors/td-modal';
@@ -21,7 +21,7 @@ describe('Edit list modal', () => {
 
     test('Should prefill the input with the current list title', () => {
         const { store, modalEditListInput } = setup();
-        expect(modalEditListInput().element.value).toBe(store.list.value.title);
+        expect(modalEditListInput().element.value).toBe(store.listTitle.value);
     });
 
     test('Edit button should be disabled when nothing is in input', async () => {
@@ -31,11 +31,15 @@ describe('Edit list modal', () => {
     });
 
     test('Should edit list title', async () => {
-        const { modalEditListPrimaryButton, modalEditListInput, store } = setup();
-        await modalEditListInput().setValue("newlist");
+        const { modalEditListPrimaryButton, modalEditListInput, putListToApi, getListData, list, modalEditList } = setup();
+		const newTitle = 'newlist';
+		const tempList = { ...list.value, title: newTitle };
+        await modalEditListInput().setValue(newTitle);
         await modalEditListPrimaryButton().trigger('click');
         // not really working for some reason
-        expect(store.putListToApi).toHaveBeenCalled();
+        expect(putListToApi).toHaveBeenCalledWith(tempList);
+        expect(getListData).toHaveBeenCalled();
+		expect(modalEditList().exists()).toBe(false);
     });
 
     test('Clicking on close button should close the modal', async () => {
@@ -47,10 +51,12 @@ describe('Edit list modal', () => {
 
 function setup() {
     const putListToApi = jest.fn();
-    const lists = ref([testList1, testList2]);
+    const getListData = jest.fn();
+    const list = ref(Household);
     const store = setupEditListModalStore({
         putListToApi,
-        lists
+		getListData,
+        list
     });
     store.openEditListModal();
 
@@ -59,9 +65,6 @@ function setup() {
     };
 
     const wrapper = mount(ModalEditList, {
-        props: {
-            id: 666
-        },
         global: {
             provide,
             plugins
@@ -73,5 +76,5 @@ function setup() {
     const modalEditListPrimaryButton = () => wrapper.find('[data-testid="modal-edit-list-primary"]');
     const modalEditListCloseButton = () => wrapper.find('[data-testid="modal-edit-list-close"]');
     const modalCloseButton = headerCloseButton.bind(wrapper)
-    return { wrapper, modalEditList, modalEditListInput, modalEditListPrimaryButton, modalEditListCloseButton, store, modalCloseButton }
+    return { wrapper, modalEditList, modalEditListInput, modalEditListPrimaryButton, modalEditListCloseButton, store, modalCloseButton, putListToApi, getListData, list }
 }

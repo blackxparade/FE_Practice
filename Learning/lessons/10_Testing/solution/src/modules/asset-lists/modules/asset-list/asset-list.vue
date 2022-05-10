@@ -54,9 +54,8 @@
 			<!-- DELETE MODAL -->
 			<modal-deleteItem> </modal-deleteItem>
 
-			<modal-editList
-			v-bind="id"
-			@sentTitle="this.getListData()"/>
+			<!-- EDIT-L MODAL -->
+			<modal-editList></modal-editList>
 	</div>
 </template>
 
@@ -101,11 +100,11 @@ export default defineComponent({
 		};
 		const { id, title } = toRefs(props);
 		const { items, setItems, deleteList, getEverySelected, getSelected, addItem, deleteItems, updateItem, ...others } = provideAssetListStore({ api, id, title, refreshList: props.refreshList });
-		const { putListToApi, lists } = useAssetListsStore();
+		const { putListToApi } = useAssetListsStore();
 		const { openNewModal } = provideNewItemModalStore({ addItem });
 		const { openDeleteModal } = provideDeleteItemModalStore({ deleteItems, getEverySelected });
 		const { openEditModal } = provideEditItemModalStore({ updateItem, getSelected });
-		const { openEditListModal } = provideEditListModalStore({ putListToApi, lists });
+		const { openEditListModal } = provideEditListModalStore({ putListToApi, list, getListData });
 		const { ...rest } = provideModalStore({ api });
 		return {
 			...rest,

@@ -8,7 +8,7 @@
 		</template>
 		<template #content>
 			<input
-				v-model="list.title"
+				v-model="listTitle"
 				class="input mb-4"
 				type="text"
 				placeholder="List title"
@@ -17,8 +17,8 @@
 		<template #footer>
 			<button
 				class="button"
-				:disabled="(!list.title.length)"
-				@click="sendTitleToApiAndClose(list); this.$emit('sentTitle');"
+				:disabled="(!listTitle.length)"
+				@click="sendTitleToApiAndClose(listTitle)"
 				data-testid="modal-edit-list-primary">
 				Edit
 			</button>
@@ -28,19 +28,15 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from 'vue';
+import { defineComponent } from 'vue';
 import { useEditListModalStore } from './modal-editList.store';
 
 export default defineComponent({
-	props: {
-		id: { type: Number }
-	},
-	setup(props) {
-		const { showEditListModal, closeEditListModal, sendTitleToApiAndClose, lists, list } = useEditListModalStore();
-		list.value = ref(lists.value!.filter(element => element.id === props.id)[0]).value;
+	setup() {
+		const { showEditListModal, closeEditListModal, sendTitleToApiAndClose, listTitle } = useEditListModalStore();
 
 		return {
-			list,
+			listTitle,
 			showEditListModal,
 			closeEditListModal,
 			sendTitleToApiAndClose
