@@ -1,8 +1,9 @@
 import { ref, inject, InjectionKey, provide } from 'vue';
 import { List } from 'src/domain';
 import { Api } from 'src/api';
+import { Console } from 'console';
 type AssetListsStore = ReturnType<typeof setupAssetListsStore>
-export const AssetListStoreSymbol: InjectionKey<AssetListsStore> = Symbol('assetListsStore');
+export const AssetListsStoreSymbol: InjectionKey<AssetListsStore> = Symbol('assetListsStore');
 
 type storeDeps = {
 	api: Api
@@ -30,7 +31,6 @@ export const setupAssetListsStore = ({ api }: storeDeps) => {
 	const getListFromApi = async(id: number) => {
 		const data = await getListCall(id);
 		return data;
-		//console.log(data);
 	};
 
 	const postListToApi = async(list: List) => {
@@ -63,10 +63,10 @@ export const setupAssetListsStore = ({ api }: storeDeps) => {
 
 export const provideAssetListsStore = (storeDeps: storeDeps) => {
 	const assetListStore = setupAssetListsStore(storeDeps);
-	provide(AssetListStoreSymbol, assetListStore);
+	provide(AssetListsStoreSymbol, assetListStore);
 	return assetListStore;
 };
 
 export const useAssetListsStore = () => {
-	return inject(AssetListStoreSymbol)!;
+	return inject(AssetListsStoreSymbol)!;
 };

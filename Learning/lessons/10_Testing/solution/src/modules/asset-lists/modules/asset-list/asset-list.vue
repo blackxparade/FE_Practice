@@ -4,7 +4,7 @@
 			<div style="display: flex; flex-direction: column; gap: 1rem;" >
 				<h3 class="title is-3" style="margin-bottom: 0;" data-testid="asset-list-title">{{ title }}</h3>
 				<div class="div" style="display: flex; gap: .5rem;">
-					<button class="button is-small is-light" @click="openEditListModal()">Edit title</button>
+					<button class="button is-small is-light" @click="openEditListModal(list)">Edit title</button>
 					<button class="button is-small is-light is-danger" @click="deleteList(id); refreshList();">Delete list</button>
 				</div>
 			</div>
@@ -91,7 +91,7 @@ export default defineComponent({
 
 	setup(props) {
 		const api = useApi();
-		const { getListFromApi } = useAssetListsStore();
+		const { getListFromApi, putListToApi } = useAssetListsStore();
 		const list = ref<List>();
 		const getListData = async() => {
 			list.value = await getListFromApi(props.id);
@@ -99,12 +99,12 @@ export default defineComponent({
 			return list;
 		};
 		const { id, title } = toRefs(props);
+		debugger;
 		const { items, setItems, deleteList, getEverySelected, getSelected, addItem, deleteItems, updateItem, ...others } = provideAssetListStore({ api, id, title, refreshList: props.refreshList });
-		const { putListToApi } = useAssetListsStore();
 		const { openNewModal } = provideNewItemModalStore({ addItem });
 		const { openDeleteModal } = provideDeleteItemModalStore({ deleteItems, getEverySelected });
 		const { openEditModal } = provideEditItemModalStore({ updateItem, getSelected });
-		const { openEditListModal } = provideEditListModalStore({ putListToApi, list, getListData });
+		const { openEditListModal } = provideEditListModalStore({ putListToApi, getListData });
 		const { ...rest } = provideModalStore({ api });
 		return {
 			...rest,

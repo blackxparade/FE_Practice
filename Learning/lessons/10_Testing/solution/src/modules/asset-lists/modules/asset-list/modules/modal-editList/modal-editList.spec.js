@@ -33,7 +33,7 @@ describe('Edit list modal', () => {
     test('Should edit list title', async () => {
         const { modalEditListPrimaryButton, modalEditListInput, putListToApi, getListData, list, modalEditList } = setup();
 		const newTitle = 'newlist';
-		const tempList = { ...list.value, title: newTitle };
+		const tempList = { ...list, title: newTitle };
         await modalEditListInput().setValue(newTitle);
         await modalEditListPrimaryButton().trigger('click');
         // not really working for some reason
@@ -52,13 +52,12 @@ describe('Edit list modal', () => {
 function setup() {
     const putListToApi = jest.fn();
     const getListData = jest.fn();
-    const list = ref(Household);
+	const list = Household;
     const store = setupEditListModalStore({
         putListToApi,
 		getListData,
-        list
     });
-    store.openEditListModal();
+    store.openEditListModal(list);
 
     const provide = {
         [ ModalStoreSymbol ]: store,

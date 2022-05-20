@@ -5,24 +5,27 @@ export const ModalStoreSymbol: InjectionKey<ModalStore> = Symbol('modalStore');
 
 type storeDeps = {
 	putListToApi: (list: List) => Promise<void>,
-	list: Ref<List | undefined>,
 	getListData: () => Promise<Ref<List | undefined>>
 }
 
-export const setupEditListModalStore = ({ putListToApi, list, getListData }: storeDeps) => {
+export const setupEditListModalStore = ({ putListToApi, getListData }: storeDeps) => {
 	const showEditListModal = ref(false);
-	const listTitle = ref(list.value!.title);
+	const listTitle = ref('');
+	let tempList:List | undefined = undefined;
 
 	const closeEditListModal = () => {
 		showEditListModal.value = false;
 	};
 
-	const openEditListModal = () => {
+	const openEditListModal = (list: List | undefined) => {
+		if(list === undefined) return;
+		tempList = list,
+		listTitle.value = list.title,
 		showEditListModal.value = true;
 	};
 
 	const sendTitleToApiAndClose = async (listTitle: string) => {
-		await putListToApi({...list.value!, title: listTitle});
+		await putListToApi({...tempList!, title: listTitle});
 		getListData();
 		closeEditListModal();
 	};

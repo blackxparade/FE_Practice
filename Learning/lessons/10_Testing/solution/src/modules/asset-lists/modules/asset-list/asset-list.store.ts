@@ -3,7 +3,7 @@ import { Api } from 'src/api';
 import { inject, InjectionKey, provide, Ref } from 'vue';
 import { setupListBaseStore } from 'src/store/general.store';
 
-type AssetListStore = ReturnType<typeof setupListStore>
+type AssetListStore = ReturnType<typeof setupAssetListStore>
 export const AssetListStoreSymbol: InjectionKey<AssetListStore> = Symbol('assetListStore');
 
 type storeDeps = {
@@ -13,7 +13,7 @@ type storeDeps = {
 	refreshList: Function,
 }
 
-export const setupListStore = ({ api, id, title, refreshList }: storeDeps) => {
+export const setupAssetListStore = ({ api, id, title, refreshList }: storeDeps) => {
 	const { items, SelectableItem, deleteSelectedItems, ...rest } = setupListBaseStore<Item>();
 	const { editListCall, deleteListCall } = api;
 
@@ -61,7 +61,7 @@ export const setupListStore = ({ api, id, title, refreshList }: storeDeps) => {
 };
 
 export const provideAssetListStore = (storeDeps: storeDeps) => {
-	const assetListStore = setupListStore(storeDeps);
+	const assetListStore = setupAssetListStore(storeDeps);
 	provide(AssetListStoreSymbol, assetListStore);
 	return assetListStore;
 };
