@@ -2,7 +2,7 @@
 	<div class="page container" style="margin-top: 3rem;">
 
 			<div style="display: flex; flex-direction: column; gap: 1rem;" >
-				<h3 class="title is-3" style="margin-bottom: 0;">{{ title }}</h3>
+				<h3 class="title is-3" style="margin-bottom: 0;" data-testid="asset-list-title">{{ title }}</h3>
 				<div class="div" style="display: flex; gap: .5rem;">
 					<button class="button is-small is-light" @click="openEditListModal()">Edit title</button>
 					<button class="button is-small is-light is-danger" @click="deleteList(id); refreshList();">Delete list</button>
@@ -54,8 +54,8 @@
 			<!-- DELETE MODAL -->
 			<modal-deleteItem> </modal-deleteItem>
 
-			<!-- EDIT-L MODAL -->
-			<modal-editList></modal-editList>
+			<!-- EDIT LIST MODAL -->
+			<modal-editList> </modal-editList>
 	</div>
 </template>
 
