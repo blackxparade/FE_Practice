@@ -11,23 +11,10 @@
 
 			<!-- ACTION BUTTONS -->
 			<div style="display: flex; gap: .5rem; margin-top: 3rem;">
-				<button
-					class="button is-primary is-light"
-					@click="openNewModal()">
-					Add item
-				</button>
-				<button
-					class="button is-light"
-					:disabled="getEverySelected.length !== 1"
-					@click="openEditModal()">
-					Edit
-				</button>
-				<button
-					class="button is-danger is-light"
-					:disabled="getEverySelected.length === 0"
-					@click="openDeleteModal()">
-					Delete
-				</button>
+				<modal-newItem> </modal-newItem>
+				<modal-editItem :isDisabled="getEverySelected.length !== 1" />
+				<modal-deleteItem :isDisabled="getEverySelected.length === 0"/>
+
 			</div>
 
 			<!-- ASSET ITEM LIST -->
@@ -44,15 +31,6 @@
 					</label>
 				</div>
 			</div>
-
-			<!-- NEW ITEM MODAL -->
-			<modal-newItem> </modal-newItem>
-
-			<!-- EDIT ITEM MODAL -->
-			<modal-editItem> </modal-editItem>
-
-			<!-- DELETE MODAL -->
-			<modal-deleteItem> </modal-deleteItem>
 
 			<!-- EDIT LIST MODAL -->
 			<modal-editList> </modal-editList>
@@ -99,7 +77,7 @@ export default defineComponent({
 			return list;
 		};
 		const { id, title } = toRefs(props);
-		debugger;
+		
 		const { items, setItems, deleteList, getEverySelected, getSelected, addItem, deleteItems, updateItem, ...others } = provideAssetListStore({ api, id, title, refreshList: props.refreshList });
 		const { openNewModal } = provideNewItemModalStore({ addItem });
 		const { openDeleteModal } = provideDeleteItemModalStore({ deleteItems, getEverySelected });
