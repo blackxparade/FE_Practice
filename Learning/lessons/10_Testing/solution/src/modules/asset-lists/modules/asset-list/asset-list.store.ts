@@ -56,6 +56,7 @@ export const setupAssetListStore = ({ api, id, title, refreshList }: storeDeps) 
 		deleteItems,
 		deleteList,
 		addItem,
+		refreshList,
 		...rest,
 	};
 };

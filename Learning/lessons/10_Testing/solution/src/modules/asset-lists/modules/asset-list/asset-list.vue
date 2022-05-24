@@ -1,20 +1,17 @@
 <template>
 	<div class="page container" style="margin-top: 3rem;">
 
-			<div style="display: flex; flex-direction: column; gap: 1rem;" >
-				<h3 class="title is-3" style="margin-bottom: 0;" data-testid="asset-list-title">{{ title }}</h3>
-				<div class="div" style="display: flex; gap: .5rem;">
-					<button class="button is-small is-light" @click="openEditListModal(list)">Edit title</button>
-					<button class="button is-small is-light is-danger" @click="deleteList(id); refreshList();">Delete list</button>
-				</div>
-			</div>
+			<!-- ASSET LIST HEADER -->
+			<asset-list-header :id="id" :title="title" :list="list"/>
 
-			<!-- ACTION BUTTONS -->
+			<!-- EDIT LIST MODAL -->
+			<modal-editList> </modal-editList>
+
+			<!-- ACTION BUTTONS AND MODALS -->
 			<div style="display: flex; gap: .5rem; margin-top: 3rem;">
 				<modal-newItem> </modal-newItem>
 				<modal-editItem :isDisabled="getEverySelected.length !== 1" />
 				<modal-deleteItem :isDisabled="getEverySelected.length === 0"/>
-
 			</div>
 
 			<!-- ASSET ITEM LIST -->
@@ -31,9 +28,6 @@
 					</label>
 				</div>
 			</div>
-
-			<!-- EDIT LIST MODAL -->
-			<modal-editList> </modal-editList>
 	</div>
 </template>
 
@@ -45,6 +39,7 @@ import { provideNewItemModalStore, ModalNewItem } from './modules/modal-newItem'
 import { provideDeleteItemModalStore, ModalDeleteItem } from './modules/modal-deleteItem';
 import { provideEditItemModalStore, ModalEditItem } from './modules/modal-editItem';
 import { provideEditListModalStore, ModalEditList } from './modules/modal-editList';
+import { AssetListHeader } from './modules/asset-list-header'
 import { useAssetListsStore } from '../../asset-lists.store';
 import ListItem from 'src/components/list-item.vue';
 import { List } from 'src/domain';
@@ -58,7 +53,8 @@ export default defineComponent({
 		ModalNewItem,
 		ModalDeleteItem,
 		ModalEditItem,
-		ModalEditList
+		ModalEditList,
+		AssetListHeader
 	},
 
 	props: {
@@ -95,6 +91,7 @@ export default defineComponent({
 			items,
 			id,
 			title,
+			list,
 			getListData,
 			deleteList
 		};
