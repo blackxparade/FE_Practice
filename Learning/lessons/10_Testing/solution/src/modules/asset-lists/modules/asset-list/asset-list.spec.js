@@ -1,8 +1,3 @@
-// TODO - test cases
-//      - make sure that the edit button is only enabled when exactly 1 item is selected
-//      - make sure that the delete button is only enabled when at least 1 item is selected
-// make sure that the asset item list is the list which came with the api call
-
 import { plugins } from 'test/mount';
 import { AssetListsStoreSymbol, setupAssetListsStore } from '../../asset-lists.store';
 import { flushPromises, mount } from '@vue/test-utils';
@@ -10,6 +5,7 @@ import { Household } from 'test/fixtures/lists';
 import AssetList from './asset-list.vue';
 import { ApiSymbol } from 'src/api';
 import { ref } from 'vue';
+import { selectableItems } from 'test/fixtures/selectable-items';
 
 describe('Asset list', () => {
 
@@ -20,7 +16,9 @@ describe('Asset list', () => {
 
     test('Asset item list is the correct one', async () => {
         const { assetListItem } = await setup();
-        console.log("assetlistitem: ", assetListItem().text());
+        const firstItemID = parseInt(assetListItem()[0].text().split(' ', 1));
+        expect(assetListItem().length).toEqual(selectableItems.length);
+        expect(firstItemID).toEqual(selectableItems[0].id);
     });
 
 });
@@ -55,8 +53,9 @@ async function setup() {
         }
     });
 
+    wrapper.vm.items = selectableItems;
     const assetListTitle = () => wrapper.find('[data-testid="asset-list-title"]');
-    const assetListItem = () => wrapper.find('[data-testid="asset-list-item"]');
+    const assetListItem = () => wrapper.findAll('[data-testid="asset-list-item"]');
 
     return { wrapper, assetListsStore, api, assetListTitle, assetListItem, title, id, refreshList }
 }

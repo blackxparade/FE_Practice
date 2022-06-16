@@ -8,15 +8,15 @@ import ModalNewItem from './modal-newItem.vue';
 describe('New item modal', () => {
 
     test('Modal should be visible', async () => {
-        const { modalNewItem, addItemButton } = setup();
+        const { addItemButton, store } = setup();
         await addItemButton().trigger('click');
-        expect(modalNewItem().isVisible()).toBe(true);
+        expect(store.showNewModal.value).toBe(true);
     });
 
     test('Clicking on the top-right modal close button should close the modal', async () => {
-        const { wrapper, modalCloseButton } = setup();
+        const { modalCloseButton, store } = setup();
         await modalCloseButton().trigger('click');
-        expect(wrapper.isVisible()).toBe(false);
+        expect(store.showNewModal.value).toBe(false);
     });
 
     test('Inputs should be empty', () => {
@@ -44,9 +44,9 @@ describe('New item modal', () => {
     });
 
     test('Clicking on close button should close the modal', async () => {
-        const { wrapper, modalNewItemButtonClose } = setup();
+        const { modalNewItemButtonClose, store } = setup();
         await modalNewItemButtonClose().trigger('click');
-        expect(wrapper.isVisible()).toBe(false);
+        expect(store.showNewModal.value).toBe(false);
     });
 });
 

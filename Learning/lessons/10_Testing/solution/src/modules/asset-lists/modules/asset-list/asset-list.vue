@@ -16,7 +16,7 @@
 
 			<!-- ASSET ITEM LIST -->
 			<div style="display: flex; flex-direction: column; gap: 1rem; margin-top: 1rem;">
-				<div v-for="item in items" :key="item.id" style="display: flex; align-content: center; gap: .75rem;" data-testid="asset-list-item">
+				<div v-for="item in items" :key="item.id" style="display: flex; align-content: center; gap: .75rem;">
 					<input
 						:id="item.id"
 						type="checkbox"
@@ -24,7 +24,7 @@
 						@click="setItemSelectionById(item.id, $event.target.checked)"
 						style="margin-top: 1rem;">
 					<label :for="item.id">
-						<list-item v-bind="item" style="cursor: pointer;"  />
+						<list-item v-bind="item" style="cursor: pointer;" data-testid="asset-list-item"/>
 					</label>
 				</div>
 			</div>
