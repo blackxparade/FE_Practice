@@ -2,21 +2,21 @@
 	<div class="page container" style="margin-top: 3rem;">
 
 			<!-- ASSET LIST HEADER -->
-			<asset-list-header :id="id" :title="title" :list="list"/>
+			<asset-list-header :id="id" :title="title" :list="list" />
 
 			<!-- EDIT LIST MODAL -->
-			<modal-editList> </modal-editList>
+			<modal-editList />
 
 			<!-- ACTION BUTTONS AND MODALS -->
 			<div style="display: flex; gap: .5rem; margin-top: 3rem;">
-				<modal-newItem> </modal-newItem>
+				<modal-newItem />
 				<modal-editItem :isDisabled="getEverySelected.length !== 1" />
 				<modal-deleteItem :isDisabled="getEverySelected.length === 0"/>
 			</div>
 
 			<!-- ASSET ITEM LIST -->
 			<div style="display: flex; flex-direction: column; gap: 1rem; margin-top: 1rem;">
-				<div v-for="item in items" :key="item.id" style="display: flex; align-content: center; gap: .75rem;">
+				<div v-for="item in items" :key="item.id" style="display: flex; align-content: center; gap: .75rem;" data-testid="asset-list-item">
 					<input
 						:id="item.id"
 						type="checkbox"
@@ -24,7 +24,7 @@
 						@click="setItemSelectionById(item.id, $event.target.checked)"
 						style="margin-top: 1rem;">
 					<label :for="item.id">
-						<list-item v-bind="item" style="cursor: pointer;" />
+						<list-item v-bind="item" style="cursor: pointer;"  />
 					</label>
 				</div>
 			</div>

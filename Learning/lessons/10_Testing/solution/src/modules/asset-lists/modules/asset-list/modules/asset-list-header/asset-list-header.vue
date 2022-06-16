@@ -1,9 +1,13 @@
 <template>
-   <div style="display: flex; flex-direction: column; gap: 1rem;" >
+   <div style="display: flex; flex-direction: column; gap: 1rem;"
+   data-testid="asset-list-header" >
         <h3 class="title is-3" style="margin-bottom: 0;" data-testid="asset-list-title">{{ title }}</h3>
         <div class="div" style="display: flex; gap: .5rem;">
-            <button class="button is-small is-light" @click="openEditListModal(list)">Edit title</button>
-            <button class="button is-small is-light is-danger" @click="deleteList(id); refreshList();">Delete list</button>
+            <button data-testid="asset-list-edit-title-button" class="button is-small is-light" @click="openEditListModal(list)">
+                Edit title
+            </button>
+            <button class="button is-small is-light is-danger" @click="deleteList(id); refreshList();"
+            data-testid="asset-list-header-delete-button">Delete list</button>
         </div>
     </div>
 </template>

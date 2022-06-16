@@ -1,6 +1,5 @@
 import { mount } from '@vue/test-utils';
 import { plugins } from 'test/mount';
-import { ref } from 'vue';
 import { Household } from 'test/fixtures/lists';
 import ModalEditList from './modal-editList.vue';
 import { setupEditListModalStore, ModalStoreSymbol } from './modal-editList.store';

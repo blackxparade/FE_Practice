@@ -1,6 +1,7 @@
 <template>
     <div>
         <button
+            data-testid="delete-list-button"
             class="button is-danger is-light"
             :disabled="isDisabled"
             @click="openDeleteModal()">

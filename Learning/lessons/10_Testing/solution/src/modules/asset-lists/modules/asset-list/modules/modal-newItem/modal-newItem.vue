@@ -1,6 +1,7 @@
 <template>
 	<div>
 		<button
+			data-testid="add-item-button"
 			class="button is-primary is-light"
 			@click="openNewModal()">
 			Add item

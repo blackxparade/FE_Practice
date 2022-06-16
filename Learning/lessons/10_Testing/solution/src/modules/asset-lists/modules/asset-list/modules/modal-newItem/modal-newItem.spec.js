@@ -7,9 +7,10 @@ import ModalNewItem from './modal-newItem.vue';
 
 describe('New item modal', () => {
 
-    test('Modal should be visible', () => {
-        const { modalNewItem } = setup();
-        expect(modalNewItem().exists()).toBe(true);
+    test('Modal should be visible', async () => {
+        const { modalNewItem, addItemButton } = setup();
+        await addItemButton().trigger('click');
+        expect(modalNewItem().isVisible()).toBe(true);
     });
 
     test('Clicking on the top-right modal close button should close the modal', async () => {
@@ -56,7 +57,7 @@ function setup() {
     });
     store.openNewModal();
     const provide = {
-        [ModalStoreSymbol]: store,
+        [ ModalStoreSymbol ]: store,
     };
     const wrapper = mount(ModalNewItem, {
         global: {
@@ -70,7 +71,8 @@ function setup() {
     const modalNewItemInputSummary = () => wrapper.find('[data-testid="modal-new-item-input-summary"]');
     const modalNewItemButtonPrimary = () => wrapper.find('[data-testid="modal-new-item-button-primary"]');
     const modalNewItemButtonClose = () => wrapper.find('[data-testid="modal-new-item-button-close"]');
+    const addItemButton = () => wrapper.find('[data-testid="add-item-button"]');
     const modalCloseButton = headerCloseButton.bind(wrapper)
 
-    return { wrapper, store, modalNewItem, modalNewItemInputName, modalNewItemInputSummary, modalNewItemButtonPrimary, modalNewItemButtonClose, modalCloseButton };
+    return { wrapper, store, modalNewItem, modalNewItemInputName, modalNewItemInputSummary, modalNewItemButtonPrimary, modalNewItemButtonClose, addItemButton, modalCloseButton };
 }

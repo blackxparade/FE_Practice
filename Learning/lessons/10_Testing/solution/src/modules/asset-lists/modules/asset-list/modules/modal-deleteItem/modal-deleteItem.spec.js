@@ -8,16 +8,22 @@ import { headerCloseButton } from 'test/widget-selectors/td-modal';
 
 describe('Modal delete Item', () => {
 
-	test('Modal should be visibile', () => {
-		const { modalDeleteItem } =  setup();
-		expect(modalDeleteItem().exists()).toBe(true);
+	test('Modal should be visibile', async () => {
+		const { modalDeleteItem, deleteListButton } = setup();
+		await deleteListButton().trigger('click');
+		expect(modalDeleteItem().isVisible()).toBe(true);
+	});
+
+	test('Delete button is enabled', () => {
+		const { deleteListButton } = setup();
+		expect(deleteListButton().isDisabled()).toBe(false);
 	});
 
 	test('Clicking on the top-right modal close button should close the modal', async () => {
 		// Use declated data-testid in td-modal (maybe extraction?)
-		const { wrapper, modalCloseButton } = setup();
+		const { modalCloseButton, store } = setup();
 		await modalCloseButton().trigger('click');
-		expect(wrapper.isVisible()).toBe(false);
+		expect(store.showDeleteModal.value).toBe(false);
 	});
 
 	test('Should show the recieved items', () => {
@@ -35,9 +41,9 @@ describe('Modal delete Item', () => {
 
 	test('Clicking on close button should close the modal', async () => {
 		// Trigger click on dom element, ( maybe await nextTick)
-		const { wrapper, modalDeleteItemCloseButton } = setup();
+		const { modalDeleteItemCloseButton, store } = setup();
 		await modalDeleteItemCloseButton().trigger('click');
-		expect(wrapper.isVisible()).toBe(false);
+		expect(store.showDeleteModal.value).toBe(false);
 	});
 
 
@@ -45,6 +51,7 @@ describe('Modal delete Item', () => {
 
 function setup() {
 	const deleteItems = jest.fn();
+	const isDisabled = false;
 	const getEverySelected = ref([selectableBoiler, selectableCar, selectableGuitar])
 	const store =  setupDeleteItemModalStore({
 		deleteItems,
@@ -53,9 +60,12 @@ function setup() {
 	store.openDeleteModal();
 
 	const provide = {
-		[ModalStoreSymbol]: store,
+		[ ModalStoreSymbol ]: store,
 	};
 	const wrapper = mount(ModalDeleteItem, {
+		props: {
+			isDisabled
+		},
 		global: {
 			provide,
 			plugins
@@ -65,7 +75,8 @@ function setup() {
 	const modalDeletableItemsList = () => wrapper.findAll('[data-testid="deletable-items-list"]');
 	const modalDeleteItemDeleteButton = () => wrapper.find('[data-testid="delete-items-button"]');
 	const modalDeleteItemCloseButton = () => wrapper.find('[data-testid="close-button"]');
+	const deleteListButton = () => wrapper.find('[data-testid="delete-list-button"]');
 	const modalCloseButton = headerCloseButton.bind(wrapper)
-	return { wrapper, modalDeleteItem, store, getEverySelected, modalCloseButton, modalDeletableItemsList, modalDeleteItemDeleteButton, modalDeleteItemCloseButton };
+	return { wrapper, isDisabled, modalDeleteItem, store, getEverySelected, modalCloseButton, modalDeletableItemsList, modalDeleteItemDeleteButton, modalDeleteItemCloseButton, deleteListButton };
 }
 
