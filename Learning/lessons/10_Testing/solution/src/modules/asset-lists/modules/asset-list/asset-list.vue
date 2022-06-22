@@ -10,8 +10,8 @@
 			<!-- ACTION BUTTONS AND MODALS -->
 			<div style="display: flex; gap: .5rem; margin-top: 3rem;">
 				<modal-newItem />
-				<modal-editItem :isDisabled="getEverySelected.length !== 1" />
-				<modal-deleteItem :isDisabled="getEverySelected.length === 0"/>
+				<modal-editItem />
+				<modal-deleteItem "/>
 			</div>
 
 			<!-- ASSET ITEM LIST -->
@@ -24,7 +24,7 @@
 						@click="setItemSelectionById(item.id, $event.target.checked)"
 						style="margin-top: 1rem;">
 					<label :for="item.id">
-						<list-item v-bind="item" style="cursor: pointer;" data-testid="asset-list-item"/>
+						<list-item v-bind="item" style="cursor: pointer;" :data-testid="`asset-list-item-${id}`"/>
 					</label>
 				</div>
 			</div>
@@ -73,7 +73,7 @@ export default defineComponent({
 			return list;
 		};
 		const { id, title } = toRefs(props);
-		
+
 		const { items, setItems, deleteList, getEverySelected, getSelected, addItem, deleteItems, updateItem, ...others } = provideAssetListStore({ api, id, title, refreshList: props.refreshList });
 		const { openNewModal } = provideNewItemModalStore({ addItem });
 		const { openDeleteModal } = provideDeleteItemModalStore({ deleteItems, getEverySelected });

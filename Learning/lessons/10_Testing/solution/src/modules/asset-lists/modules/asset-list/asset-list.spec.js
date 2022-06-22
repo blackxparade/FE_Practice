@@ -15,11 +15,14 @@ describe('Asset list', () => {
     });
 
     test('Asset item list is the correct one', async () => {
-        const { assetListItem } = await setup();
+        const { assetListItem , wrapper} = await setup();
+		// asset-list-item-<id>
         const firstItemID = parseInt(assetListItem()[0].text().split(' ', 1));
         expect(assetListItem().length).toEqual(selectableItems.length);
         expect(firstItemID).toEqual(selectableItems[0].id);
     });
+
+	//TEst selection - select item, getEverySelected should be updated
 
 });
 
@@ -40,7 +43,6 @@ async function setup() {
         [ AssetListsStoreSymbol ]: assetListsStore
     };
 
-	await flushPromises();
     const wrapper = mount(AssetList, {
 		props: {
 			id,
@@ -52,10 +54,10 @@ async function setup() {
             plugins
         }
     });
-
-    wrapper.vm.items = selectableItems;
+	await flushPromises();
     const assetListTitle = () => wrapper.find('[data-testid="asset-list-title"]');
-    const assetListItem = () => wrapper.findAll('[data-testid="asset-list-item"]');
+    const assetListItem = (id: string) => wrapper.find(`[data-testid="asset-list-item-${id}"]`);
+    const assetListItems = (id: string) => wrapper.findAll(`[data-testid^="asset-list-item"]`);
 
     return { wrapper, assetListsStore, api, assetListTitle, assetListItem, title, id, refreshList }
 }
